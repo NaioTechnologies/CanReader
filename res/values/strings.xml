@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Can Reader</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="led_etat">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="led_couleur">
+        <item>rouge</item>
+        <item>verte</item>
+    </string-array>
+</resources>

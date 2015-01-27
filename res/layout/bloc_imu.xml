@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_imu_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true" >
+
+    <TextView
+        android:layout_width="1920px"
+        android:layout_height="100px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:text="IMU"
+        android:textColor="@android:color/background_light"
+        android:textSize="40dp" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="150px"
+        android:gravity="center"
+        android:text="Accel"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="X:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="Y:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="Z:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/accel_xmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="120px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/accel_ymsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="120px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/accel_zmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="120px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="450px"
+        android:layout_marginTop="150px"
+        android:gravity="center"
+        android:text="Gyro"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="420px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="X:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="420px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="Y:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="420px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="Z:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/gyro_xmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/gyro_ymsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/gyro_zmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="850px"
+        android:layout_marginTop="150px"
+        android:gravity="center"
+        android:text="Magneto"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="820px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="X:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="820px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="Y:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="820px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="Z:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_xmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_ymsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_zmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+    
+     <TextView
+        android:id="@+id/magneto_time"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="550px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="14dp" />
+     
+     <TextView
+        android:id="@+id/gyro_time"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="550px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="14dp" />
+     
+     <TextView
+        android:id="@+id/accel_time"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="120px"
+        android:layout_marginTop="550px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="14dp" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1200px"
+        android:layout_marginTop="150px"
+        android:gravity="center"
+        android:text="ResMng:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_resmsbf"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1400px"
+        android:layout_marginTop="150px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="250px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1200px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:onClick="button_magneto_temperature_clicked"
+        android:text="Tempé:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/imu_tempef"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1450px"
+        android:layout_marginTop="250px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1200px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:onClick="button_magneto_board_clicked"
+        android:text="Board:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_boardf"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1400px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1500px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="Rev:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/magneto_revf"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1700px"
+        android:layout_marginTop="350px"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="250px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1200px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:onClick="button_magneto_version_clicked"
+        android:text="Version:"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/imu_majf"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1450px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="Maj"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/imu_minf"
+        android:layout_width="100px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1600px"
+        android:layout_marginTop="450px"
+        android:gravity="center"
+        android:text="Min"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_gps_main_activity"
+        android:layout_width="1350px"
+        android:layout_height="60px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="600px"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:text="GPS"
+        android:textColor="@android:color/background_light"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_gps_text_main_activity"
+        android:layout_width="850px"
+        android:layout_height="200px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="660px"
+        android:text="GPGLL"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textview_gps_text2_main_activity"
+        android:layout_width="450px"
+        android:layout_height="200px"
+        android:layout_marginLeft="850px"
+        android:layout_marginTop="660px"
+        android:text=""
+        android:textSize="25dp" />
+    
+        <TextView
+        android:id="@+id/textview_gps_text3_main_activity"
+        android:layout_width="450px"
+        android:layout_height="250px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="860px"
+        android:text=""
+        android:textSize="25dp" />
+        
+        <TextView
+        android:id="@+id/textview_gps_text4_main_activity"
+        android:layout_width="450px"
+        android:layout_height="250px"
+        android:layout_marginLeft="850px"
+        android:layout_marginTop="860px"
+        android:text=""
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/button_read_main_activity"
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:layout_marginLeft="1670px"
+        android:layout_marginTop="750px"
+        android:onClick="button_read_clicked"
+        android:text="READ"
+        android:textSize="25dp" />
+
+    <Button
+        android:layout_width="300px"
+        android:layout_height="300px"
+        android:layout_marginLeft="1350px"
+        android:layout_marginTop="750px"
+        android:onClick="button_connect_clicked"
+        android:text="CONNECT"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="700px"
+        android:layout_height="10px"
+        android:layout_marginLeft="1340px"
+        android:layout_marginTop="740px"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="10px"
+        android:layout_height="500px"
+        android:layout_marginLeft="1340px"
+        android:layout_marginTop="650px"
+        android:background="@android:color/background_dark" />
+
+</RelativeLayout>

@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="True"
+        android:text="Ecrire en hexa la commande ou ecrire le texte à afficher:"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/hexa1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:digits="0123456789ABCDEF"
+        android:hint="00"
+        android:inputType="textCapCharacters"
+        android:maxLength="2"
+        android:paddingTop="20dp"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/hexa2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_toRightOf="@id/hexa1"
+        android:digits="0123456789ABCDEF"
+        android:hint="00"
+        android:inputType="textCapCharacters"
+        android:maxLength="2"
+        android:nextFocusLeft="@+id/hexa3"
+        android:paddingTop="20dp"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@id/hexa3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_toRightOf="@id/hexa2"
+        android:digits="0123456789ABCDEF"
+        android:hint="00"
+        android:inputType="textCapCharacters"
+        android:maxLength="2"
+        android:paddingTop="20dp"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/hexa3"
+        android:paddingTop="20dp"
+        android:text=" Ou "
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/commandecran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_toRightOf="@id/textView"
+        android:hint="Naio                 "
+        android:maxLength="39"
+        android:paddingTop="20dp"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_toRightOf="@id/commandecran"
+        android:paddingTop="20dp"
+        android:text="1ere ligne"
+        android:textSize="25dp" />
+
+    <EditText
+        android:id="@+id/commandecran2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/textView"
+        android:hint="Technologies"
+        android:maxLength="39"
+        android:paddingTop="20dp"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commandecran"
+        android:layout_toRightOf="@id/commandecran2"
+        android:paddingTop="20dp"
+        android:text="2eme ligne"
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/commandecran2"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:text=" Envoyer "
+        android:textSize="25dp" />
+
+</RelativeLayout>

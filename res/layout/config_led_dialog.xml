@@ -1,0 +1,135 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="True"
+        android:text="Set the LEDs" />
+
+    <TextView
+        android:id="@+id/edittext_numero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:paddingTop="20dp"
+        android:text="Led gauche :" />
+
+    <Spinner
+        android:id="@+id/spinner_led_gauche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/edittext_numero"
+        android:entries="@array/led_etat" />
+
+    <Spinner
+        android:id="@+id/spinner_led_gauche_couleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@id/spinner_led_gauche"
+        android:layout_toRightOf="@id/edittext_numero"
+        android:entries="@array/led_couleur" />
+
+    <TextView
+        android:id="@+id/edittext_numero2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero"
+        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:text="Led 2 :" />
+
+    <Spinner
+        android:id="@+id/spinner_led_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/edittext_numero2"
+        android:entries="@array/led_etat" />
+
+    <Spinner
+        android:id="@+id/spinner_led_2_couleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@id/spinner_led_2"
+        android:layout_toRightOf="@id/edittext_numero2"
+        android:entries="@array/led_couleur" />
+
+    <TextView
+        android:id="@+id/edittext_numero3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero2"
+        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:text="Led 3 :" />
+
+    <Spinner
+        android:id="@+id/spinner_led_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero2"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/edittext_numero3"
+        android:entries="@array/led_etat" />
+
+    <Spinner
+        android:id="@+id/spinner_led_3_couleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero2"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@id/spinner_led_3"
+        android:layout_toRightOf="@id/edittext_numero3"
+        android:entries="@array/led_couleur" />
+
+        <TextView
+        android:id="@+id/edittext_numero4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero3"
+        android:layout_marginTop="20dp"
+        android:paddingTop="20dp"
+        android:text="Led droite :" />
+
+    <Spinner
+        android:id="@+id/spinner_led_droite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero3"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/edittext_numero4"
+        android:entries="@array/led_etat" />
+
+    <Spinner
+        android:id="@+id/spinner_led_droite_couleur"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero3"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:layout_toEndOf="@id/spinner_led_droite"
+        android:layout_toRightOf="@id/edittext_numero4"
+        android:entries="@array/led_couleur" />
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edittext_numero4"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:text=" Envoyer " />
+
+</RelativeLayout>

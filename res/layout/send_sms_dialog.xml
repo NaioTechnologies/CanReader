@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+  
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="True"
+        android:text="Destinataire:"/>
+      <EditText
+        android:id="@+id/edittext_numero"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:paddingTop="20dp"
+        android:inputType="phone"
+        android:hint="+33679904429"/>  
+        
+      <TextView
+        android:id="@+id/text2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_below="@id/edittext_numero"
+         android:paddingTop="20dp"
+        android:text="Message:"/>
+       <EditText
+        android:id="@+id/edittext_message"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+         android:layout_below="@id/text2"
+         android:paddingTop="20dp"
+        android:hint="ça va ?"/>
+     <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=" Envoyer "
+        android:layout_below="@id/edittext_message"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
+        />
+ 
+</RelativeLayout>

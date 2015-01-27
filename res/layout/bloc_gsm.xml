@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_gsm_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true" >
+
+    <TextView
+        android:layout_width="1920px"
+        android:layout_height="100px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:text="GSM"
+        android:textColor="@android:color/background_light"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/read_sms"
+        android:layout_width="1650px"
+        android:layout_height="850px"
+        android:layout_marginLeft="400px"
+        android:layout_marginTop="100px"
+        android:text=">display sms here..."
+        android:textSize="25dp" />
+
+    <Button
+        android:id="@+id/button_gsm"
+        android:layout_width="360px"
+        android:layout_height="150px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="600px"
+        android:onClick="button_receive_gsm_clicked"
+        android:text="READ"
+        android:textSize="40dp" />
+
+    <Button
+        android:id="@+id/button_gsm_send"
+        android:layout_width="360px"
+        android:layout_height="150px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="750px"
+        android:onClick="button_send_gsm_clicked"
+        android:text="SEND"
+        android:textSize="40dp" />
+
+    <Button
+        android:id="@+id/textview_gsm_statut"
+        android:layout_width="360px"
+        android:layout_height="100px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="400px"
+        android:onClick="button_config_gsm_clicked"
+        android:text="CONFIG"
+        android:textSize="30dp" />
+
+    <Button
+        android:layout_width="360px"
+        android:layout_height="100px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="500px"
+        android:onClick="button_config2_gsm_clicked"
+        android:text="CONFIG2"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/button_gsm_receive"
+        android:layout_width="360px"
+        android:layout_height="150px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="100px"
+        android:onClick="button_statut_gsm_clicked"
+        android:text="STATUT"
+        android:textSize="40dp" />
+
+    <Button
+        android:id="@+id/button_gsm_config"
+        android:layout_width="360px"
+        android:layout_height="150px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="250px"
+        android:onClick="button_config_pin_clicked"
+        android:text="PIN"
+        android:textSize="40dp" />
+
+</RelativeLayout>

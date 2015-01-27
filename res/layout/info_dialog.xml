@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="380dp"
+        android:layout_alignParentTop="True"
+        android:layout_margin="5dp" >
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Utilisation : \n-Appuyez sur le bouton CONNECT pour monter l&apos;interface can ( si c&apos;est la premiere fois, une fenêtre s&apos;ouvrira demandant les droits super-user, cliquez sur autoriser ).\n-Appuyez sur le bouton READ lorsque le can est monté pour lire sur le can.\n\nQuelques informations :\n-Les boutons finissant par le charactère &apos;:&apos; sont des remote request (rtr).\n-Les autres boutons ouvrent une fenêtre.\n-La partie GSM doit être configurée, pour cela il faut cliquer sur le bouton CONFIG, attendre le  &apos;OK&apos;, puis CONFIG2
+        \n-Les numéros rentrés pour envoyer un SMS doivent commencer par &apos;+33&apos;.\n-La première remote request ne marche jamais.\n\nInformations trop détaillées:\n\n----BLOC IMU----\n-Acceléromètre : X,Y,Z au format XXX.XX\n-Gyroscope : X,Y,Z au format XXX\n-Magneto : X,Y,Z au format XXX.X\n-Resistance Magnetique : ResMng en ohm\n-Bouton &apos;Board:&apos; : affiche le board number et le rev number en envoyant une remote request
+        \n-Bouton &apos;Version:&apos; : affiche la version maj et min en envoyant une remote request\n-Bouton &apos;Tempé:&apos; : affiche la température en degré Celsius en envoyant une remote request\n\n----BLOC GSM----\n-Bouton &apos;STATUT&apos; : envoi la commande &apos;AT+CPIN?&apos; au GSM, si la réponse est OK, pas besoin d&apos;entrer le code PIN\n-Bouton &apos;PIN&apos; : ouvre une fenetre demandant le code PIN pour delock le GSM, si ERROR le code PIN est erroné ou il ne faut pas de code PIN, si OK c&apos;est bon\n-Bouton &apos;CONFIG&apos; : envoi la commande &apos;AT+CSCS=GSM permettant de changer le mode du GSM, par défaut il est en mode IRA
+        \n-Bouton &apos;CONFIG2&apos; : envoi la commande &apos;AT+CMGF=1&apos; au GSM pour le passer en mode &apos;txt&apos;, par défaut c&apos;est &apos;PDU&apos;\n-Bouton &apos;READ&apos; : envoi une commande qui va afficher dans le champ en dessous tous les SMS non lues jusqu&apos;à maintenant
+        \n-Bouton &apos;SEND&apos; : ouvre une fenêtre demandant un numero de téléphone et un message en vu de l&apos;envoyer. Le numero doit être en &apos;+33&apos;.\n
+        \n----BLOC GPS---\n-Affiche la latitude, la longitude, l&apos;UTCtime, le HDOP, PDOP et le VDOP ainsi que la vitesse et le nombre de satellites.\n\n----BLOC VERIN ET ODO----\n-Bouton &apos;Position %&apos; : ouvre une fenêtre demandant à combien de % on veut mettre le vérin.\n-Bouton &apos;Commande moteur&apos; : ouvre une fenêtre demandant quelle commande envoyer au vérin ( 0,1 ou 2)
+        \n-Bouton &apos;Retour position %:&apos; : affiche la position du vérin en envoyant une remote request et affiche l&apos;état du vérin à coté ( deplacement en cours / driver error )\n-Bouton &apos;Lecture ODO &apos; : reset le compteur de l&apos;odométrie\n-Sortie 12V et Activation USB : je sais pas\n-Bouton &apos;Version:&apos; : affiche la version Maj et Min en envoyant une remote request\n
+        \n----BLOC IHM----\n-Bouton &apos;Envoi commande affichage&apos; : ouvre une fenêtre permettant de soit rentrer la commande en hexadecimal soit rentrer un texte à afficher sur l&apos;écran.\n-Bouton &apos;Envoi commande buzzer&apos; : ouvre une fenêtre permettant de rentrer la commande à envoyer au buzzer.\n-Bouton &apos;Clavier&apos; : ouvre une fenêtre permettant d&apos;émuler le clavier. Est affiché à coté du bouton l&apos;état du clavier.
+        \n-Bouton &apos;LED&apos; : ouvre une fenêtre permettant de paramétrer les LEDs ( allumé ou pas, rouge ou verte ). Est affiché à coté du bouton l&apos;état des LEDs\n-Bouton &apos;Contraste %&apos; : ouvre une fenêtre pour paramétrer le contraste\n-Bouton &apos;Backlight %&apos; : ouvre une fenêtre pour paramétrer le rétro-eclairage.
+        \n-Bouton &apos;Statut:&apos; : envoi une remote request mais aucune réponse n&apos;arrive ...\n-Bouton &apos;Version:&apos; : affiche la version Maj et Min en envoyant une remote request.\n\n" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:text=" Got it " />
+
+</RelativeLayout>

@@ -1,0 +1,812 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_main_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true"
+    tools:context="com.naio.canreader.activities.MainActivity" >
+
+    <TextView
+        android:id="@+id/textview_imu_main_activity"
+        android:layout_width="1420px"
+        android:layout_height="40px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center_horizontal"
+        android:text="IMU"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="50px"
+        android:layout_marginTop="50px"
+        android:gravity="center_horizontal"
+        android:text="Accel" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="100px"
+        android:text="X:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="140px"
+        android:text="Y:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="20px"
+        android:layout_marginTop="180px"
+        android:text="Z:" />
+
+    <TextView
+        android:id="@+id/accel_xmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="60px"
+        android:layout_marginTop="100px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/accel_ymsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="60px"
+        android:layout_marginTop="140px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/accel_zmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="60px"
+        android:layout_marginTop="180px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="300px"
+        android:layout_marginTop="50px"
+        android:gravity="center_horizontal"
+        android:text="Gyro" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="280px"
+        android:layout_marginTop="100px"
+        android:text="X:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="280px"
+        android:layout_marginTop="140px"
+        android:text="Y:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="280px"
+        android:layout_marginTop="180px"
+        android:text="Z:" />
+
+    <TextView
+        android:id="@+id/gyro_xmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="320px"
+        android:layout_marginTop="100px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/gyro_ymsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="320px"
+        android:layout_marginTop="140px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/gyro_zmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="320px"
+        android:layout_marginTop="180px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="120px"
+        android:layout_height="40px"
+        android:layout_marginLeft="550px"
+        android:layout_marginTop="50px"
+        android:gravity="center_horizontal"
+        android:text="Magneto" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="100px"
+        android:text="X:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="140px"
+        android:text="Y:" />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="520px"
+        android:layout_marginTop="180px"
+        android:text="Z:" />
+
+    <TextView
+        android:id="@+id/magneto_xmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="560px"
+        android:layout_marginTop="100px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/magneto_ymsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="560px"
+        android:layout_marginTop="140px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/magneto_zmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="560px"
+        android:layout_marginTop="180px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="800px"
+        android:layout_marginTop="80px"
+        android:text="ResMng:" />
+
+    <TextView
+        android:id="@+id/magneto_resmsb"
+        android:layout_width="150px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="80px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="130px"
+        android:layout_height="70px"
+        android:layout_marginLeft="780px"
+        android:layout_marginTop="140px"
+        android:onClick="button_magneto_board_clicked"
+        android:text="Board:"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/magneto_board"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="155px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1000px"
+        android:layout_marginTop="155px"
+        android:text="Rev:" />
+
+    <TextView
+        android:id="@+id/magneto_rev"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1080px"
+        android:layout_marginTop="155px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="130px"
+        android:layout_height="70px"
+        android:layout_marginLeft="1180px"
+        android:layout_marginTop="60px"
+        android:onClick="button_magneto_version_clicked"
+        android:text="Version:"
+        android:textSize="11dp" />
+
+    <TextView
+        android:id="@+id/imu_maj"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1310px"
+        android:layout_marginTop="60px"
+        android:text="Maj"
+        android:textSize="11dp" />
+
+    <TextView
+        android:id="@+id/imu_min"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1310px"
+        android:layout_marginTop="100px"
+        android:text="Min"
+        android:textSize="11dp" />
+
+    <TextView
+        android:id="@+id/imu_tempe"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1310px"
+        android:layout_marginTop="160px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="130px"
+        android:layout_height="70px"
+        android:layout_marginLeft="1180px"
+        android:layout_marginTop="140px"
+        android:onClick="button_magneto_temperature_clicked"
+        android:text="Tempé:"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/textview_gps_main_activity"
+        android:layout_width="650px"
+        android:layout_height="40px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="240px"
+        android:background="@android:color/background_dark"
+        android:gravity="center_horizontal"
+        android:text="GPS"
+        android:textColor="@android:color/background_light" />
+
+    <TextView
+        android:id="@+id/textview_gps_text_main_activity"
+        android:layout_width="650px"
+        android:layout_height="100px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="280px"
+        android:text="GPGLL" />
+
+    <TextView
+        android:id="@+id/textview_gps_text2_main_activity"
+        android:layout_width="325px"
+        android:layout_height="100px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="380px"
+        android:text="" />
+    
+    <TextView
+        android:id="@+id/textview_gps_text3_main_activity"
+        android:layout_width="325px"
+        android:layout_height="50px"
+        android:layout_marginLeft="325px"
+        android:layout_marginTop="380px"
+        android:text="" />
+        
+        <TextView
+        android:id="@+id/textview_gps_text4_main_activity"
+        android:layout_width="325px"
+        android:layout_height="50px"
+        android:layout_marginLeft="325px"
+        android:layout_marginTop="430px"
+        android:text=""/>
+
+    <TextView
+        android:layout_width="650px"
+        android:layout_height="40px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="480px"
+        android:background="@android:color/background_dark"
+        android:gravity="center_horizontal"
+        android:text="VERIN ET ODO"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="520px"
+        android:onClick="button_requete_position_clicked"
+        android:text="Position %"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/verin_position"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="210px"
+        android:layout_marginTop="530px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="210px"
+        android:layout_height="100px"
+        android:layout_marginLeft="330px"
+        android:layout_marginTop="520px"
+        android:onClick="button_commande_moteur_clicked"
+        android:text="Commande moteur"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/commande_moteur"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="540px"
+        android:layout_marginTop="550px"
+        android:text="..." />
+
+         <Button
+        android:id="@+id/button_verin_retour_position"
+        android:layout_width="200px"
+        android:layout_height="110px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="590px"
+        android:onClick="button_retour_position_clicked"
+        android:text="Retour position %:"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/verin_retour_position"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="210px"
+        android:layout_marginTop="615px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="40px"
+        android:layout_marginLeft="330px"
+        android:gravity="center"
+        android:layout_marginTop="625px"
+        android:text="Etat verin:" />
+
+    <TextView
+        android:id="@+id/etat_verin"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="530px"
+        android:layout_marginTop="625px"
+        android:text="..." />
+
+    <Button
+        android:id="@+id/button_lecture_odo"
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="690px"
+        android:onClick="button_lecture_odo_clicked"
+        android:text="Lecture ODO "
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/lecture_odo"
+        android:layout_width="200px"
+        android:layout_height="40px"
+        android:layout_marginLeft="210px"
+        android:layout_marginTop="700px"
+        android:text="..." />
+    
+    <TextView
+        android:id="@+id/lecture_odoc"
+        android:layout_width="230px"
+        android:layout_height="40px"
+        android:layout_marginLeft="410px"
+        android:layout_marginTop="700px"
+        android:text="Compteur" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:gravity="center"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="765px"
+        android:text="Sortie 12V:" />
+
+    <TextView
+        android:id="@+id/sortie_12v"
+        android:layout_width="120px"
+        android:layout_height="40px"
+        android:layout_marginLeft="210px"
+        android:layout_marginTop="785px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:gravity="center"
+        android:layout_marginLeft="330px"
+        android:layout_marginTop="765px"
+        android:text="Activation USB:" 
+        android:textSize="14dp"/>
+
+    <TextView
+        android:id="@+id/activation_usb"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="530px"
+        android:layout_marginTop="785px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="850px"
+        android:onClick="button_version_verin_clicked"
+        android:text="Version:"
+         />
+
+    <TextView
+        android:id="@+id/version_verin_maj"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="210px"
+        android:layout_marginTop="870px"
+        android:text="Maj" />
+
+    <TextView
+        android:id="@+id/version_verin_min"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="310px"
+        android:layout_marginTop="870px"
+        android:text="Min" />
+
+    <TextView
+        android:layout_width="770px"
+        android:layout_height="40px"
+        android:layout_marginLeft="650px"
+        android:layout_marginTop="240px"
+        android:background="@android:color/background_dark"
+        android:gravity="center_horizontal"
+        android:text="IHM"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="280px"
+        android:gravity="center_horizontal"
+        android:onClick="button_envoie_affichage_clicked"
+        android:text="Envoi commande affichage" />
+
+    <Button
+        android:layout_width="600px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="365px"
+        android:gravity="center_horizontal"
+        android:onClick="button_envoie_buzzer_clicked"
+        android:text="Envoi commande buzzer" />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="450px"
+        android:onClick="button_etat_clavier_clicked"
+        android:text=" Clavier " />
+
+    <TextView
+        android:id="@+id/etat_clavier"
+        android:layout_width="500px"
+        android:layout_height="80px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="460px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="535px"
+        android:onClick="button_etat_led_clicked"
+        android:text=" LED " />
+
+    <TextView
+        android:id="@+id/etat_led"
+        android:layout_width="500px"
+        android:layout_height="70px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="545px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="620px"
+        android:onClick="button_contraste_clicked"
+        android:text=" Contraste % "
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/ihm_contraste"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="630px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="1070px"
+        android:layout_marginTop="620px"
+        android:onClick="button_backlight_clicked"
+        android:text="Backlight %"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/ihm_backlight"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1270px"
+        android:layout_marginTop="630px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="705px"
+        android:onClick="button_ihm_status_clicked"
+        android:text="Statut:" />
+
+    <TextView
+        android:id="@+id/ihm_status"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="715px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="1070px"
+        android:layout_marginTop="705px"
+        android:onClick="button_version_ihm_clicked"
+        android:text="Version:" />
+
+    <TextView
+        android:id="@+id/ihm_maj"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1270px"
+        android:layout_marginTop="705px"
+        android:text="Maj" />
+
+    <TextView
+        android:id="@+id/ihm_min"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1270px"
+        android:layout_marginTop="755px"
+        android:text="Min" />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="790px"
+        android:text="Delai appui long:" />
+
+    <TextView
+        android:id="@+id/ihm_delai_long"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="800px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="1070px"
+        android:layout_marginTop="790px"
+        android:text="Delai repet touche:" />
+
+    <TextView
+        android:id="@+id/ihm_delai_repet"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1270px"
+        android:layout_marginTop="800px"
+        android:text="..." />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="720px"
+        android:layout_marginTop="875px"
+        android:onClick="button_board_ihm_clicked"
+        android:text="Board:"
+        android:textSize="13dp" />
+
+    <TextView
+        android:id="@+id/ihm_board"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="920px"
+        android:layout_marginTop="885px"
+        android:text="..." />
+
+    <TextView
+        android:layout_width="200px"
+        android:layout_height="80px"
+        android:layout_marginLeft="1070px"
+        android:layout_marginTop="875px"
+        android:gravity="center"
+        android:text="Rev:" />
+
+    <TextView
+        android:id="@+id/ihm_rev"
+        android:layout_width="100px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1270px"
+        android:layout_marginTop="885px"
+        android:text="..." />
+
+    <TextView
+        android:id="@+id/read_sms"
+        android:layout_width="480px"
+        android:layout_height="600px"
+        android:layout_marginLeft="1430px"
+        android:layout_marginTop="250px"
+        android:text=">display sms here..." />
+
+    <TextView
+        android:id="@+id/textview_gsm_main_activity"
+        android:layout_width="500px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1420px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center_horizontal"
+        android:text="GSM"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:id="@+id/button_gsm"
+        android:layout_width="150px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1770px"
+        android:layout_marginTop="40px"
+        android:onClick="button_receive_gsm_clicked"
+        android:text="READ" />
+
+    <Button
+        android:id="@+id/button_gsm_send"
+        android:layout_width="150px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1770px"
+        android:layout_marginTop="140px"
+        android:onClick="button_send_gsm_clicked"
+        android:text="SEND" />
+
+    <Button
+        android:id="@+id/textview_gsm_statut"
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1570px"
+        android:layout_marginTop="40px"
+        android:onClick="button_config_gsm_clicked"
+        android:text="CONFIG" />
+
+    <Button
+        android:layout_width="200px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1570px"
+        android:layout_marginTop="140px"
+        android:onClick="button_config2_gsm_clicked"
+        android:text="CONFIG2" />
+
+    <Button
+        android:id="@+id/button_gsm_receive"
+        android:layout_width="150px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1420px"
+        android:layout_marginTop="40px"
+        android:onClick="button_statut_gsm_clicked"
+        android:text="STATUT"
+        android:textSize="12dp" />
+
+    <Button
+        android:id="@+id/button_gsm_config"
+        android:layout_width="150px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1420px"
+        android:layout_marginTop="140px"
+        android:onClick="button_config_pin_clicked"
+        android:text="PIN" />
+
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="1080px"
+        android:layout_marginLeft="1420px"
+        android:layout_marginTop="40px"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="1000px"
+        android:layout_marginLeft="650px"
+        android:layout_marginTop="250px"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="40px"
+        android:layout_marginLeft="650px"
+        android:layout_marginTop="240px"
+        android:background="@android:color/background_light" />
+
+    <TextView
+        android:layout_width="1px"
+        android:layout_height="40px"
+        android:layout_marginLeft="1420px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_light" />
+
+    <TextView
+        android:layout_width="1920px"
+        android:layout_height="1px"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="240px"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="500px"
+        android:layout_height="3px"
+        android:layout_marginLeft="1550px"
+        android:layout_marginTop="850px"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="3px"
+        android:layout_height="200px"
+        android:layout_marginLeft="1550px"
+        android:layout_marginTop="850px"
+        android:background="@android:color/background_dark" />
+
+    <Button
+        android:id="@+id/button_read_main_activity"
+        android:layout_width="150px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1770px"
+        android:layout_marginTop="850px"
+        android:onClick="button_read_clicked"
+        android:text="READ" />
+
+    <Button
+        android:id="@+id/button_connect_main_activity"
+        android:layout_width="230px"
+        android:layout_height="100px"
+        android:layout_marginLeft="1550px"
+        android:layout_marginTop="850px"
+        android:onClick="button_connect_clicked"
+        android:text="CONNECT" />
+
+</RelativeLayout>
