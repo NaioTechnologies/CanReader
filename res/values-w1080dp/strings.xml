@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Can Reader</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="led_etat">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="led_couleur">
+        <item>rouge</item>
+        <item>verte</item>
+    </string-array>
+
+    <string name="nexus7_10px_w">10px</string>
+    <string name="nexus7_10px_h">10px</string>
+    <string name="nexus7_20px_w">20px</string>
+    <string name="nexus7_20px_h">20px</string>
+    <string name="nexus7_40px_w">40px</string>
+    <string name="nexus7_40px_h">40px</string>
+    <string name="nexus7_50px_w">50px</string>
+    <string name="nexus7_50px_h">50px</string>
+    <string name="nexus7_60px_w">60px</string>
+    <string name="nexus7_60px_h">60px</string>
+    <string name="nexus7_80px_w">80px</string>
+    <string name="nexus7_80px_h">80px</string>
+    <string name="nexus7_100px_w">100px</string>
+    <string name="nexus7_100px_h">100px</string>
+    <string name="nexus7_120px_w">120px</string>
+    <string name="nexus7_120px_h">120px</string>
+    <string name="nexus7_140px_w">140px</string>
+    <string name="nexus7_140px_h">140px</string>
+    <string name="nexus7_150px_w">150px</string>
+    <string name="nexus7_150px_h">150px</string>
+    <string name="nexus7_180px_w">180px</string>
+    <string name="nexus7_180px_h">180px</string>
+    <string name="nexus7_200px_w">200px</string>
+    <string name="nexus7_200px_h">200px</string>
+    <string name="nexus7_240px_w">240px</string>
+    <string name="nexus7_240px_h">240px</string>
+    <string name="nexus7_250px_w">250px</string>
+    <string name="nexus7_250px_h">250px</string>
+    <string name="nexus7_280px_w">280px</string>
+    <string name="nexus7_280px_h">280px</string>
+    <string name="nexus7_300px_w">300px</string>
+    <string name="nexus7_300px_h">300px</string>
+    <string name="nexus7_310px_w">310px</string>
+    <string name="nexus7_310px_h">310px</string>
+    <string name="nexus7_320px_w">320px</string>
+    <string name="nexus7_320px_h">320px</string>
+    <string name="nexus7_380px_w">380px</string>
+    <string name="nexus7_380px_h">380px</string>
+    <string name="nexus7_400px_w">400px</string>
+    <string name="nexus7_400px_h">400px</string>
+    <string name="nexus7_410px_w">410px</string>
+    <string name="nexus7_410px_h">410px</string>
+    <string name="nexus7_420px_w">420px</string>
+    <string name="nexus7_420px_h">420px</string>
+    <string name="nexus7_500px_w">500px</string>
+    <string name="nexus7_500px_h">500px</string>
+    <string name="nexus7_520px_w">520px</string>
+    <string name="nexus7_520px_h">520px</string>
+    <string name="nexus7_530px_w">530px</string>
+    <string name="nexus7_530px_h">530px</string>
+    <string name="nexus7_550px_w">550px</string>
+    <string name="nexus7_550px_h">550px</string>
+    <string name="nexus7_610px_w">610px</string>
+    <string name="nexus7_610px_h">610px</string>
+    <string name="nexus7_650px_w">650px</string>
+    <string name="nexus7_650px_h">650px</string>
+    <string name="nexus7_660px_w">660px</string>
+    <string name="nexus7_660px_h">660px</string>
+    <string name="nexus7_700px_w">700px</string>
+    <string name="nexus7_700px_h">700px</string>
+    <string name="nexus7_710px_w">710px</string>
+    <string name="nexus7_710px_h">710px</string>
+    <string name="nexus7_760px_w">760px</string>
+    <string name="nexus7_760px_h">760px</string>
+    <string name="nexus7_850px_w">850px</string>
+    <string name="nexus7_850px_h">850px</string>
+    <string name="nexus7_950px_w">950px</string>
+    <string name="nexus7_950px_h">950px</string>
+    <string name="nexus7_970px_w">970px</string>
+    <string name="nexus7_970px_h">970px</string>
+    <string name="nexus7_1170px_w">1170px</string>
+    <string name="nexus7_1170px_h">1170px</string>
+    <string name="nexus7_1320px_w">1320px</string>
+    <string name="nexus7_1320px_h">1320px</string>
+    <string name="nexus7_1370px_w">1370px</string>
+    <string name="nexus7_1370px_h">1370px</string>
+    <string name="nexus7_1420px_w">1420px</string>
+    <string name="nexus7_1420px_h">1420px</string>
+    <string name="nexus7_1470px_w">1470px</string>
+    <string name="nexus7_1470px_h">1470px</string>
+    <string name="nexus7_15dp">15dp</string>
+    <string name="nexus7_25dp">25dp</string>
+    <string name="nexus7_30dp">30dp</string>
+    <string name="nexus7_40dp">40dp</string>
+
+</resources>
