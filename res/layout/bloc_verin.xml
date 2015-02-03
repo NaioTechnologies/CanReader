@@ -116,8 +116,8 @@
         android:gravity="center"
         android:text="..."
         android:textSize="25dp" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/lecture_odoc"
         android:layout_width="400px"
         android:layout_height="150px"
@@ -193,6 +193,25 @@
         android:layout_marginTop="710px"
         android:gravity="center"
         android:text="Min"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="400px"
+        android:layout_height="150px"
+        android:layout_marginLeft="970px"
+        android:layout_marginTop="710px"
+        android:gravity="center"
+        android:text="Température CPU"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/temperature_cpu"
+        android:layout_width="500px"
+        android:layout_height="150px"
+        android:layout_marginLeft="1370px"
+        android:layout_marginTop="710px"
+        android:gravity="center"
+        android:text="..."
         android:textSize="25dp" />
 
 </RelativeLayout>
