@@ -7,211 +7,225 @@
 
     <TextView
         android:layout_width="1920px"
-        android:layout_height="100px"
+        android:layout_height="@dimen/nexus7_100px_h"
         android:layout_marginLeft="0px"
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
         android:text="VERIN et ODO"
         android:textColor="@android:color/background_light"
-        android:textSize="40dp" />
+        android:textSize="@dimen/nexus7_40dp" />
 
     <Button
-        android:layout_width="300px"
-        android:layout_height="150px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="100px"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_requete_position_clicked"
         android:text="Position %"
-        android:textSize="26dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/verin_position"
-        android:layout_width="300px"
-        android:layout_height="150px"
-        android:layout_marginLeft="310px"
-        android:layout_marginTop="100px"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_310px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
-        android:layout_width="500px"
-        android:layout_height="150px"
-        android:layout_marginLeft="970px"
-        android:layout_marginTop="100px"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_commande_moteur_clicked"
         android:text="Commande moteur"
-        android:textSize="26dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/commande_moteur"
-        android:layout_width="200px"
-        android:layout_height="150px"
-        android:layout_marginLeft="1470px"
-        android:layout_marginTop="100px"
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1470px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
         android:id="@+id/button_verin_retour_position"
-        android:layout_width="500px"
-        android:layout_height="150px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="250px"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:onClick="button_retour_position_clicked"
         android:text="Retour position %:"
-        android:textSize="26dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/verin_retour_position"
-        android:layout_width="200px"
-        android:layout_height="150px"
-        android:layout_marginLeft="510px"
-        android:layout_marginTop="250px"
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_500px_w"
+        android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
-        android:layout_width="300px"
-        android:layout_height="150px"
-        android:layout_marginLeft="970px"
-        android:layout_marginTop="250px"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:text="Etat verin:"
-        android:textSize="30dp" />
+        android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
         android:id="@+id/etat_verin"
-        android:layout_width="700px"
-        android:layout_height="150px"
-        android:layout_marginLeft="1270px"
-        android:layout_marginTop="250px"
+        android:layout_width="@dimen/nexus7_700px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1270px_w"
+        android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
         android:id="@+id/button_lecture_odo"
-        android:layout_width="400px"
-        android:layout_height="150px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="400px"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
         android:onClick="button_lecture_odo_clicked"
         android:text="Lecture ODO "
-        android:textSize="28dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/lecture_odo"
-        android:layout_width="400px"
-        android:layout_height="150px"
-        android:layout_marginLeft="410px"
-        android:layout_marginTop="400px"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_410px_w"
+        android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/lecture_odoc"
-        android:layout_width="400px"
-        android:layout_height="150px"
-        android:layout_marginLeft="970px"
-        android:layout_marginTop="400px"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
         android:text="Compteur"
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
-        android:layout_width="300px"
-        android:layout_height="150px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="550px"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
         android:text="Sortie 12V:"
-        android:textSize="28dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/sortie_12v"
-        android:layout_width="500px"
-        android:layout_height="150px"
-        android:layout_marginLeft="310px"
-        android:layout_marginTop="550px"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_310px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
-        android:layout_width="400px"
-        android:layout_height="150px"
-        android:layout_marginLeft="970px"
-        android:layout_marginTop="550px"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
         android:text="Activation USB:"
-        android:textSize="28dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/activation_usb"
-        android:layout_width="500px"
-        android:layout_height="150px"
-        android:layout_marginLeft="1370px"
-        android:layout_marginTop="550px"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
-        android:layout_width="300px"
-        android:layout_height="150px"
-        android:layout_marginLeft="10px"
-        android:layout_marginTop="700px"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
         android:onClick="button_version_verin_clicked"
         android:text="Version:"
-        android:textSize="32dp" />
+        android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
         android:id="@+id/version_verin_maj"
-        android:layout_width="200px"
-        android:layout_height="150px"
-        android:layout_marginLeft="310px"
-        android:layout_marginTop="710px"
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_310px_w"
+        android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
         android:text="Maj"
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/version_verin_min"
-        android:layout_width="200px"
-        android:layout_height="150px"
-        android:layout_marginLeft="610px"
-        android:layout_marginTop="710px"
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_610px_w"
+        android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
         android:text="Min"
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
-        android:layout_width="400px"
-        android:layout_height="150px"
-        android:layout_marginLeft="970px"
-        android:layout_marginTop="710px"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
         android:text="Température CPU"
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
         android:id="@+id/temperature_cpu"
-        android:layout_width="500px"
-        android:layout_height="150px"
-        android:layout_marginLeft="1370px"
-        android:layout_marginTop="710px"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_w"
+        android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="25dp" />
+        android:textSize="@dimen/nexus7_25dp" />
+    
+        <TextView
+        android:layout_width="@dimen/nexus7_1370px_w"
+        android:layout_height="@dimen/nexus7_10px_h"
+        android:layout_marginLeft="@dimen/nexus7_850px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="@dimen/nexus7_10px_w"
+        android:layout_height="@dimen/nexus7_250px_h"
+        android:layout_marginLeft="@dimen/nexus7_850px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:background="@android:color/background_dark" />
 
 </RelativeLayout>

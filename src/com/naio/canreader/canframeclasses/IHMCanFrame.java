@@ -8,6 +8,7 @@ package com.naio.canreader.canframeclasses;
 import java.util.List;
 
 import com.naio.canreader.R;
+import com.naio.canreader.utils.BytesFunction;
 
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -33,6 +34,7 @@ public class IHMCanFrame extends CanFrame {
 	private Integer backlight;
 	private Integer board, rev;
 	private RelativeLayout rlimu;
+	private boolean is_there_data_clavier, is_there_data_led, is_there_data_status, is_there_data_delai, is_there_data_version, is_there_data_contraste, is_there_data_backlight, is_there_data_board;
 
 	public IHMCanFrame(int id, int dlc, List<Integer> data) {
 		super(id, dlc, data);
@@ -42,6 +44,14 @@ public class IHMCanFrame extends CanFrame {
 
 	public IHMCanFrame() {
 		this.type = "IHM";
+		is_there_data_clavier = false;
+		is_there_data_led = false;
+		is_there_data_status = false;
+		is_there_data_delai = false;
+		is_there_data_version = false;
+		is_there_data_contraste = false;
+		is_there_data_backlight = false;
+		is_there_data_board = false;
 
 	}
 
@@ -50,44 +60,78 @@ public class IHMCanFrame extends CanFrame {
 		return this;
 	}
 
-	public void action(RelativeLayout rl, ViewPager vp) {
-		if (vp != null) {
-			this.rlimu = (RelativeLayout) vp.getChildAt(2).findViewById(
-					R.id.rl_ihm_activity);
+	public void save_datas() {
+		synchronized (lock) {
+
+			if (idMess == null) {
+				return;
+			}
+			switch (idMess) {
+			case "0001":
+				save_data_clavier();
+				is_there_data_clavier = true;
+				break;
+			case "0010":
+				save_data_led();
+				is_there_data_led = true;
+				break;
+			case "0100":
+				save_data_status();
+				is_there_data_status = true;
+				break;
+			case "0101":
+				save_data_delai();
+				is_there_data_delai = true;
+				break;
+			case "0110":
+				save_data_version();
+				is_there_data_version = true;
+				break;
+			case "0111":
+				save_data_contraste();
+				is_there_data_contraste = true;
+				break;
+			case "1000":
+				save_data_backlight();
+				is_there_data_backlight = true;
+				break;
+			case "1111":
+				save_data_board();
+				is_there_data_board = true;
+				break;
+			default:
+				break;
+			}
 		}
-		switch (idMess) {
-		case "0000":
-			display_data_code_1(rl);
-			break;
-		case "0001":
-			display_data_etat_clavier(rl);
-			break;
-		case "0010":
-			display_data_etat_led(rl);
-			break;
-		case "0011":
-			display_data_code_2(rl);
-			break;
-		case "0100":
-			display_data_status(rl);
-			break;
-		case "0101":
-			display_data_delai(rl);
-			break;
-		case "0110":
-			display_data_version(rl);
-			break;
-		case "0111":
-			display_data_contraste(rl);
-			break;
-		case "1000":
-			display_data_backlight(rl);
-			break;
-		case "1111":
-			display_data_board(rl);
-			break;
-		default:
-			break;
+	}
+
+	public void display_on(RelativeLayout rl, ViewPager vp) {
+		synchronized (lock) {
+
+			if (vp != null) {
+				this.rlimu = (RelativeLayout) vp.getChildAt(2).findViewById(
+						R.id.rl_ihm_activity);
+				if (vp.getCurrentItem() != 2) {
+					return;
+				}
+			}
+			if (is_there_data_clavier)
+				display_data_etat_clavier(rl);
+			if (is_there_data_led)
+				display_data_etat_led(rl);
+			if (is_there_data_status)
+				display_data_status(rl);
+			if (is_there_data_delai)
+				display_data_delai(rl);
+			if (is_there_data_version)
+				display_data_version(rl);
+			if (is_there_data_contraste)
+				display_data_contraste(rl);
+			if (is_there_data_backlight)
+				display_data_backlight(rl);
+			if (is_there_data_board)
+				display_data_board(rl);
+
 		}
 	}
 
@@ -95,8 +139,7 @@ public class IHMCanFrame extends CanFrame {
 	 * @param rl
 	 */
 	private void display_data_board(RelativeLayout rl) {
-		board = getData().get(0);
-		rev = getData().get(1);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_board)).setText("" + board);
 			((TextView) rlimu.findViewById(R.id.ihm_rev)).setText("" + rev);
@@ -107,10 +150,19 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_board() {
+		board = getData().get(0);
+		rev = getData().get(1);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_backlight(RelativeLayout rl) {
-		backlight = getData().get(0);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_backlight)).setText(""
 					+ backlight);
@@ -121,10 +173,18 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_backlight() {
+		backlight = getData().get(0);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_contraste(RelativeLayout rl) {
-		contraste = getData().get(0);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_contraste)).setText(""
 					+ contraste);
@@ -135,11 +195,18 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_contraste() {
+		contraste = getData().get(0);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_version(RelativeLayout rl) {
-		versionMaj = getData().get(0);
-		versionMin = getData().get(1);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_maj)).setText(""
 					+ versionMaj);
@@ -153,11 +220,19 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_version() {
+		versionMaj = getData().get(0);
+		versionMin = getData().get(1);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_delai(RelativeLayout rl) {
-		delaiLong = getData().get(0);
-		delaiRepet = getData().get(1);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_delai_long)).setText(""
 					+ delaiLong);
@@ -172,10 +247,19 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_delai() {
+		delaiLong = getData().get(0);
+		delaiRepet = getData().get(1);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_status(RelativeLayout rl) {
-		status = getData().get(0);
+
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.ihm_status)).setText(""
 					+ status);
@@ -185,9 +269,18 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_status() {
+		status = getData().get(0);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_code_2(RelativeLayout rl) {
+		//NOT USE
 		switch (dlc) {
 		case 5:
 			cc2_arg4 = getData().get(4);
@@ -209,59 +302,13 @@ public class IHMCanFrame extends CanFrame {
 	 * @param rl
 	 */
 	private void display_data_etat_led(RelativeLayout rl) {
-		etatLed = getData().get(0);
-		couleurLed = getData().get(1);
+
 		String text = Integer.toBinaryString(etatLed);
 		String text2 = Integer.toBinaryString(couleurLed);
-		Log.e("bin", "before :" + text + "____" + text2);
-		switch (text.length()) {
-		case 0:
-			text = '0' + text;
-		case 1:
-			text = '0' + text;
-		case 2:
-			text = '0' + text;
-		case 3:
-			text = '0' + text;
-		case 4:
-			text = '0' + text;
-		case 5:
-			text = '0' + text;
-		case 6:
-			text = '0' + text;
-		case 7:
-			text = '0' + text;
-		default:
-			break;
-		}
-		switch (text2.length()) {
-		case 0:
-			text2 = '0' + text2;
-		case 1:
-			text2 = '0' + text2;
-		case 2:
-			text2 = '0' + text2;
-		case 3:
-			text2 = '0' + text2;
-		case 4:
-			text2 = '0' + text2;
-		case 5:
-			text2 = '0' + text2;
-		case 6:
-			text2 = '0' + text2;
-		case 7:
-			text2 = '0' + text2;
-		default:
-			break;
-		}
-		Log.e("bin", "after :" + text + "____" + text2);
+		text = BytesFunction.fillWithZeroTheBinaryString(text);
+		text2 = BytesFunction.fillWithZeroTheBinaryString(text2);
 		String[] data = text.split("(?<!^)");
 		String[] data2 = text2.split("(?<!^)");
-		Log.e("bin", "after the split :" + data[0] + "^" + data[1] + "^"
-				+ data[2] + "^" + data[3] + "^" + data[4] + "^" + data[5] + "^"
-				+ data[6] + "^" + data[7] + "____" + data2[0] + "^" + data2[1]
-				+ "^" + data2[2] + "^" + data2[3] + "^" + data2[4] + "^"
-				+ data2[5] + "^" + data2[6] + "^" + data2[7]);
 		String c1 = "";
 		String c2 = "";
 		String c3 = "";
@@ -283,10 +330,10 @@ public class IHMCanFrame extends CanFrame {
 		else
 			c4 = "Rouge";
 		String write = "";
-		write += "Led gauche:" + data[7] + "," + c1;
-		write += "     Led 2:" + data[6] + "," + c2;
-		write += " \nLed 3:" + data[5] + "," + c3;
-		write += "       Led droite:" + data[4] + "," + c4;
+		write += "Gauche:" + data[7] + "," + c1;
+		write += "  ;Led 2:" + data[6] + "," + c2;
+		write += "\nLed 3:" + data[5] + "," + c3;
+		write += " ;Droite:" + data[4] + "," + c4;
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.etat_led)).setText(write);
 			return;
@@ -295,10 +342,19 @@ public class IHMCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_led() {
+		etatLed = getData().get(0);
+		couleurLed = getData().get(1);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_etat_clavier(RelativeLayout rl) {
-		etatClavier = getData().get(0);
+
 		String text = Integer.toBinaryString(etatClavier);
 		Log.e("bin", "before :" + text);
 		switch (text.length()) {
@@ -340,6 +396,14 @@ public class IHMCanFrame extends CanFrame {
 			return;
 		}
 		((TextView) rl.findViewById(R.id.etat_clavier)).setText(write);
+	}
+
+	/**
+	 * 
+	 */
+	private void save_data_clavier() {
+		etatClavier = getData().get(0);
+
 	}
 
 	/**

@@ -34,18 +34,34 @@ public class IMUCanFrame extends CanFrame {
 	private Integer adresse4, donnee4, deviceSEL4;
 	private Integer board, rev;
 	private DecimalFormat df, df2;
-	private View rlimu;
+	private RelativeLayout rl_second_layout;
 	static private int indexF, indexA, indexC;
 	static private Double freqMagneto, freqAccel, freqGyro;
 	static private Double time, timeAccel, timeGyro, timeMagneto;
 	static private int indexDisplay, indexDisplay2;
+	private boolean is_there_data_accel, is_there_data_gyro, is_there_data_magneto, is_there_data_temperature, is_there_data_version, is_there_data_board;
 
 	public IMUCanFrame(int id, int dlc, List<Integer> data, Double time) {
 		super(id, dlc, data);
+		
+		init();
+	}
+
+
+
+	public IMUCanFrame() {
+		init();
+
+	}
+
+	/**
+	 * 
+	 */
+	private void init() {
 		this.type = "IMU";
 		df = new DecimalFormat("###.##");
 		df2 = new DecimalFormat("###");
-		IMUCanFrame.time = time;
+		
 		if (IMUCanFrame.timeMagneto == null) {
 			IMUCanFrame.freqMagneto = 0.0;
 			IMUCanFrame.freqAccel = 0.0;
@@ -59,78 +75,107 @@ public class IMUCanFrame extends CanFrame {
 			IMUCanFrame.timeAccel = 0.0;
 			IMUCanFrame.timeGyro = 0.0;
 		}
+		is_there_data_accel = false;
+		is_there_data_gyro = false;
+		is_there_data_magneto = false;
+		is_there_data_temperature = false;
+		is_there_data_version = false;
+		is_there_data_board = false;
+		
 	}
-
-	public IMUCanFrame() {
-		this.type = "IMU";
-		df = new DecimalFormat("###.##");
-		df2 = new DecimalFormat("###");
-
-	}
-
-	public IMUCanFrame setParams(int id, int dlc, List<Integer> data) {
+	
+	public IMUCanFrame setParams(int id, int dlc, List<Integer> data,
+			Double time) {
 		super.setParams(id, dlc, data);
+		IMUCanFrame.time = time;
 		return this;
 	}
 
-	public void action(RelativeLayout rl, ViewPager vp) {
-		if (vp != null) {
-			this.rlimu = (RelativeLayout) vp.getChildAt(0).findViewById(
-					R.id.rl_imu_activity);
+	public void save_datas() {
+		synchronized (lock) {
+			if (idMess == null) {
+				return;
+			}
+			switch (idMess) {
+			case "0000":
+				save_data_accel();
+				is_there_data_accel = true;
+				break;
+			case "0001":
+				save_data_gyro();
+				is_there_data_gyro = true;
+				break;
+			case "0010":
+				save_data_magneto();
+				is_there_data_magneto = true;
+				break;
+			case "0011":
+				save_data_temperature();
+				is_there_data_temperature = true;
+				break;
+			case "0100":
+				save_data_version();
+				is_there_data_version = true;
+				break;
+			case "1111":
+				save_data_board();
+				is_there_data_board = true;
+				break;
+			default:
+				break;
+			}
 		}
-		switch (idMess) {
-		case "0000":
+	}
 
-			display_data_accel(rl);
+	public void display_on(RelativeLayout rl, ViewPager vp) {
+		synchronized (lock) {
 
-			break;
-		case "0001":
-			display_data_gyro(rl);
-			break;
-		case "0010":
+			Log.e("action", "imu");
+			if (vp != null) {
+				this.rl_second_layout = (RelativeLayout) vp.getChildAt(0).findViewById(
+						R.id.rl_imu_activity);
+				Log.e("debug", "" + vp.getCurrentItem());
+				if (vp.getCurrentItem() != 0) {
+					return;
+				}
+			}
+			if (idMess == null) {
+				return;
+			}
+			if (is_there_data_accel)
+				display_data_accel(rl);
 
-			display_data_magneto(rl);
+			if (is_there_data_gyro)
+				display_data_gyro(rl);
 
-			break;
-		case "0011":
-			display_data_temperature(rl);
-			break;
-		case "0100":
-			display_data_version(rl);
-			break;
-		case "0101":
-			display_data_adresse1(rl);
-			break;
-		case "0110":
-			display_data_adresse2(rl);
-			break;
-		case "0111":
-			display_data_adresse3(rl);
-			break;
-		case "1000":
-			display_data_adresse4(rl);
-			break;
-		case "1111":
-			display_data_board(rl);
-			break;
-		default:
-			break;
+			if (is_there_data_magneto)
+				display_data_magneto(rl);
+
+			if (is_there_data_temperature)
+				display_data_temperature(rl);
+
+			if (is_there_data_version)
+				display_data_version(rl);
+
+			if (is_there_data_board)
+				display_data_board(rl);
+
 		}
+
 	}
 
 	/**
 	 * @param rl
 	 */
 	private void display_data_board(RelativeLayout rl) {
-		board = getData().get(0);
-		rev = getData().get(1);
+
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rlimu.findViewById(R.id.magneto_boardf)).setText(""
+			((TextView) rl_second_layout.findViewById(R.id.magneto_boardf)).setText(""
 					+ board);
-			((TextView) rlimu.findViewById(R.id.magneto_revf))
+			((TextView) rl_second_layout.findViewById(R.id.magneto_revf))
 					.setText("" + rev);
 			return;
 		}
@@ -139,57 +184,28 @@ public class IMUCanFrame extends CanFrame {
 	}
 
 	/**
-	 * @param rl
+	 * 
 	 */
-	private void display_data_adresse4(RelativeLayout rl) {
-		adresse4 = getData().get(0);
-		donnee4 = getData().get(1);
-		deviceSEL4 = getData().get(2);
+	private void save_data_board() {
+		board = getData().get(0);
+		rev = getData().get(1);
 
 	}
 
-	/**
-	 * @param rl
-	 */
-	private void display_data_adresse3(RelativeLayout rl) {
-		adresse3 = getData().get(0);
-		deviceSEL3 = getData().get(1);
 
-	}
-
-	/**
-	 * @param rl
-	 */
-	private void display_data_adresse2(RelativeLayout rl) {
-		adresse2 = getData().get(0);
-		donnee2 = getData().get(1);
-		deviceSEL2 = getData().get(2);
-
-	}
-
-	/**
-	 * @param rl
-	 */
-	private void display_data_adresse1(RelativeLayout rl) {
-		adresse1 = getData().get(0);
-		donnee1 = getData().get(1);
-		deviceSEL1 = getData().get(2);
-
-	}
 
 	/**
 	 * @param rl
 	 */
 	private void display_data_version(RelativeLayout rl) {
-		versionMaj = getData().get(0);
-		versionMin = getData().get(1);
+
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rlimu.findViewById(R.id.imu_majf)).setText(""
+			((TextView) rl_second_layout.findViewById(R.id.imu_majf)).setText(""
 					+ versionMaj);
-			((TextView) rlimu.findViewById(R.id.imu_minf)).setText(""
+			((TextView) rl_second_layout.findViewById(R.id.imu_minf)).setText(""
 					+ versionMin);
 			return;
 		}
@@ -198,35 +214,43 @@ public class IMUCanFrame extends CanFrame {
 	}
 
 	/**
+	 * 
+	 */
+	private void save_data_version() {
+		versionMaj = getData().get(0);
+		versionMin = getData().get(1);
+
+	}
+
+	/**
 	 * @param rl
 	 */
 	private void display_data_temperature(RelativeLayout rl) {
-		temperature = BytesFunction.fromTwoComplement(getData().get(0), 8);
+
 		double tempeFinal = (double) temperature * 0.5 + 23;
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rlimu.findViewById(R.id.imu_tempef)).setText(""
+			((TextView) rl_second_layout.findViewById(R.id.imu_tempef)).setText(""
 					+ tempeFinal);
 			return;
 		}
 		((TextView) rl.findViewById(R.id.imu_tempe)).setText("" + tempeFinal);
 	}
 
+	/**
+	 * 
+	 */
+	private void save_data_temperature() {
+		Log.e("tempe", "" + temperature);
+		temperature = BytesFunction.fromTwoComplement(getData().get(0), 8);
+
+	}
+
 	private void display_data_magneto(RelativeLayout rl) {
-		magnetoXMSB = getData().get(0);
-		magnetoXLSB = getData().get(1);
-		magnetoYMSB = getData().get(2);
-		magnetoYLSB = getData().get(3);
-		magnetoZMSB = getData().get(4);
-		magnetoZLSB = getData().get(5);
-		resMagnMSB = getData().get(6);
-		resMagnLSB = getData().get(7);
-		IMUCanFrame.freqMagneto = IMUCanFrame.freqMagneto
-				+ (IMUCanFrame.time - IMUCanFrame.timeMagneto) * 0.01;
-		IMUCanFrame.timeMagneto = IMUCanFrame.time;
-		IMUCanFrame.indexF += 1;
+		Log.e("debug", "" + getData());
+
 		double val1 = BytesFunction.fromTwoComplement(magnetoXMSB, magnetoXLSB,
 				13, 1);
 		double val2 = BytesFunction.fromTwoComplement(magnetoYMSB, magnetoYLSB,
@@ -249,25 +273,25 @@ public class IMUCanFrame extends CanFrame {
 		else
 			txt3 = "" + val3;
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
 
 			if (IMUCanFrame.indexF == 99) {
-				((TextView) rlimu.findViewById(R.id.magneto_time)).setText(""
+				((TextView) rl_second_layout.findViewById(R.id.magneto_time)).setText(""
 						+ IMUCanFrame.freqMagneto);
 				IMUCanFrame.indexF = 0;
 				IMUCanFrame.freqMagneto = 0.0;
 			}
 			if (IMUCanFrame.indexDisplay2 == 9) {
 
-				((TextView) rlimu.findViewById(R.id.magneto_xmsbf))
+				((TextView) rl_second_layout.findViewById(R.id.magneto_xmsbf))
 						.setText(txt);
-				((TextView) rlimu.findViewById(R.id.magneto_ymsbf))
+				((TextView) rl_second_layout.findViewById(R.id.magneto_ymsbf))
 						.setText(txt2);
-				((TextView) rlimu.findViewById(R.id.magneto_zmsbf))
+				((TextView) rl_second_layout.findViewById(R.id.magneto_zmsbf))
 						.setText(txt3);
-				((TextView) rlimu.findViewById(R.id.magneto_resmsbf))
+				((TextView) rl_second_layout.findViewById(R.id.magneto_resmsbf))
 						.setText("" + (resMagnMSB * 256 + resMagnLSB));
 				IMUCanFrame.indexDisplay2 = 0;
 			} else {
@@ -289,17 +313,31 @@ public class IMUCanFrame extends CanFrame {
 
 	}
 
+	/**
+	 * 
+	 */
+	private void save_data_magneto() {
+		magnetoXMSB = getData().get(0);
+		magnetoXLSB = getData().get(1);
+		magnetoYMSB = getData().get(2);
+		magnetoYLSB = getData().get(3);
+		magnetoZMSB = getData().get(4);
+		magnetoZLSB = getData().get(5);
+		resMagnMSB = getData().get(6);
+		resMagnLSB = getData().get(7);
+		if (IMUCanFrame.indexF == 99) {
+			IMUCanFrame.timeMagneto = IMUCanFrame.time;
+			return;
+		}
+		IMUCanFrame.freqMagneto = IMUCanFrame.freqMagneto
+				+ (IMUCanFrame.time - IMUCanFrame.timeMagneto) * 0.01;
+		IMUCanFrame.timeMagneto = IMUCanFrame.time;
+		IMUCanFrame.indexF += 1;
+
+	}
+
 	private void display_data_gyro(RelativeLayout rl) {
-		gyroXMSB = getData().get(0);
-		gyroXLSB = getData().get(1);
-		gyroYMSB = getData().get(2);
-		gyroYLSB = getData().get(3);
-		gyroZMSB = getData().get(4);
-		gyroZLSB = getData().get(5);
-		IMUCanFrame.freqGyro = IMUCanFrame.freqGyro
-				+ (IMUCanFrame.time - IMUCanFrame.timeGyro) * 0.01;
-		IMUCanFrame.timeGyro = IMUCanFrame.time;
-		IMUCanFrame.indexA += 1;
+
 		double val1 = BytesFunction.fromTwoComplement(gyroXMSB, gyroXLSB, 16,
 				1024 / 32.8);
 		double val2 = BytesFunction.fromTwoComplement(gyroYMSB, gyroYLSB, 16,
@@ -322,18 +360,18 @@ public class IMUCanFrame extends CanFrame {
 		else
 			txt3 = "" + df2.format(val3);
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
 			if (IMUCanFrame.indexA == 99) {
-				((TextView) rlimu.findViewById(R.id.gyro_time)).setText(""
+				((TextView) rl_second_layout.findViewById(R.id.gyro_time)).setText(""
 						+ IMUCanFrame.freqGyro);
 				IMUCanFrame.indexA = 0;
 				IMUCanFrame.freqGyro = 0.0;
 			}
-			((TextView) rlimu.findViewById(R.id.gyro_xmsbf)).setText(txt);
-			((TextView) rlimu.findViewById(R.id.gyro_ymsbf)).setText(txt2);
-			((TextView) rlimu.findViewById(R.id.gyro_zmsbf)).setText(txt3);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_xmsbf)).setText(txt);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_ymsbf)).setText(txt2);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_zmsbf)).setText(txt3);
 			return;
 		}
 
@@ -343,17 +381,29 @@ public class IMUCanFrame extends CanFrame {
 
 	}
 
+	/**
+	 * 
+	 */
+	private void save_data_gyro() {
+		gyroXMSB = getData().get(0);
+		gyroXLSB = getData().get(1);
+		gyroYMSB = getData().get(2);
+		gyroYLSB = getData().get(3);
+		gyroZMSB = getData().get(4);
+		gyroZLSB = getData().get(5);
+		if (IMUCanFrame.indexA == 99) {
+			IMUCanFrame.timeGyro = IMUCanFrame.time;
+			return;
+		}
+		IMUCanFrame.freqGyro = IMUCanFrame.freqGyro
+				+ (IMUCanFrame.time - IMUCanFrame.timeGyro) * 0.01;
+		IMUCanFrame.timeGyro = IMUCanFrame.time;
+		IMUCanFrame.indexA += 1;
+
+	}
+
 	private void display_data_accel(RelativeLayout rl) {
-		accelXMSB = getData().get(0);
-		accelXLSB = getData().get(1);
-		accelYMSB = getData().get(2);
-		accelYLSB = getData().get(3);
-		accelZMSB = getData().get(4);
-		accelZLSB = getData().get(5);
-		IMUCanFrame.freqAccel = IMUCanFrame.freqAccel
-				+ (IMUCanFrame.time - IMUCanFrame.timeAccel) * 0.01;
-		IMUCanFrame.timeAccel = IMUCanFrame.time;
-		IMUCanFrame.indexC += 1;
+
 		double val1 = BytesFunction.fromTwoComplement(accelXMSB, accelXLSB, 12,
 				1024);
 		double val2 = BytesFunction.fromTwoComplement(accelYMSB, accelYLSB, 12,
@@ -376,22 +426,22 @@ public class IMUCanFrame extends CanFrame {
 		else
 			txt3 = "" + df.format(val3);
 		if (rl == null) {
-			if (rlimu == null) {
+			if (rl_second_layout == null) {
 				return;
 			}
 			if (IMUCanFrame.indexC == 99) {
-				((TextView) rlimu.findViewById(R.id.accel_time)).setText(""
+				((TextView) rl_second_layout.findViewById(R.id.accel_time)).setText(""
 						+ IMUCanFrame.freqAccel);
 				IMUCanFrame.indexC = 0;
 				IMUCanFrame.freqAccel = 0.0;
 			}
 			if (IMUCanFrame.indexDisplay == 9) {
 
-				((TextView) rlimu.findViewById(R.id.accel_xmsbf)).setText(txt);
+				((TextView) rl_second_layout.findViewById(R.id.accel_xmsbf)).setText(txt);
 
-				((TextView) rlimu.findViewById(R.id.accel_ymsbf)).setText(txt2);
+				((TextView) rl_second_layout.findViewById(R.id.accel_ymsbf)).setText(txt2);
 
-				((TextView) rlimu.findViewById(R.id.accel_zmsbf)).setText(txt3);
+				((TextView) rl_second_layout.findViewById(R.id.accel_zmsbf)).setText(txt3);
 				IMUCanFrame.indexDisplay = 0;
 			} else {
 				IMUCanFrame.indexDisplay += 1;
@@ -406,6 +456,70 @@ public class IMUCanFrame extends CanFrame {
 		} else {
 			IMUCanFrame.indexDisplay += 1;
 		}
+
+	}
+
+	/**
+	 * 
+	 */
+	private void save_data_accel() {
+		accelXMSB = getData().get(0);
+		accelXLSB = getData().get(1);
+		accelYMSB = getData().get(2);
+		accelYLSB = getData().get(3);
+		accelZMSB = getData().get(4);
+		accelZLSB = getData().get(5);
+		if (IMUCanFrame.indexC == 99) {
+			IMUCanFrame.timeAccel = IMUCanFrame.time;
+			return;
+		}
+		IMUCanFrame.freqAccel = IMUCanFrame.freqAccel
+				+ (IMUCanFrame.time - IMUCanFrame.timeAccel) * 0.01;
+		IMUCanFrame.timeAccel = IMUCanFrame.time;
+		IMUCanFrame.indexC += 1;
+
+	}
+	
+	/**
+	 * @param rl
+	 */
+	private void display_data_adresse4(RelativeLayout rl) {
+		//NOT USE
+		adresse4 = getData().get(0);
+		donnee4 = getData().get(1);
+		deviceSEL4 = getData().get(2);
+
+	}
+
+	/**
+	 * @param rl
+	 */
+	private void display_data_adresse3(RelativeLayout rl) {
+		//NOT USE
+		adresse3 = getData().get(0);
+		deviceSEL3 = getData().get(1);
+
+	}
+
+	/**
+	 * @param rl
+	 */
+	private void display_data_adresse2(RelativeLayout rl) {
+		//NOT USE
+		adresse2 = getData().get(0);
+		donnee2 = getData().get(1);
+		deviceSEL2 = getData().get(2);
+
+	}
+
+	/**
+	 * @param rl
+	 */
+	private void display_data_adresse1(RelativeLayout rl) {
+		//NOT USE
+		adresse1 = getData().get(0);
+		donnee1 = getData().get(1);
+		deviceSEL1 = getData().get(2);
 
 	}
 

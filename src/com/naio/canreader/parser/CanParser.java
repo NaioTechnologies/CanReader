@@ -1,10 +1,9 @@
-package com.naio.canreader.utils;
+package com.naio.canreader.parser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
+import com.naio.canreader.canframeclasses.BrainCanFrame;
 import com.naio.canreader.canframeclasses.CanFrame;
 import com.naio.canreader.canframeclasses.GPSCanFrame;
 import com.naio.canreader.canframeclasses.GSMCanFrame;
@@ -14,6 +13,7 @@ import com.naio.canreader.canframeclasses.ISMCanFrame;
 import com.naio.canreader.canframeclasses.MotorLeftCanFrame;
 import com.naio.canreader.canframeclasses.MotorRightCanFrame;
 import com.naio.canreader.canframeclasses.VerinCanFrame;
+import com.naio.canreader.utils.BytesFunction;
 
 /**
  * @author bodereau
@@ -31,11 +31,21 @@ public class CanParser {
 
 	GPSCanFrame gpscanframe;
 	GSMCanFrame gsmcanframe;
+	private VerinCanFrame verincanframe;
+	private IHMCanFrame ihmcanframe;
+	private IMUCanFrame imucanframe;
+	private final Object lock1 = new Object();
+	private BrainCanFrame braincanframe;
 
 	public CanParser() {
 		super();
 		gpscanframe = new GPSCanFrame();
 		gsmcanframe = new GSMCanFrame();
+		imucanframe = new IMUCanFrame();
+		gsmcanframe = new GSMCanFrame();
+		ihmcanframe = new IHMCanFrame();
+		verincanframe = new VerinCanFrame();
+		braincanframe = new BrainCanFrame();
 	}
 
 	/**
@@ -57,10 +67,22 @@ public class CanParser {
 		for (int i = 4; i < split.length; i++) {
 			data.add(Integer.parseInt(split[i], 16));
 		}
-		Double time =  Double.parseDouble(split[0].substring(1,split[0].length() - 1));
+		Double time = Double.parseDouble(split[0].substring(1,
+				split[0].length() - 1));
 		int id = Integer.parseInt(split[2], 16);
-		switch (Integer.toBinaryString(id).substring(0,
-				Integer.toBinaryString(id).length() - 7)) {
+		String binaryString = Integer.toBinaryString(id);
+		if (binaryString.length() <= 7) {
+			binaryString = BytesFunction.fillWithZeroTheBinaryString(Integer.toBinaryString(id));
+			return null;
+		}
+		switch (binaryString.substring(0,
+				binaryString.length() - 7)) {
+		case "0":
+		case "00":
+		case "000":
+		case "0000":
+			return braincanframe.setParams(id,
+					Integer.parseInt(split[3].substring(1, 2)), data);
 		case "1":
 		case "01":
 		case "001":
@@ -75,8 +97,10 @@ public class CanParser {
 		case "11":
 		case "011":
 		case "0011":
-			return new IMUCanFrame(id, Integer.parseInt(split[3]
-					.substring(1, 2)), data,time);
+			imucanframe.setParams(id,
+					Integer.parseInt(split[3].substring(1, 2)), data, time);
+			imucanframe.save_datas();
+			return null;
 		case "100":
 		case "0100":
 			return gpscanframe.setParams(id,
@@ -91,14 +115,17 @@ public class CanParser {
 					.substring(1, 2)), data);
 		case "111":
 		case "0111":
-			return new IHMCanFrame(id, Integer.parseInt(split[3]
-					.substring(1, 2)), data);
+			ihmcanframe.setParams(id,
+					Integer.parseInt(split[3].substring(1, 2)), data);
+			ihmcanframe.save_datas();
+			return null;
 		case "1000":
-			return new VerinCanFrame(id, Integer.parseInt(split[3].substring(1,
-					2)), data);
+			verincanframe.setParams(id,
+					Integer.parseInt(split[3].substring(1, 2)), data);
+			verincanframe.save_datas();
+			return null;
 		default:
-			return new CanFrame(id, Integer.parseInt(split[3].substring(1, 2)),
-					data);
+			return null;
 		}
 
 	}
@@ -124,6 +151,56 @@ public class CanParser {
 	 */
 	public void setGsmcanframe(GSMCanFrame gsmcanframe) {
 		this.gsmcanframe = gsmcanframe;
+	}
+
+	/**
+	 * @return the gpscanframe
+	 */
+	public GPSCanFrame getGpscanframe() {
+		return gpscanframe;
+	}
+
+	/**
+	 * @return the gsmcanframe
+	 */
+	public GSMCanFrame getGsmcanframe() {
+		return gsmcanframe;
+	}
+
+	/**
+	 * @return the verincanframe
+	 */
+	public VerinCanFrame getVerincanframe() {
+		return verincanframe;
+	}
+
+	/**
+	 * @return the ihmcanframe
+	 */
+	public IHMCanFrame getIhmcanframe() {
+		return ihmcanframe;
+	}
+
+	/**
+	 * @return the imucanframe
+	 */
+	public IMUCanFrame getImucanframe() {
+		synchronized (lock1) {
+			return imucanframe;
+		}
+
+	}
+
+	public CanFrame[] getCanFrames() {
+		return new CanFrame[] { imucanframe, ihmcanframe, verincanframe,
+				gsmcanframe, gpscanframe ,braincanframe};
+	}
+
+	/**
+	 * @return
+	 */
+	public BrainCanFrame getBraincanframe() {
+		return braincanframe;
 	}
 
 }

@@ -1,21 +1,24 @@
 package com.naio.canreader.activities;
 
+import java.io.File;
 import java.lang.Process;
 import java.util.List;
 import java.util.Vector;
 
 import com.naio.canreader.R;
 
-import com.naio.canreader.canframeclasses.CanFrame;
 import com.naio.canreader.canframeclasses.GSMCanFrame;
 import com.naio.canreader.canframeclasses.VerinCanFrame;
-import com.naio.canreader.utils.CanParser;
-import com.naio.canreader.utils.CanDumpThread;
-import com.naio.canreader.utils.CanSendThread;
+import com.naio.canreader.parser.CanParser;
+import com.naio.canreader.threads.CanDumpThread;
+import com.naio.canreader.threads.CanParserThread;
+import com.naio.canreader.threads.CanSendThread;
 import com.naio.canreader.utils.MyPagerAdapter;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +26,7 @@ import android.os.Handler;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,19 +49,34 @@ public class MainActivity extends FragmentActivity {
 
 	private CanDumpThread canDumpThread;
 	private CanSendThread canSendThread;
+	private final Object lock = new Object();
+	private int indexDebug;
+	private static final int MILLISECONDS_RUNNABLE = 10;
+	private static final int KEEP_CONTROL_CAN_LOOP = 50;
+	private static boolean binary_added = false;
+
+	/**
+	 * @return the lock
+	 */
+	public Object getLock() {
+		return lock;
+	}
+
 	Handler handler = new Handler();
 	Boolean reading = false;
 	CanParser canParser = new CanParser();
 	Runnable runnable = new Runnable() {
 		public void run() {
+
 			read_the_can();
+
 		}
 	};
 	private RelativeLayout rl;
 	private MyPagerAdapter mPagerAdapter;
-	private RelativeLayout rlimu;
-	private RelativeLayout rl2;
 	private ViewPager pager;
+	private CanParserThread canParserThread;
+	private int indexEnvoi;
 	private static boolean layoutPage;
 
 	@Override
@@ -66,45 +85,85 @@ public class MainActivity extends FragmentActivity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			if (extras.getBoolean("layout", false)) {
-				setContentView(R.layout.viewpager);// Création de la liste de
-													// Fragments que fera
-													// défiler le PagerAdapter
-				List fragments = new Vector();
-
-				// Ajout des Fragments dans la liste
-				fragments.add(Fragment.instantiate(this,
-						BlocIMU.class.getName()));
-				fragments.add(Fragment.instantiate(this,
-						BlocGPS.class.getName()));
-				fragments.add(Fragment.instantiate(this,
-						BlocIHM.class.getName()));
-				fragments.add(Fragment.instantiate(this,
-						BlocVerin.class.getName()));
-				// Création de l'adapter qui s'occupera de l'affichage de la
-				// liste de
-				// Fragments
-				this.mPagerAdapter = new MyPagerAdapter(
-						super.getSupportFragmentManager(), fragments);
-
-				pager = (ViewPager) super.findViewById(R.id.viewpager);
-				pager.setOffscreenPageLimit(3);
-				// Affectation de l'adapter au ViewPager
-				pager.setAdapter(this.mPagerAdapter);
-				layoutPage = false;
-
-			} else {
-				setContentView(R.layout.other_rl);
+				setContentView(R.layout.main_activity);
 				layoutPage = true;
+			} else {
+				set_fragment_layout();
 			}
 		} else {
-			setContentView(R.layout.other_rl);
-			layoutPage = true;
+			set_fragment_layout();
 		}
 		canDumpThread = new CanDumpThread();
+		canParserThread = new CanParserThread(canDumpThread, this);
 		reading = false;
-
+		indexDebug = 0;
 		canParser = new CanParser();
 		rl = (RelativeLayout) findViewById(R.id.rl_main_activity);
+		if (!binary_added) {
+			File file = new File("/sbin/candump");
+			if (file.exists())
+				binary_added = true;
+			else {
+				executeCommand("su -c mount -o rw,remount /");
+				executeCommand("su -c cp /storage/sdcard0/candump2 /sbin/candump");
+				executeCommand("su -c cp /storage/sdcard0/cansend2 /sbin/cansend");
+				executeCommand("su -c chmod 775 /sbin/candump");
+				executeCommand("su -c chmod 775 /sbin/cansend");
+				executeCommand("su -c insmod /storage/sdcard0/drive/can.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/can-dev.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/can-raw.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/can-bcm.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/pcan.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/vcan.ko");
+				executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
+				executeCommand("su -c rmmod pcan");
+				executeCommand("su -c mount -o ro,remount /");
+				binary_added = true;
+				new AlertDialog.Builder(this)
+						.setTitle("Information")
+						.setMessage(
+								"Vous pouvez brancher dès à présent l'interface can usb")
+						.setPositiveButton(android.R.string.yes,
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// continue with delete
+									}
+								}).setIcon(android.R.drawable.ic_dialog_info)
+						.show();
+			}
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	private void set_fragment_layout() {
+		setContentView(R.layout.viewpager);// Création de la liste de
+		// Fragments que fera
+		// défiler le PagerAdapter
+		List fragments = new Vector();
+
+		// Ajout des Fragments dans la liste
+		fragments.add(Fragment.instantiate(this,
+				BlocIMUActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocGPSActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocIHMActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocVerinActivity.class.getName()));
+		// Création de l'adapter qui s'occupera de l'affichage de la
+		// liste de Fragments
+		this.mPagerAdapter = new MyPagerAdapter(
+				super.getSupportFragmentManager(), fragments);
+
+		pager = (ViewPager) super.findViewById(R.id.viewpager);
+		pager.setOffscreenPageLimit(3);
+		// Affectation de l'adapter au ViewPager
+		pager.setAdapter(this.mPagerAdapter);
+		layoutPage = false;
 
 	}
 
@@ -141,20 +200,46 @@ public class MainActivity extends FragmentActivity {
 		}
 		if (id == R.id.action_layout) {
 			if (layoutPage) {
-				Intent intent = getIntent();
-				finish();
-				intent.putExtra("layout", true);
-				startActivity(intent);
+				change_activity_layout(false);
 				return true;
-
 			}
-			Intent intent = getIntent();
-			finish();
-			intent.putExtra("layout", false);
-			startActivity(intent);
+			change_activity_layout(true);
 			return true;
 		}
+
+		// if (id == R.id.action_candump) {
+		// executeCommand("su -c mount -o rw,remount /");
+		// executeCommand("su -c cp /storage/sdcard0/candump2 /sbin/candump");
+		// executeCommand("su -c cp /storage/sdcard0/cansend2 /sbin/cansend");
+		// executeCommand("su -c chmod 775 /sbin/candump");
+		// executeCommand("su -c chmod 775 /sbin/cansend");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/can.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/can-dev.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/can-raw.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/can-bcm.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/pcan.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/vcan.ko");
+		// executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
+		// executeCommand("su -c rmmod pcan");
+		// executeCommand("su -c mount -o ro,remount /");
+		// }
 		return super.onOptionsItemSelected(item);
+	}
+
+	/**
+	 * @param b
+	 * 
+	 */
+	private void change_activity_layout(boolean b) {
+		canParserThread.setStop(false);
+		canParserThread.interrupt();
+		canDumpThread.quit();
+		handler.removeCallbacks(runnable);
+		Intent intent = getIntent();
+		finish();
+		intent.putExtra("layout", b);
+		startActivity(intent);
+
 	}
 
 	/**
@@ -168,15 +253,20 @@ public class MainActivity extends FragmentActivity {
 		if (!reading) {
 			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
 			canDumpThread.start();
-			handler.postDelayed(runnable, 1);
+			canParserThread.start();
+			cansend("00F", "69.55.21.23.25.12.11.FF");
+			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
 					.setText("STOP");
+			Log.e("buton", "buton read");
+			indexEnvoi = 0;
 			reading = true;
 			return;
 		}
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		reading = false;
 		canDumpThread = new CanDumpThread();
+		canParserThread = new CanParserThread(canDumpThread);
 		handler.removeCallbacks(runnable);
 	}
 
@@ -198,16 +288,27 @@ public class MainActivity extends FragmentActivity {
 	 */
 	private void read_the_can() {
 
-		String poll = canDumpThread.get100Poll();
-		if (poll == null) {
-			handler.postDelayed(runnable, 1);
-			return;
-		}
-		for (CanFrame canframe : canParser.parseFrames(poll)) {
-			canframe.action(rl, pager);
+		canParserThread.getCanParser().getGpscanframe().display_on(rl, pager);
+		canParserThread.getCanParser().getImucanframe().display_on(rl, pager);
+		canParserThread.getCanParser().getGsmcanframe().display_on(rl, pager);
+		canParserThread.getCanParser().getVerincanframe().display_on(rl, pager);
+		canParserThread.getCanParser().getIhmcanframe().display_on(rl, pager);
+		canParserThread.getCanParser().getBraincanframe().display_on(rl, pager);
+		keep_control_of_can();
+		handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
+	}
+
+	/**
+	 * send a message on the can which disable other program to send something
+	 * on the can
+	 */
+	private void keep_control_of_can() {
+		indexDebug++;
+		if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
+			cansend("00F", "69.21.21.23.25.12.11.FF");
+			indexDebug = 0;
 		}
 
-		handler.postDelayed(runnable, 1);
 	}
 
 	/**
@@ -448,7 +549,8 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				String dataHexa = "";
-				if (ecranText.getText().toString().isEmpty() && ecranText2.getText().toString().isEmpty()) {
+				if (ecranText.getText().toString().isEmpty()
+						&& ecranText2.getText().toString().isEmpty()) {
 
 					if (!hexa1.getText().toString().isEmpty()) {
 						dataHexa += hexa1.getText().toString();
@@ -532,6 +634,31 @@ public class MainActivity extends FragmentActivity {
 				}
 				cansend("383", dataHexa);
 				dialog.dismiss();
+			}
+		});
+		Button dialogButton1 = (Button) dialog
+				.findViewById(R.id.button_stop_son);
+		dialogButton1.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				cansend("383", "03");
+			}
+		});
+		Button dialogButton2 = (Button) dialog
+				.findViewById(R.id.button_joue_son);
+		dialogButton2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				cansend("383", "01.10.10.32");
+				dialog.dismiss();
+			}
+		});
+		Button dialogButton3 = (Button) dialog
+				.findViewById(R.id.button_joue_son_discontinu);
+		dialogButton3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				cansend("383", "02.10.10.10.02.32");
 			}
 		});
 

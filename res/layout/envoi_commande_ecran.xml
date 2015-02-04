@@ -85,6 +85,7 @@
         android:id="@+id/commandecran2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/commandecran"
         android:layout_toRightOf="@id/textView"
         android:hint="Technologies"
         android:maxLength="39"

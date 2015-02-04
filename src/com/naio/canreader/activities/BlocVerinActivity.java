@@ -17,7 +17,7 @@ import com.naio.canreader.R;
  * @author bodereau
  *
  */
-public class BlocVerin extends Fragment{
+public class BlocVerinActivity extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

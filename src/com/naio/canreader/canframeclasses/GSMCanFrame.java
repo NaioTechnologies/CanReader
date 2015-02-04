@@ -6,6 +6,7 @@ import java.util.List;
 import com.naio.canreader.R;
 
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import android.widget.TextView;
 public class GSMCanFrame extends CanFrame {
 
 	private List<Integer> gsmData = new ArrayList<Integer>();
-	private RelativeLayout rlimu;
+	private RelativeLayout rl_second_layout;
 
 	public GSMCanFrame(int id, int dlc, List<Integer> data) {
 		super(id, dlc, data);
@@ -36,22 +37,34 @@ public class GSMCanFrame extends CanFrame {
 		// 641 is the id where messages are sent. We only need to read the 640
 		if (id == 641)
 			return this;
+		synchronized (lock) {
 
-		gsmData.add(getData().get(0));
-		return this;
+			gsmData.add(getData().get(0));
+			return this;
+		}
 	}
 
-	public void action(RelativeLayout rl, ViewPager vp) {
-		if (vp != null) {
-			this.rlimu = (RelativeLayout) vp.getChildAt(1).findViewById(
-					R.id.rl_gsm_activity);
-		}
-		switch (idMess) {
-		case "0000":
-			display_data_from_gsm(rl);
-			break;
-		default:
-			break;
+	public void display_on(RelativeLayout rl, ViewPager vp) {
+		synchronized (lock) {
+
+			if (vp != null) {
+				this.rl_second_layout = (RelativeLayout) vp.getChildAt(1).findViewById(
+						R.id.rl_gsm_activity);
+				Log.e("debug", "1000  " + vp.getCurrentItem());
+				if (vp.getCurrentItem() != 1) {
+					return;
+				}
+			}
+			if (idMess == null) {
+				return;
+			}
+			switch (idMess) {
+			case "0000":
+				display_data_from_gsm(rl);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -60,12 +73,17 @@ public class GSMCanFrame extends CanFrame {
 		for (int i : gsmData) {
 			text += (char) i;
 		}
+		
+		//avoid the textview to be filled at maximum
+		if(text.contains("AT+")){
+			gsmData.clear();
+		}
+
 		if (rl == null) {
-			((TextView) rlimu.findViewById(R.id.read_sms)).setText(text);
+			((TextView) rl_second_layout.findViewById(R.id.read_sms)).setText(text);
 			return;
 		}
 		((TextView) rl.findViewById(R.id.read_sms)).setText(text);
-
 	}
 
 }

@@ -3,7 +3,7 @@
  * by bodereau
  * 
  */
-package com.naio.canreader.utils;
+package com.naio.canreader.threads;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,35 +21,15 @@ public class CanSendThread extends Thread {
 	Handler handler = new Handler();
 	private List<String> cmd = new ArrayList<String>();
 
-	/**
-	 * @return the cmd
-	 */
-	public List<String> getCmd() {
-		synchronized (lock12) {
-			return cmd;
+	public void run() {
+		for (String cmd : getCmd()) {
+			readOnce(cmd);
 		}
 	}
-
-	/**
-	 * @param cmd
-	 *            the cmd to set
-	 */
-	public void addCmd(String cmd) {
-		synchronized (lock12) {
-			this.cmd.add(cmd);
-		}
-	}
-
-	public void readOnce(String cmd) {
-		synchronized (lock12) {
-			executeCommand(cmd);
-		}
-	}
-
+	
 	private void executeCommand(String command) {
 		Process p;
 		try {
-
 			p = Runtime.getRuntime().exec(command);
 			p.waitFor();
 			p.destroy();
@@ -57,15 +37,6 @@ public class CanSendThread extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-	}
-
-	public void run() {
-
-		for (String cmd : getCmd()) {
-			readOnce(cmd);
-		}
-
 	}
 
 	/**
@@ -96,5 +67,30 @@ public class CanSendThread extends Thread {
 	public void addStringCommand(String id, String data) {
 		String base = "su -c /sbin/cansend can0 " + id + "#";
 		addCmd(base + data);
+	}
+	
+	/**
+	 * @param cmd
+	 *            the cmd to set
+	 */
+	public void addCmd(String cmd) {
+		synchronized (lock12) {
+			this.cmd.add(cmd);
+		}
+	}
+
+	public void readOnce(String cmd) {
+		synchronized (lock12) {
+			executeCommand(cmd);
+		}
+	}
+	
+	/**
+	 * @return the cmd
+	 */
+	public List<String> getCmd() {
+		synchronized (lock12) {
+			return cmd;
+		}
 	}
 }

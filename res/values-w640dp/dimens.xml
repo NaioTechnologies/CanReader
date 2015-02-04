@@ -39,6 +39,7 @@
     <dimen name="nexus7_310px_h">186px</dimen>
     <dimen name="nexus7_320px_w">213px</dimen>
     <dimen name="nexus7_320px_h">192px</dimen>
+    <dimen name="nexus7_350px_h">210px</dimen>
     <dimen name="nexus7_380px_w">253px</dimen>
     <dimen name="nexus7_380px_h">228px</dimen>
     <dimen name="nexus7_400px_w">266px</dimen>
@@ -47,6 +48,7 @@
     <dimen name="nexus7_410px_h">246px</dimen>
     <dimen name="nexus7_420px_w">280px</dimen>
     <dimen name="nexus7_420px_h">252px</dimen>
+    <dimen name="nexus7_450px_h">270px</dimen>
     <dimen name="nexus7_500px_w">333px</dimen>
     <dimen name="nexus7_500px_h">300px</dimen>
     <dimen name="nexus7_520px_w">346px</dimen>
@@ -55,6 +57,7 @@
     <dimen name="nexus7_530px_h">318px</dimen>
     <dimen name="nexus7_550px_w">366px</dimen>
     <dimen name="nexus7_550px_h">530px</dimen>
+    <dimen name="nexus7_600px_h">350px</dimen>
     <dimen name="nexus7_610px_w">406px</dimen>
     <dimen name="nexus7_610px_h">366px</dimen>
     <dimen name="nexus7_650px_w">433px</dimen>
@@ -67,14 +70,17 @@
     <dimen name="nexus7_710px_h">426px</dimen>
     <dimen name="nexus7_760px_w">506px</dimen>
     <dimen name="nexus7_760px_h">456px</dimen>
+    <dimen name="nexus7_820px_w">546px</dimen>
     <dimen name="nexus7_850px_w">566px</dimen>
     <dimen name="nexus7_850px_h">510px</dimen>
+    <dimen name="nexus7_920px_w">613px</dimen>
     <dimen name="nexus7_950px_w">633px</dimen>
     <dimen name="nexus7_950px_h">570px</dimen>
     <dimen name="nexus7_970px_w">646px</dimen>
     <dimen name="nexus7_970px_h">582px</dimen>
     <dimen name="nexus7_1170px_w">780px</dimen>
     <dimen name="nexus7_1170px_h">702px</dimen>
+    <dimen name="nexus7_1270px_w">846px</dimen>
     <dimen name="nexus7_1320px_w">880px</dimen>
     <dimen name="nexus7_1320px_h">792px</dimen>
     <dimen name="nexus7_1370px_w">913px</dimen>
@@ -83,9 +89,15 @@
     <dimen name="nexus7_1420px_h">856px</dimen>
     <dimen name="nexus7_1470px_w">980px</dimen>
     <dimen name="nexus7_1470px_h">882px</dimen>
-    <dimen name="nexus7_15dp">15dp</dimen>
-    <dimen name="nexus7_25dp">25dp</dimen>
-    <dimen name="nexus7_30dp">30dp</dimen>
-    <dimen name="nexus7_40dp">40dp</dimen>
+        <dimen name="nexus7_1200px_w">800px</dimen>
+    <dimen name="nexus7_1400px_w">933px</dimen>
+    <dimen name="nexus7_1450px_w">966px</dimen>
+    <dimen name="nexus7_1500px_w">1000px</dimen>
+    <dimen name="nexus7_1600px_w">1066px</dimen>
+    <dimen name="nexus7_1700px_w">1133px</dimen>
+    <dimen name="nexus7_15dp">8dp</dimen>
+    <dimen name="nexus7_25dp">12dp</dimen>
+    <dimen name="nexus7_30dp">15dp</dimen>
+    <dimen name="nexus7_40dp">18dp</dimen>
 
 </resources>

@@ -7,11 +7,15 @@
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Info"/>
-    
-        <item
+    <item
         android:id="@+id/action_layout"
         android:orderInCategory="100"
         android:showAsAction="never"
         android:title="Change Layout"/>
+<!--     <item
+        android:id="@+id/action_candump"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="Copy binaries"/> -->
 
 </menu>

@@ -19,12 +19,12 @@ import android.widget.RelativeLayout;
  */
 public class CanFrame {
 
-	private String interfaceName;
 	private int id;
 	protected int dlc;
 	protected List<Integer> data;
 	protected String type;
 	protected String idMess;
+	protected final Object lock = new Object();
 
 	public CanFrame() {
 		super();
@@ -40,10 +40,6 @@ public class CanFrame {
 		this.idMess = Integer.toBinaryString(id).substring(
 				Integer.toBinaryString(id).length() - 4,
 				Integer.toBinaryString(id).length());
-	}
-
-	public String getInterfaceName() {
-		return interfaceName;
 	}
 
 	public int getId() {
@@ -63,37 +59,29 @@ public class CanFrame {
 	}
 
 	public CanFrame setParams(int id, int dlc, List<Integer> data) {
-		this.id = id;
-		this.dlc = dlc;
-		this.data = data;
-		this.idMess = Integer.toBinaryString(id).substring(
-				Integer.toBinaryString(id).length() - 4,
-				Integer.toBinaryString(id).length());
+		synchronized (lock) {
+			this.id = id;
+			this.dlc = dlc;
+			this.data = data;
+			this.idMess = Integer.toBinaryString(id).substring(
+					Integer.toBinaryString(id).length() - 4,
+					Integer.toBinaryString(id).length());
+		}
 		return this;
 	}
 
 	public String show() {
 		return "CanFrame type=" + type + " id=" + id + " dlc =" + dlc
-				+ " data=" + data + "\n";
-	}
-
-
-	/**
-	 * @param rl
-	 */
-	public void action(RelativeLayout rl) {
-		// TODO Auto-generated method stub
-		
+				+ " data=" + data + " idMess=" + idMess + "\n";
 	}
 
 	/**
 	 * @param rl
 	 * @param pager
 	 */
-	public void action(RelativeLayout rl, ViewPager pager) {
+	public void display_on(RelativeLayout rl, ViewPager pager) {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

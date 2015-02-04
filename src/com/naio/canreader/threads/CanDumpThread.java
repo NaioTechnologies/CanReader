@@ -3,14 +3,13 @@
  * by bodereau
  * 
  */
-package com.naio.canreader.utils;
+package com.naio.canreader.threads;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
-import android.util.Log;
 
 /**
  * CanDumpThread is the thread which execute the command candump and which place
@@ -22,7 +21,14 @@ import android.util.Log;
 public class CanDumpThread extends Thread {
 
 	private final Object lock1 = new Object();
-	private final Object lock2 = new Object();
+	private final Object entreThread = new Object();
+	/**
+	 * @return the entreThread
+	 */
+	public Object getEntreThread() {
+		return entreThread;
+	}
+
 	private final Object lock3 = new Object();
 
 	Handler handler = new Handler();
@@ -83,12 +89,12 @@ public class CanDumpThread extends Thread {
 			while (true) {
 				line = null;
 				while ((line = reader.readLine()) != null) {
-					getQueue().offer(line);
+					synchronized (entreThread) {
+						getQueue().offer(line);
+						entreThread.notify();
+					}
 				}
 
-				if (line == null) {
-					Thread.sleep(1000);
-				}
 				if (quitTheThread) {
 					reader.close();
 					break;
@@ -103,9 +109,8 @@ public class CanDumpThread extends Thread {
 	 * @return the queue
 	 */
 	public ConcurrentLinkedQueue<String> getQueue() {
-		synchronized (lock2) {
 			return queue;
-		}
+		
 	}
 
 	public String getOnePoll() {
@@ -119,9 +124,10 @@ public class CanDumpThread extends Thread {
 	 * @return
 	 */
 	public String get100Poll() {
-		String data = "(000.0000000) can0 480 [2] 48 56";
+		
+		String data = "(000.0000000) can0 480 [2] remote";
 		String poll = "";
-		for (int i = 0; i < 50; i++) {
+		for (int i = 0; i < 60; i++) {
 			poll = getOnePoll();
 			if (poll == null)
 				return data;
@@ -135,7 +141,6 @@ public class CanDumpThread extends Thread {
 
 		setQuitTheThread(false);
 		queue = new ConcurrentLinkedQueue<String>();
-		Log.e("aaa",cmd);
 		executeCommand(cmd);
 		
 

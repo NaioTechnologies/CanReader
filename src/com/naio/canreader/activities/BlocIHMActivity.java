@@ -17,7 +17,7 @@ import com.naio.canreader.R;
  * @author bodereau
  *
  */
-public class BlocIHM extends Fragment{
+public class BlocIHMActivity extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

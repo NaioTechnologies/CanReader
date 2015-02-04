@@ -33,5 +33,29 @@ public class BytesFunction {
 		result = result >> shift;
 		return result / factor;
 	}
+	
+	public static String fillWithZeroTheBinaryString(String text){
+		switch (text.length()) {
+		case 0:
+			text = '0' + text;
+		case 1:
+			text = '0' + text;
+		case 2:
+			text = '0' + text;
+		case 3:
+			text = '0' + text;
+		case 4:
+			text = '0' + text;
+		case 5:
+			text = '0' + text;
+		case 6:
+			text = '0' + text;
+		case 7:
+			text = '0' + text;
+		default:
+			break;
+		}
+		return text;
+	}
 
 }

@@ -36,34 +36,45 @@ public class GPSCanFrame extends CanFrame {
 
 	public GPSCanFrame setParams(int id, int dlc, List<Integer> data) {
 		super.setParams(id, dlc, data);
-		if (goForAction) {
-			goForAction = false;
-			gpsData = new ArrayList<Integer>();
-		}
-		if (getData().get(0) == 10) {
-			goForAction = true;
+		synchronized (lock) {
+			if (goForAction) {
+				goForAction = false;
+				gpsData = new ArrayList<Integer>();
+			}
+			if (getData().get(0) == 10) {
+				goForAction = true;
+				gpsData.add(getData().get(0));
+				return this;
+			}
 			gpsData.add(getData().get(0));
 			return this;
 		}
-		gpsData.add(getData().get(0));
-		return this;
 	}
 
-	public void action(RelativeLayout rl, ViewPager vp) {
+	public void display_on(RelativeLayout rl, ViewPager vp) {
 		if (!goForAction)
 			return;
-		if (vp != null) {
-			this.rlimu = (RelativeLayout) vp.getChildAt(0).findViewById(
-					R.id.rl_imu_activity);
-		}
-		switch (idMess) {
-		case "0001":
-		case "0010":
-		case "0000":
-			display_data_gps(rl);
-			break;
-		default:
-			break;
+		synchronized (lock) {
+
+			if (vp != null) {
+				this.rlimu = (RelativeLayout) vp.getChildAt(0).findViewById(
+						R.id.rl_imu_activity);
+				if (vp.getCurrentItem() != 0) {
+					return;
+				}
+			}
+			if (idMess == null) {
+				return;
+			}
+			switch (idMess) {
+			case "0001":
+			case "0010":
+			case "0000":
+				display_data_gps(rl);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
@@ -75,7 +86,10 @@ public class GPSCanFrame extends CanFrame {
 		}
 
 		String[] gps = text.split(",");
-		Log.e("gps", gps[0]);
+		if (gps.length <= 2) {
+			return;
+		}
+		Log.e("gps", "" + gpsData);
 		if (gps[0].contains("GPGLL")) {
 			if (rl == null) {
 				if (rlimu == null) {
@@ -150,6 +164,9 @@ public class GPSCanFrame extends CanFrame {
 	 * @return
 	 */
 	private CharSequence convert_data_GPVTG(String[] gps) {
+		if (gps[7].isEmpty()) {
+			return "";
+		}
 		Double vitesse = Double.parseDouble(gps[7]);
 		return "v =" + vitesse + " km/h";
 	}
@@ -177,6 +194,8 @@ public class GPSCanFrame extends CanFrame {
 		long lat_degrees = 0;
 		double latf_degrees = 0;
 		double lonf_degrees = 0;
+		Log.e("gpsaa", gps[0] + "--" + gps[1] + "--" + gps[2] + "--" + gps[3]
+				+ "--" + gps[4] + "--" + gps[5]);
 		if (gps[1].length() > 5) {
 			lat_degrees = Long.parseLong(gps[1].substring(0, 2));
 			long lat_minutes = Long.parseLong(gps[1].substring(2, 4));

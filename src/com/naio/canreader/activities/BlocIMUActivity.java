@@ -1,5 +1,5 @@
 /**
- * Created the 23 janv. 2015 at 15:24:52
+ * Created the 23 janv. 2015 at 15:24:00
  * by bodereau
  * 
  */
@@ -17,11 +17,14 @@ import com.naio.canreader.R;
  * @author bodereau
  *
  */
-public class BlocGPS extends Fragment {
+public class BlocIMUActivity extends Fragment {
+
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.bloc_gsm, container, false);
+		 
+		return inflater.inflate(R.layout.bloc_imu, container, false);
 	}
+	
 }
