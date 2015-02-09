@@ -3,6 +3,8 @@ package com.naio.canreader.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.naio.canreader.canframeclasses.BrainCanFrame;
 import com.naio.canreader.canframeclasses.CanFrame;
 import com.naio.canreader.canframeclasses.GPSCanFrame;
@@ -72,17 +74,20 @@ public class CanParser {
 		int id = Integer.parseInt(split[2], 16);
 		String binaryString = Integer.toBinaryString(id);
 		if (binaryString.length() <= 7) {
-			binaryString = BytesFunction.fillWithZeroTheBinaryString(Integer.toBinaryString(id));
-			return null;
+			binaryString = BytesFunction.fillWithZeroTheBinaryString(Integer
+					.toBinaryString(id));
+			binaryString = "000" + binaryString;
 		}
-		switch (binaryString.substring(0,
-				binaryString.length() - 7)) {
+
+		switch (binaryString.substring(0, binaryString.length() - 7)) {
 		case "0":
 		case "00":
 		case "000":
 		case "0000":
-			return braincanframe.setParams(id,
+			braincanframe.setParams(id,
 					Integer.parseInt(split[3].substring(1, 2)), data);
+			braincanframe.save_datas();
+			return null;
 		case "1":
 		case "01":
 		case "001":
@@ -193,7 +198,7 @@ public class CanParser {
 
 	public CanFrame[] getCanFrames() {
 		return new CanFrame[] { imucanframe, ihmcanframe, verincanframe,
-				gsmcanframe, gpscanframe ,braincanframe};
+				gsmcanframe, gpscanframe, braincanframe };
 	}
 
 	/**

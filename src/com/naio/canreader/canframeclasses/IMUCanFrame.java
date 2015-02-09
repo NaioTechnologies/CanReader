@@ -130,11 +130,9 @@ public class IMUCanFrame extends CanFrame {
 	public void display_on(RelativeLayout rl, ViewPager vp) {
 		synchronized (lock) {
 
-			Log.e("action", "imu");
 			if (vp != null) {
 				this.rl_second_layout = (RelativeLayout) vp.getChildAt(0).findViewById(
 						R.id.rl_imu_activity);
-				Log.e("debug", "" + vp.getCurrentItem());
 				if (vp.getCurrentItem() != 0) {
 					return;
 				}
@@ -243,13 +241,11 @@ public class IMUCanFrame extends CanFrame {
 	 * 
 	 */
 	private void save_data_temperature() {
-		Log.e("tempe", "" + temperature);
 		temperature = BytesFunction.fromTwoComplement(getData().get(0), 8);
 
 	}
 
 	private void display_data_magneto(RelativeLayout rl) {
-		Log.e("debug", "" + getData());
 
 		double val1 = BytesFunction.fromTwoComplement(magnetoXMSB, magnetoXLSB,
 				13, 1);

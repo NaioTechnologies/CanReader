@@ -356,7 +356,6 @@ public class IHMCanFrame extends CanFrame {
 	private void display_data_etat_clavier(RelativeLayout rl) {
 
 		String text = Integer.toBinaryString(etatClavier);
-		Log.e("bin", "before :" + text);
 		switch (text.length()) {
 		case 0:
 			text = '0' + text;
@@ -378,12 +377,8 @@ public class IHMCanFrame extends CanFrame {
 		default:
 			break;
 		}
-		Log.e("bin", "after :" + text);
 		String[] data = text.split("(?<!^)");
 		String write = "";
-		Log.e("bin", "after the split :" + data[0] + "^" + data[1] + "^"
-				+ data[2] + "^" + data[3] + "^" + data[4] + "^" + data[5] + "^"
-				+ data[6] + "^" + data[7]);
 
 		write += "valide:" + data[6];
 		write += " annuler:" + data[7];

@@ -6,6 +6,7 @@ import net.sourceforge.juint.UInt8;
 
 import com.naio.canreader.R;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 public class BrainCanFrame extends CanFrame {
 	private UInt8 temperature;
 	private View rl_second_layout;
+	private boolean is_there_data_temperature;
 
 	public BrainCanFrame(int id, int dlc, List<Integer> data, Double time) {
 		super(id, dlc, data);
@@ -34,25 +36,46 @@ public class BrainCanFrame extends CanFrame {
 		return this;
 	}
 
-	public void action(RelativeLayout rl, ViewPager vp) {
-		if (vp != null) {
-			this.rl_second_layout = (RelativeLayout) vp.getChildAt(3)
-					.findViewById(R.id.rl_verin_activity);
+	public void display_on(RelativeLayout rl, ViewPager vp) {
+		synchronized (lock) {
+			if (vp != null) {
+				this.rl_second_layout = (RelativeLayout) vp.getChildAt(3)
+						.findViewById(R.id.rl_verin_activity);
+			}
+			if (is_there_data_temperature)
+				display_data_temperature(rl);
+
 		}
-		switch (idMess) {
-		case "1110":
-			display_data_temperature(rl);
-			break;
-		default:
-			break;
+	}
+
+	public void save_datas() {
+		synchronized (lock) {
+
+			if (idMess == null) {
+				return;
+			}
+			switch (idMess) {
+			case "1110":
+				save_data_temperature();
+				is_there_data_temperature = true;
+				break;
+			}
 		}
+	}
+
+	/**
+	 * 
+	 */
+	private void save_data_temperature() {
+		temperature = new UInt8(getData().get(0));
+
 	}
 
 	/**
 	 * @param rl
 	 */
 	private void display_data_temperature(RelativeLayout rl) {
-		temperature = new UInt8(getData().get(3));
+
 		if (rl == null) {
 			if (rl_second_layout == null) {
 				return;
@@ -63,6 +86,7 @@ public class BrainCanFrame extends CanFrame {
 		}
 		((TextView) rl.findViewById(R.id.temperature_cpu)).setText(""
 				+ temperature.toString());
+
 	}
 
 }
