@@ -89,7 +89,7 @@
     <dimen name="nexus7_1420px_h">856px</dimen>
     <dimen name="nexus7_1470px_w">980px</dimen>
     <dimen name="nexus7_1470px_h">882px</dimen>
-        <dimen name="nexus7_1200px_w">800px</dimen>
+    <dimen name="nexus7_1200px_w">800px</dimen>
     <dimen name="nexus7_1400px_w">933px</dimen>
     <dimen name="nexus7_1450px_w">966px</dimen>
     <dimen name="nexus7_1500px_w">1000px</dimen>

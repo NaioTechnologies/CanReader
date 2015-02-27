@@ -93,6 +93,7 @@ public class CanDumpThread extends Thread {
 						getQueue().offer(line);
 						entreThread.notify();
 					}
+					Thread.sleep(0,10);
 				}
 
 				if (quitTheThread) {

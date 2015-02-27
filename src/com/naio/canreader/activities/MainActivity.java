@@ -265,8 +265,10 @@ public class MainActivity extends FragmentActivity {
 		}
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		reading = false;
-		canDumpThread = new CanDumpThread();
-		canParserThread = new CanParserThread(canDumpThread);
+		canDumpThread.quit();
+		canParserThread.setStop(false);
+		/*canDumpThread = new CanDumpThread();
+		canParserThread = new CanParserThread(canDumpThread);*/
 		handler.removeCallbacks(runnable);
 	}
 
