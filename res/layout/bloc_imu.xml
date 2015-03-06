@@ -370,7 +370,7 @@
         android:layout_height="@dimen/nexus7_200px_h"
         android:layout_marginLeft="0px"
         android:layout_marginTop="@dimen/nexus7_660px_h"
-        android:text="GPGLL"
+        android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView

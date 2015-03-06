@@ -18,8 +18,10 @@ import com.naio.canreader.utils.MyPagerAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Handler;
@@ -101,7 +103,8 @@ public class MainActivity extends FragmentActivity {
 		rl = (RelativeLayout) findViewById(R.id.rl_main_activity);
 		if (!binary_added) {
 			File file = new File("/sbin/candump");
-			if (file.exists())
+			SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+			if(sharedPref.getBoolean("binary", false))
 				binary_added = true;
 			else {
 				executeCommand("su -c mount -o rw,remount /");
@@ -118,11 +121,14 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
+				SharedPreferences.Editor editor = sharedPref.edit();
+				editor.putBoolean("binary", true);
+				editor.commit();
 				binary_added = true;
 				new AlertDialog.Builder(this)
 						.setTitle("Information")
 						.setMessage(
-								"Vous pouvez brancher dès à présent l'interface can usb")
+								"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.")
 						.setPositiveButton(android.R.string.yes,
 								new DialogInterface.OnClickListener() {
 									public void onClick(DialogInterface dialog,
@@ -198,14 +204,14 @@ public class MainActivity extends FragmentActivity {
 			dialog.show();
 			return true;
 		}
-		if (id == R.id.action_layout) {
+		/*if (id == R.id.action_layout) {
 			if (layoutPage) {
 				change_activity_layout(false);
 				return true;
 			}
 			change_activity_layout(true);
 			return true;
-		}
+		}*/
 
 		// if (id == R.id.action_candump) {
 		// executeCommand("su -c mount -o rw,remount /");
@@ -267,8 +273,8 @@ public class MainActivity extends FragmentActivity {
 		reading = false;
 		canDumpThread.quit();
 		canParserThread.setStop(false);
-		/*canDumpThread = new CanDumpThread();
-		canParserThread = new CanParserThread(canDumpThread);*/
+		canDumpThread = new CanDumpThread();
+		canParserThread = new CanParserThread(canDumpThread);
 		handler.removeCallbacks(runnable);
 	}
 

@@ -213,8 +213,27 @@
         android:gravity="center"
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
-    
-        <TextView
+
+    <TextView
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_850px_h"
+        android:gravity="center"
+        android:text="Batterie :"
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <TextView
+        android:id="@+id/batterie_restant"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_w"
+        android:layout_marginTop="@dimen/nexus7_850px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <TextView
         android:layout_width="@dimen/nexus7_1370px_w"
         android:layout_height="@dimen/nexus7_10px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
