@@ -43,7 +43,7 @@
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_commande_moteur_clicked"
-        android:text="Commande moteur"
+        android:text="Commande vérin"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView

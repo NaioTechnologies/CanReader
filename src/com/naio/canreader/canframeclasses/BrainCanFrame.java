@@ -82,11 +82,11 @@ public class BrainCanFrame extends CanFrame {
 				return;
 			}
 			((TextView) rl_second_layout.findViewById(R.id.temperature_cpu))
-					.setText("" + temperature.toString());
+					.setText("" + temperature.toString() + " °C");
 			return;
 		}
 		((TextView) rl.findViewById(R.id.temperature_cpu)).setText(""
-				+ temperature.toString());
+				+ temperature.toString() + " °C");
 
 	}
 }

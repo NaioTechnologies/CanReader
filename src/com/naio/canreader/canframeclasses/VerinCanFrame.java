@@ -169,8 +169,8 @@ public class VerinCanFrame extends CanFrame {
 	}
 
 	private void display_data_tension_principale(RelativeLayout rl) {
-		double val1 = BytesFunction.fromTwoComplement(t24vMSB, t24vLSB, 16, 1);
-		double val2 = BytesFunction.fromTwoComplement(pileMSB, pileLSB, 16, 1);
+		double val1 = BytesFunction.fromTwoComplement(t24vMSB, t24vLSB, 16, 1000);
+		double val2 = BytesFunction.fromTwoComplement(pileMSB, pileLSB, 16, 1000);
 
 		if (rl == null) {
 			if (rl_second_layout == null) {
@@ -178,14 +178,14 @@ public class VerinCanFrame extends CanFrame {
 			}
 
 			((TextView) rl_second_layout.findViewById(R.id.tension_24v))
-					.setText("" + val1);
+					.setText("" + val1+" V");
 			((TextView) rl_second_layout.findViewById(R.id.tension_pile))
-					.setText("" + val2);
+					.setText("" + val2+" V");
 			return;
 		}
 
-		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1);
-		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2);
+		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1+" V");
+		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2 + " V");
 
 	}
 
@@ -197,9 +197,9 @@ public class VerinCanFrame extends CanFrame {
 	}
 
 	private void display_data_tension_12v(RelativeLayout rl) {
-		double val1 = BytesFunction.fromTwoComplement(t12vMSB, t12vLSB, 16, 1);
-		double val2 = BytesFunction.fromTwoComplement(t33vMSB, t33vLSB, 16, 1);
-		double val3 = BytesFunction.fromTwoComplement(t5vMSB, t5vLSB, 16, 1);
+		double val1 = BytesFunction.fromTwoComplement(t12vMSB, t12vLSB, 16, 1000);
+		double val2 = BytesFunction.fromTwoComplement(t33vMSB, t33vLSB, 16, 1000);
+		double val3 = BytesFunction.fromTwoComplement(t5vMSB, t5vLSB, 16, 1000);
 		String txtFlag = "";
 		switch (flagSortie) {
 		case 0:
@@ -225,19 +225,19 @@ public class VerinCanFrame extends CanFrame {
 			}
 
 			((TextView) rl_second_layout.findViewById(R.id.tension_12v))
-					.setText("" + val1);
+					.setText("" + val1+" V");
 			((TextView) rl_second_layout.findViewById(R.id.tension_33v))
-					.setText("" + val2);
+					.setText("" + val2+" V");
 			((TextView) rl_second_layout.findViewById(R.id.tension_5v))
-					.setText("" + val3);
+					.setText("" + val3+" V");
 			((TextView) rl_second_layout.findViewById(R.id.flag_sortie))
 					.setText(txtFlag);
 			return;
 		}
 
-		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1);
-		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2);
-		((TextView) rl.findViewById(R.id.tension_5v)).setText("" + val3);
+		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1+" V");
+		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2+" V");
+		((TextView) rl.findViewById(R.id.tension_5v)).setText("" + val3+" V");
 		((TextView) rl.findViewById(R.id.flag_sortie)).setText(txtFlag);
 
 	}

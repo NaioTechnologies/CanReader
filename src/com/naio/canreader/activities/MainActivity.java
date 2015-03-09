@@ -40,10 +40,9 @@ import android.widget.Spinner;
 
 /**
  * 
- * MainActivity call a function every 1 ms when the Read button is pressed, this
+ * MainActivity call a function every 10 ms when the Read button is pressed, this
  * function read the FIFO filled by CanDumpThread and display it on the screen.
- * Also the button connect allow to mount the can interface. And other buttons
- * will be added ...
+ * Also the button connect allow to mount the can interface. 
  * 
  * @author bodereau
  */
@@ -78,7 +77,6 @@ public class MainActivity extends FragmentActivity {
 	private MyPagerAdapter mPagerAdapter;
 	private ViewPager pager;
 	private CanParserThread canParserThread;
-	private int indexEnvoi;
 	private static boolean layoutPage;
 
 	@Override
@@ -102,9 +100,11 @@ public class MainActivity extends FragmentActivity {
 		canParser = new CanParser();
 		rl = (RelativeLayout) findViewById(R.id.rl_main_activity);
 		if (!binary_added) {
+			executeCommand("su -c mount -o rw,remount /");
 			File file = new File("/sbin/candump");
-			SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-			if(sharedPref.getBoolean("binary", false))
+			executeCommand("su -c mount -o ro,remount /");
+			//SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+			if(file.exists())
 				binary_added = true;
 			else {
 				executeCommand("su -c mount -o rw,remount /");
@@ -121,9 +121,9 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
-				SharedPreferences.Editor editor = sharedPref.edit();
+				/*SharedPreferences.Editor editor = sharedPref.edit();
 				editor.putBoolean("binary", true);
-				editor.commit();
+				editor.commit();*/
 				binary_added = true;
 				new AlertDialog.Builder(this)
 						.setTitle("Information")
@@ -233,6 +233,8 @@ public class MainActivity extends FragmentActivity {
 		// }
 		return super.onOptionsItemSelected(item);
 	}
+	
+
 
 	/**
 	 * @param b
@@ -259,6 +261,12 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			canDumpThread = new CanDumpThread();
 			canParserThread = new CanParserThread(canDumpThread);
 			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
@@ -268,15 +276,7 @@ public class MainActivity extends FragmentActivity {
 			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
 					.setText("STOP");
-			Log.e("buton", "buton read");
-			indexEnvoi = 0;
 			reading = true;
-			try {
-				Thread.sleep(400);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return;
 		}
 		reading = false;
@@ -292,6 +292,20 @@ public class MainActivity extends FragmentActivity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+		reading = false;
+		canDumpThread.quit();
+		canParserThread.setStop(false);
+		canDumpThread.interrupt();
+		canParserThread.interrupt();
+		canSendThread.interrupt();
+		handler.removeCallbacks(runnable);
+		
 	}
 
 	/**

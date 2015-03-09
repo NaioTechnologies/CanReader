@@ -216,7 +216,7 @@
     
      <TextView
         android:id="@+id/magneto_time"
-        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
         android:layout_marginLeft="@dimen/nexus7_920px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"
@@ -226,7 +226,7 @@
      
      <TextView
         android:id="@+id/gyro_time"
-        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
         android:layout_marginLeft="@dimen/nexus7_520px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"
@@ -236,7 +236,7 @@
      
      <TextView
         android:id="@+id/accel_time"
-        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
         android:layout_marginLeft="@dimen/nexus7_120px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"

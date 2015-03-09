@@ -275,7 +275,7 @@ public class IMUCanFrame extends CanFrame {
 
 			if (IMUCanFrame.indexF == 99) {
 				((TextView) rl_second_layout.findViewById(R.id.magneto_time)).setText(""
-						+ IMUCanFrame.freqMagneto);
+						+ df.format(IMUCanFrame.freqMagneto*1000) + " ms");
 				IMUCanFrame.indexF = 0;
 				IMUCanFrame.freqMagneto = 0.0;
 			}
@@ -361,7 +361,7 @@ public class IMUCanFrame extends CanFrame {
 			}
 			if (IMUCanFrame.indexA == 99) {
 				((TextView) rl_second_layout.findViewById(R.id.gyro_time)).setText(""
-						+ IMUCanFrame.freqGyro);
+						+ df.format(IMUCanFrame.freqGyro*1000) + " ms");
 				IMUCanFrame.indexA = 0;
 				IMUCanFrame.freqGyro = 0.0;
 			}
@@ -427,7 +427,7 @@ public class IMUCanFrame extends CanFrame {
 			}
 			if (IMUCanFrame.indexC == 99) {
 				((TextView) rl_second_layout.findViewById(R.id.accel_time)).setText(""
-						+ IMUCanFrame.freqAccel);
+						+ df.format(IMUCanFrame.freqAccel*1000) + " ms");
 				IMUCanFrame.indexC = 0;
 				IMUCanFrame.freqAccel = 0.0;
 			}
