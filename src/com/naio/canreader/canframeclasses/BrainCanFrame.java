@@ -6,7 +6,6 @@ import net.sourceforge.juint.UInt8;
 
 import com.naio.canreader.R;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,14 +38,15 @@ public class BrainCanFrame extends CanFrame {
 	public void display_on(RelativeLayout rl, ViewPager vp) {
 		synchronized (lock) {
 			if (vp != null) {
-				this.rl_second_layout = (RelativeLayout) vp.getChildAt(3)
-						.findViewById(R.id.rl_verin_activity);
+				this.rl_second_layout = (RelativeLayout) vp.getChildAt(4)
+						.findViewById(R.id.rl_tension_activity);
 			}
 			if (is_there_data_temperature)
 				display_data_temperature(rl);
 
 		}
 	}
+
 
 	public void save_datas() {
 		synchronized (lock) {
@@ -63,12 +63,13 @@ public class BrainCanFrame extends CanFrame {
 		}
 	}
 
+
+
 	/**
 	 * 
 	 */
 	private void save_data_temperature() {
 		temperature = new UInt8(getData().get(0));
-
 	}
 
 	/**
@@ -88,5 +89,4 @@ public class BrainCanFrame extends CanFrame {
 				+ temperature.toString());
 
 	}
-
 }

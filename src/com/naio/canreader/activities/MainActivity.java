@@ -160,13 +160,15 @@ public class MainActivity extends FragmentActivity {
 				BlocIHMActivity.class.getName()));
 		fragments.add(Fragment.instantiate(this,
 				BlocVerinActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocTensionActivity.class.getName()));
 		// Création de l'adapter qui s'occupera de l'affichage de la
 		// liste de Fragments
 		this.mPagerAdapter = new MyPagerAdapter(
 				super.getSupportFragmentManager(), fragments);
 
 		pager = (ViewPager) super.findViewById(R.id.viewpager);
-		pager.setOffscreenPageLimit(3);
+		pager.setOffscreenPageLimit(4);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
 		layoutPage = false;
@@ -257,6 +259,8 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
+			canDumpThread = new CanDumpThread();
+			canParserThread = new CanParserThread(canDumpThread);
 			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
 			canDumpThread.start();
 			canParserThread.start();
@@ -267,15 +271,27 @@ public class MainActivity extends FragmentActivity {
 			Log.e("buton", "buton read");
 			indexEnvoi = 0;
 			reading = true;
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return;
 		}
-		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		reading = false;
 		canDumpThread.quit();
 		canParserThread.setStop(false);
-		canDumpThread = new CanDumpThread();
-		canParserThread = new CanParserThread(canDumpThread);
+		canDumpThread.interrupt();
+		canParserThread.interrupt();
 		handler.removeCallbacks(runnable);
+		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
+		try {
+			Thread.sleep(200);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -389,6 +405,38 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_config_gsm_clicked(View v) {
 		cansend_gsm("AT+CSCS=\"GSM\"\r");
+		//cansend_gsm("AT+CSCS=?\r");
+		//cansend_gsm("AT+CMEE=1\r");
+	}
+	
+	/**
+	 * Open a dialog which allows the user to enter is own command
+	 * 
+	 * @param v
+	 * 
+	 * 
+	 */
+	public void button_custom_gsm_clicked(View v){ 
+		final Dialog dialog = new Dialog(this);
+
+		dialog.setContentView(R.layout.custom_at_command_dialog);
+		dialog.setTitle("Custom AT command");
+
+		final EditText editCommand = (EditText) dialog
+				.findViewById(R.id.edittext_numero);
+
+		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+		dialogButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				String txt = editCommand.getText().toString();
+				cansend_gsm("AT+"+txt+"\r");
+				dialog.dismiss();
+
+			}
+		});
+
+		dialog.show();
 	}
 
 	/**
@@ -410,7 +458,7 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 */
 	public void button_statut_gsm_clicked(View v) {
-		cansend_gsm("AT+CPIN=?\r");
+		cansend_gsm("AT+CPIN?\r");
 	}
 
 	/**
@@ -880,6 +928,15 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 		dialog.show();
+	}
+	
+	
+	public void button_tension_clicked(View v){
+		cansend("406", "R");
+	}
+	
+	public void button_batterie_clicked(View v){
+		cansend("407", "R");
 	}
 
 	/**

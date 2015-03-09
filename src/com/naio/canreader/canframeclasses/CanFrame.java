@@ -2,7 +2,6 @@ package com.naio.canreader.canframeclasses;
 
 import java.util.List;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.RelativeLayout;
 

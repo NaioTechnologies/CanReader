@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_tension_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true" >
+
+    <TextView
+        android:layout_width="1920px"
+        android:layout_height="@dimen/nexus7_100px_h"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:text="TENSION et TEMPE"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/nexus7_40dp" />
+
+
+    <TextView
+        android:layout_width="@dimen/nexus7_410px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_120px_h"
+        android:gravity="center"
+        android:text="Température CPU:"
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <TextView
+        android:id="@+id/temperature_cpu"
+        android:layout_width="@dimen/nexus7_500px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_420px_w"
+        android:layout_marginTop="@dimen/nexus7_120px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <Button
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_300px_h"
+        android:onClick="button_batterie_clicked"
+        android:gravity="center"
+        android:text="Tension :"
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <TextView
+        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_420px_w"
+        android:layout_marginTop="@dimen/nexus7_300px_h"
+        android:gravity="center"
+        android:text="24V:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:id="@+id/tension_24v"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_610px_w"
+        android:layout_marginTop="@dimen/nexus7_300px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:layout_width="@dimen/nexus7_150px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_300px_h"
+        android:gravity="center"
+        android:text="Pile:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+     <TextView
+        android:id="@+id/tension_pile"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1170px_w"
+        android:layout_marginTop="@dimen/nexus7_300px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+     
+     <Button
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_500px_h"
+        android:onClick="button_tension_clicked"
+        android:gravity="center"
+        android:text="Tension :"
+        android:textSize="@dimen/nexus7_25dp" />
+     
+     <TextView
+        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_420px_w"
+        android:layout_marginTop="@dimen/nexus7_500px_h"
+        android:gravity="center"
+        android:text="12V:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:id="@+id/tension_12v"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_610px_w"
+        android:layout_marginTop="@dimen/nexus7_500px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:layout_width="@dimen/nexus7_150px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_500px_h"
+        android:gravity="center"
+        android:text="3,3V:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+     <TextView
+        android:id="@+id/tension_33v"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1170px_w"
+        android:layout_marginTop="@dimen/nexus7_500px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+     
+      <TextView
+        android:layout_width="@dimen/nexus7_100px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_420px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:gravity="center"
+        android:text="5V:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:id="@+id/tension_5v"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_610px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+    
+    <TextView
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_970px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:gravity="center"
+        android:text="Flag sortie 12V:"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+     <TextView
+        android:id="@+id/flag_sortie"
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:gravity="center"
+        android:text="..."
+        android:textSize="@dimen/nexus7_25dp" />
+
+<!--     <TextView
+        android:layout_width="@dimen/nexus7_1370px_w"
+        android:layout_height="@dimen/nexus7_10px_h"
+        android:layout_marginLeft="@dimen/nexus7_850px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:background="@android:color/background_dark" />
+
+    <TextView
+        android:layout_width="@dimen/nexus7_10px_w"
+        android:layout_height="@dimen/nexus7_250px_h"
+        android:layout_marginLeft="@dimen/nexus7_850px_w"
+        android:layout_marginTop="@dimen/nexus7_700px_h"
+        android:background="@android:color/background_dark" /> -->
+
+</RelativeLayout>

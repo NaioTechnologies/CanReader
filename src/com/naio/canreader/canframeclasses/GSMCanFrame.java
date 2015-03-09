@@ -6,7 +6,6 @@ import java.util.List;
 import com.naio.canreader.R;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -50,7 +49,7 @@ public class GSMCanFrame extends CanFrame {
 			if (vp != null) {
 				this.rl_second_layout = (RelativeLayout) vp.getChildAt(1).findViewById(
 						R.id.rl_gsm_activity);
-				Log.e("debug", "1000  " + vp.getCurrentItem());
+				
 				if (vp.getCurrentItem() != 1) {
 					return;
 				}

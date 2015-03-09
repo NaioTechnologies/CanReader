@@ -18,6 +18,7 @@ public class CanParserThread extends Thread {
 	private CanDumpThread canDumpThread;
 	private CanParser canParser;
 	private final Object lock1 = new Object();
+	
 
 	public CanParserThread(CanDumpThread candumpthread) {
 		super();
@@ -45,6 +46,7 @@ public class CanParserThread extends Thread {
 				try {
 					canDumpThread.getEntreThread().wait();
 					getCanParser().parseFrames(canDumpThread.get100Poll());
+					Thread.sleep(0,100);
 
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block

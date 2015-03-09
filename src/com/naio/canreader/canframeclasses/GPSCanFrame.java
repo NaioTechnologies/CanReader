@@ -6,7 +6,6 @@ import java.util.List;
 import com.naio.canreader.R;
 
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -89,7 +88,6 @@ public class GPSCanFrame extends CanFrame {
 		if (gps.length <= 2) {
 			return;
 		}
-		Log.e("gps", "" + gpsData);
 		if (gps[0].contains("GPGLL")) {
 			if (rl == null) {
 				if (rlimu == null) {
@@ -194,8 +192,6 @@ public class GPSCanFrame extends CanFrame {
 		long lat_degrees = 0;
 		double latf_degrees = 0;
 		double lonf_degrees = 0;
-		Log.e("gpsaa", gps[0] + "--" + gps[1] + "--" + gps[2] + "--" + gps[3]
-				+ "--" + gps[4] + "--" + gps[5]);
 		if (gps[1].length() > 5) {
 			lat_degrees = Long.parseLong(gps[1].substring(0, 2));
 			long lat_minutes = Long.parseLong(gps[1].substring(2, 4));

@@ -96,15 +96,13 @@
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
-    <Button
-        android:id="@+id/button_lecture_odo"
+    <TextView
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_10px_w"
-        android:layout_marginTop="@dimen/nexus7_400px_h"
+        android:layout_marginTop="@dimen/nexus7_410px_h"
         android:gravity="center"
-        android:onClick="button_lecture_odo_clicked"
-        android:text="Lecture ODO "
+        android:text="Lecture ODO :"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -117,17 +115,28 @@
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
-    <TextView
-        android:id="@+id/lecture_odoc"
+     <Button
+        android:id="@+id/button_lecture_odo"
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
-        android:text="Compteur"
+        android:onClick="button_lecture_odo_clicked"
+        android:text="Reset compteur"
+        android:textSize="@dimen/nexus7_25dp" />
+     
+    <TextView
+        android:id="@+id/lecture_odoc"
+        android:layout_width="@dimen/nexus7_400px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_h"
+        android:layout_marginTop="@dimen/nexus7_400px_h"
+        android:gravity="center"
+        android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
-    <TextView
+  <!--   <TextView
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_10px_w"
@@ -163,7 +172,7 @@
         android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="@dimen/nexus7_25dp" />
+        android:textSize="@dimen/nexus7_25dp" /> -->
 
     <Button
         android:layout_width="@dimen/nexus7_300px_w"
@@ -195,7 +204,7 @@
         android:text="Min"
         android:textSize="@dimen/nexus7_25dp" />
 
-    <TextView
+<!--     <TextView
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
@@ -214,11 +223,12 @@
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
-    <TextView
+    <Button
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_850px_h"
+        android:onClick="button_batterie_clicked"
         android:gravity="center"
         android:text="Batterie :"
         android:textSize="@dimen/nexus7_25dp" />
@@ -245,6 +255,6 @@
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
-        android:background="@android:color/background_dark" />
+        android:background="@android:color/background_dark" /> -->
 
 </RelativeLayout>

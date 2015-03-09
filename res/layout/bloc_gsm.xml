@@ -36,6 +36,16 @@
         android:textSize="@dimen/nexus7_40dp" />
 
     <Button
+        android:id="@+id/button_custom"
+        android:layout_width="@dimen/nexus7_420px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1470px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h"
+        android:onClick="button_custom_gsm_clicked"
+        android:text="CUSTOM"
+        android:textSize="@dimen/nexus7_40dp" />
+
+    <Button
         android:id="@+id/button_gsm_send"
         android:layout_width="@dimen/nexus7_360px_w"
         android:layout_height="@dimen/nexus7_150px_h"

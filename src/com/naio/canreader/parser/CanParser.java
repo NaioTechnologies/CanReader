@@ -3,8 +3,6 @@ package com.naio.canreader.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
 import com.naio.canreader.canframeclasses.BrainCanFrame;
 import com.naio.canreader.canframeclasses.CanFrame;
 import com.naio.canreader.canframeclasses.GPSCanFrame;

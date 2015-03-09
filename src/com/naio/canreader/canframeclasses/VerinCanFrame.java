@@ -29,11 +29,15 @@ public class VerinCanFrame extends CanFrame {
 	private Integer lectureODO;
 	private Integer sortieCapteur, activationUSB;
 	private Integer versionMaj, versionMin;
+	private Integer t12vLSB, t12vMSB, t33vLSB, t33vMSB, t5vLSB, t5vMSB,
+			flagSortie;
+	private Integer t24vLSB, t24vMSB, pileLSB, pileMSB;
 	private RelativeLayout rl_second_layout;
 	static private Integer cptAvg, cptArg, cptAvd, cptArd;
 	private boolean is_there_data_requete, is_there_data_retour,
 			is_there_data_commande, is_there_data_capteur,
-			is_there_data_sortie, is_there_data_version;
+			is_there_data_sortie, is_there_data_version,
+			is_there_data_tension_principale, is_there_data_tension_12v;
 	private static boolean state_ard;
 	private static boolean state_avd;
 	private static boolean state_arg;
@@ -58,6 +62,8 @@ public class VerinCanFrame extends CanFrame {
 		is_there_data_capteur = false;
 		is_there_data_sortie = false;
 		is_there_data_version = false;
+		is_there_data_tension_12v = false;
+		is_there_data_tension_principale = false;
 
 	}
 
@@ -97,6 +103,14 @@ public class VerinCanFrame extends CanFrame {
 				save_data_version();
 				is_there_data_version = true;
 				break;
+			case "0110":
+				save_data_tension_12v();
+				is_there_data_tension_12v = true;
+				break;
+			case "0111":
+				save_data_tension_principale();
+				is_there_data_tension_principale = true;
+				break;
 			default:
 				break;
 			}
@@ -106,28 +120,126 @@ public class VerinCanFrame extends CanFrame {
 	public void display_on(RelativeLayout rl, ViewPager vp) {
 		synchronized (lock) {
 			if (vp != null) {
-				this.rl_second_layout = (RelativeLayout) vp.getChildAt(3)
-						.findViewById(R.id.rl_verin_activity);
-				if (vp.getCurrentItem() != 3) {
-					return;
+				if (vp.getCurrentItem() == 3) {
+					this.rl_second_layout = (RelativeLayout) vp.getChildAt(3)
+							.findViewById(R.id.rl_verin_activity);
+				} else {
+					this.rl_second_layout = (RelativeLayout) vp.getChildAt(4)
+							.findViewById(R.id.rl_tension_activity);
 				}
+				/*
+				 * if (vp.getCurrentItem() != 3) { return; }
+				 */
 			}
 			if (idMess == null) {
 				return;
 			}
-			if (is_there_data_requete)
-				display_data_requete(rl);
-			if (is_there_data_retour)
-				display_data_retour(rl);
-			if (is_there_data_commande)
-				display_data_commande(rl);
-			if (is_there_data_capteur)
-				display_data_capteur(rl);
-			if (is_there_data_sortie)
-				display_data_sortie(rl);
-			if (is_there_data_version)
-				display_data_version(rl);
+			if (vp.getCurrentItem() == 3) {
+				if (is_there_data_requete)
+					display_data_requete(rl);
+				if (is_there_data_retour)
+					display_data_retour(rl);
+				if (is_there_data_commande)
+					display_data_commande(rl);
+				if (is_there_data_capteur)
+					display_data_capteur(rl);
+				if (is_there_data_sortie)
+					display_data_sortie(rl);
+				if (is_there_data_version)
+					display_data_version(rl);
+			}
+			if (vp.getCurrentItem() == 4) {
+				if (is_there_data_tension_12v)
+					display_data_tension_12v(rl);
+				if (is_there_data_tension_principale)
+					display_data_tension_principale(rl);
+			}
+
 		}
+	}
+
+	private void save_data_tension_12v() {
+		t12vLSB = getData().get(0);
+		t12vMSB = getData().get(1);
+		t33vLSB = getData().get(2);
+		t33vMSB = getData().get(3);
+		t5vLSB = getData().get(4);
+		t5vMSB = getData().get(5);
+		flagSortie = getData().get(6);
+	}
+
+	private void display_data_tension_principale(RelativeLayout rl) {
+		double val1 = BytesFunction.fromTwoComplement(t24vMSB, t24vLSB, 16, 1);
+		double val2 = BytesFunction.fromTwoComplement(pileMSB, pileLSB, 16, 1);
+
+		if (rl == null) {
+			if (rl_second_layout == null) {
+				return;
+			}
+
+			((TextView) rl_second_layout.findViewById(R.id.tension_24v))
+					.setText("" + val1);
+			((TextView) rl_second_layout.findViewById(R.id.tension_pile))
+					.setText("" + val2);
+			return;
+		}
+
+		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1);
+		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2);
+
+	}
+
+	private void save_data_tension_principale() {
+		t24vLSB = getData().get(0);
+		t24vMSB = getData().get(1);
+		pileLSB = getData().get(2);
+		pileMSB = getData().get(3);
+	}
+
+	private void display_data_tension_12v(RelativeLayout rl) {
+		double val1 = BytesFunction.fromTwoComplement(t12vMSB, t12vLSB, 16, 1);
+		double val2 = BytesFunction.fromTwoComplement(t33vMSB, t33vLSB, 16, 1);
+		double val3 = BytesFunction.fromTwoComplement(t5vMSB, t5vLSB, 16, 1);
+		String txtFlag = "";
+		switch (flagSortie) {
+		case 0:
+			txtFlag = "Lidar : X \n CAN : X";
+			break;
+		case 3:
+			txtFlag = "Lidar : OK \n CAN : OK";
+			break;
+		case 1:
+			txtFlag = "Lidar : OK \n CAN : X";
+			break;
+		case 2:
+			txtFlag = "Lidar : X \n CAN : OK";
+			break;
+
+		default:
+			break;
+		}
+
+		if (rl == null) {
+			if (rl_second_layout == null) {
+				return;
+			}
+
+			((TextView) rl_second_layout.findViewById(R.id.tension_12v))
+					.setText("" + val1);
+			((TextView) rl_second_layout.findViewById(R.id.tension_33v))
+					.setText("" + val2);
+			((TextView) rl_second_layout.findViewById(R.id.tension_5v))
+					.setText("" + val3);
+			((TextView) rl_second_layout.findViewById(R.id.flag_sortie))
+					.setText(txtFlag);
+			return;
+		}
+
+		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1);
+		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2);
+		((TextView) rl.findViewById(R.id.tension_5v)).setText("" + val3);
+		((TextView) rl.findViewById(R.id.flag_sortie)).setText(txtFlag);
+
 	}
 
 	/**
@@ -383,7 +495,7 @@ public class VerinCanFrame extends CanFrame {
 		VerinCanFrame.cptArg = 0;
 		VerinCanFrame.cptAvd = 0;
 		VerinCanFrame.state_ard = true;
-		VerinCanFrame.state_avg=true;
+		VerinCanFrame.state_avg = true;
 		VerinCanFrame.state_arg = true;
 		VerinCanFrame.state_avd = true;
 

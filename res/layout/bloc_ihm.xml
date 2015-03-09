@@ -166,7 +166,7 @@
         android:text="Min"
         android:textSize="@dimen/nexus7_25dp" />
 
-    <TextView
+  <!--   <TextView
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_100px_h"
         android:layout_marginLeft="@dimen/nexus7_20px_w"
@@ -202,7 +202,7 @@
         android:layout_marginTop="@dimen/nexus7_660px_h"
         android:gravity="center"
         android:text="..."
-        android:textSize="@dimen/nexus7_25dp" />
+        android:textSize="@dimen/nexus7_25dp" /> -->
 
     <Button
         android:layout_width="@dimen/nexus7_300px_w"
