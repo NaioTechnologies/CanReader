@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 /**
  * GPSCanFrame display the data of the GPS: the latitude, longitude, UTC time,
- * and the precision of the gps with the PDOP, HDOP and VDOP
+ * and the precision of the gps with the PDOP, HDOP and VDOP and the number of
+ * satellites
  * 
  * @author bodereau
  * 

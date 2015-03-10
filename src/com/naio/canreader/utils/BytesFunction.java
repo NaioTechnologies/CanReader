@@ -7,7 +7,7 @@ package com.naio.canreader.utils;
 
 /**
  * BytesFunction provides functions that convert Integer into twoComplement
- * number
+ * numbers and a function for add '0' to a binary String
  * 
  * @author bodereau
  * 

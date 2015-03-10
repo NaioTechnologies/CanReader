@@ -6,6 +6,8 @@
 package com.naio.canreader.utils;
 
 /**
+ * MyPagerAdapter display the fragments ( BlocGPSActivity, BlocIHMActivity, etc)
+ * 
  * @author bodereau
  *
  */
@@ -17,6 +19,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 public class MyPagerAdapter extends FragmentPagerAdapter {
 
+	//List which contains all the activities ( instantiate in MainActivity )
 	private final List fragments;
 
 	//On fournit à l'adapter la liste des fragments à afficher

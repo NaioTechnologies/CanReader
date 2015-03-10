@@ -24,7 +24,7 @@ import com.naio.canreader.utils.BytesFunction;
  * 
  *         In the parseOneFrame function, we return new instance of CanFrame but
  *         also we setParams of other, this is because some data need to be
- *         bufferized, so we keep instance of.
+ *         stocked, so we keep instance of.
  * 
  */
 public class CanParser {

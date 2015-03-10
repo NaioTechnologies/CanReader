@@ -53,7 +53,10 @@ public class MainActivity extends FragmentActivity {
 	private final Object lock = new Object();
 	private int indexDebug;
 	private static final int MILLISECONDS_RUNNABLE = 10;
+	//50 * MILLISECONDS_RUNNABLE for re send the keep control message
 	private static final int KEEP_CONTROL_CAN_LOOP = 50;
+	//message for keeping the hand over the Pascal's code ( only the '69' is important )
+	private static final String KEEP_CONTROL_CAN_LOOP_MESSAGE = "69.55.21.23.25.12.11.FF";
 	private static boolean binary_added = false;
 
 	/**
@@ -103,7 +106,6 @@ public class MainActivity extends FragmentActivity {
 			executeCommand("su -c mount -o rw,remount /");
 			File file = new File("/sbin/candump");
 			executeCommand("su -c mount -o ro,remount /");
-			//SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 			if(file.exists())
 				binary_added = true;
 			else {
@@ -121,9 +123,6 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
-				/*SharedPreferences.Editor editor = sharedPref.edit();
-				editor.putBoolean("binary", true);
-				editor.commit();*/
 				binary_added = true;
 				new AlertDialog.Builder(this)
 						.setTitle("Information")
@@ -206,6 +205,8 @@ public class MainActivity extends FragmentActivity {
 			dialog.show();
 			return true;
 		}
+		
+		//Allow to change the layout to an another with all in it ( not maj btw )
 		/*if (id == R.id.action_layout) {
 			if (layoutPage) {
 				change_activity_layout(false);
@@ -215,22 +216,6 @@ public class MainActivity extends FragmentActivity {
 			return true;
 		}*/
 
-		// if (id == R.id.action_candump) {
-		// executeCommand("su -c mount -o rw,remount /");
-		// executeCommand("su -c cp /storage/sdcard0/candump2 /sbin/candump");
-		// executeCommand("su -c cp /storage/sdcard0/cansend2 /sbin/cansend");
-		// executeCommand("su -c chmod 775 /sbin/candump");
-		// executeCommand("su -c chmod 775 /sbin/cansend");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/can.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/can-dev.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/can-raw.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/can-bcm.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/pcan.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/vcan.ko");
-		// executeCommand("su -c insmod /storage/sdcard0/drive/peak_usb.ko");
-		// executeCommand("su -c rmmod pcan");
-		// executeCommand("su -c mount -o ro,remount /");
-		// }
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -261,6 +246,7 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
+			//the sleep here is for avoid the user to press the button multi-time before it changes its state
 			try {
 				Thread.sleep(400);
 			} catch (InterruptedException e) {
@@ -272,7 +258,7 @@ public class MainActivity extends FragmentActivity {
 			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
 			canDumpThread.start();
 			canParserThread.start();
-			cansend("00F", "69.55.21.23.25.12.11.FF");
+			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
 					.setText("STOP");
@@ -286,6 +272,7 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.interrupt();
 		handler.removeCallbacks(runnable);
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
+		//the sleep here is just because there is a sleep when the user press the READ button, so do the STOP.
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
@@ -296,7 +283,7 @@ public class MainActivity extends FragmentActivity {
 	
 	@Override
 	public void onBackPressed() {
-		// TODO Auto-generated method stub
+		//When back is pressed, we stop all the thread and hope it's really the case
 		super.onBackPressed();
 		reading = false;
 		canDumpThread.quit();
@@ -337,13 +324,13 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * send a message on the can which disable other program to send something
+	 * send a message on the can which disable other programs to send something
 	 * on the can
 	 */
 	private void keep_control_of_can() {
 		indexDebug++;
 		if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
-			cansend("00F", "69.21.21.23.25.12.11.FF");
+			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			indexDebug = 0;
 		}
 
@@ -357,9 +344,8 @@ public class MainActivity extends FragmentActivity {
 	 * @return
 	 */
 	private String executeCommand(String command) {
-
+		//Only use by the CONNECT button
 		StringBuffer output = new StringBuffer();
-
 		Process p;
 		try {
 			p = Runtime.getRuntime().exec(command);
@@ -400,7 +386,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * Read the unread sms
+	 * Read the unread sms and only the unread ones
 	 * 
 	 * @param v
 	 * 
@@ -419,12 +405,10 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_config_gsm_clicked(View v) {
 		cansend_gsm("AT+CSCS=\"GSM\"\r");
-		//cansend_gsm("AT+CSCS=?\r");
-		//cansend_gsm("AT+CMEE=1\r");
 	}
 	
 	/**
-	 * Open a dialog which allows the user to enter is own command
+	 * Open a dialog which allows the user to enter his own command
 	 * 
 	 * @param v
 	 * 
@@ -449,7 +433,6 @@ public class MainActivity extends FragmentActivity {
 
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -465,7 +448,7 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
-	 * Check if access is granted to the sim card ( response : OK )
+	 * Check if access is granted to the sim card ( response : READY )
 	 * 
 	 * @param v
 	 * 
@@ -480,7 +463,6 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 * 
-	 * 
 	 */
 	public void button_config_pin_clicked(View v) {
 		// create a Dialog component
@@ -489,19 +471,19 @@ public class MainActivity extends FragmentActivity {
 		dialog.setContentView(R.layout.enter_pin_dialog);
 		dialog.setTitle("Pin");
 
-		final EditText hexa1 = (EditText) dialog
+		final EditText pinCodeTextView = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
 
 		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 		dialogButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String dataHexa = "";
+				String pinCode = "";
 
-				if (!hexa1.getText().toString().isEmpty()) {
-					dataHexa += hexa1.getText().toString();
+				if (!pinCodeTextView.getText().toString().isEmpty()) {
+					pinCode += pinCodeTextView.getText().toString();
 				}
-				cansend_gsm("AT+CPIN=\"" + dataHexa + "\"\r");
+				cansend_gsm("AT+CPIN=\"" + pinCode + "\"\r");
 				dialog.dismiss();
 			}
 		});
@@ -545,21 +527,21 @@ public class MainActivity extends FragmentActivity {
 		dialogButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				String txt = "0000"
+				String binary_led = "0000"
 						+ spinnerDroite.getSelectedItem().toString()
 						+ spinner3.getSelectedItem().toString()
 						+ spinner2.getSelectedItem().toString()
 						+ spinnerGauche.getSelectedItem().toString();
 
-				txt = String.format("%02X", Long.parseLong(txt, 2));
-				String txt2 = "0000" + spinnerCDroite.getSelectedItemPosition()
+				binary_led = String.format("%02X", Long.parseLong(binary_led, 2));
+				String binary_colors = "0000" + spinnerCDroite.getSelectedItemPosition()
 						+ spinnerC3.getSelectedItemPosition()
 						+ spinnerC2.getSelectedItemPosition()
 						+ spinnerCGauche.getSelectedItemPosition();
-				txt2 = String.format("%02X", Long.parseLong(txt2, 2));
+				binary_colors = String.format("%02X", Long.parseLong(binary_colors, 2));
 
 				canParser.setGsmcanframe(new GSMCanFrame());
-				cansend("382", txt + txt2);
+				cansend("382", binary_led + binary_colors);
 				dialog.dismiss();
 			}
 		});
@@ -954,6 +936,8 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
+	 * Function specific for sending GSM trame on the can ( all char one by one )
+	 * 
 	 * @param command
 	 */
 	private void cansend_gsm(String command) {
@@ -968,6 +952,8 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
+	 * Function for send on the can a command ( with the id )
+	 * 
 	 * @param id
 	 * @param command
 	 */

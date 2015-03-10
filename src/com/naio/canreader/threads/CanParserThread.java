@@ -44,17 +44,15 @@ public class CanParserThread extends Thread {
 			synchronized (canDumpThread.getEntreThread()) {
 
 				try {
+					//wait that the CanDumpThread says " hey i've got some news for you "
 					canDumpThread.getEntreThread().wait();
 					getCanParser().parseFrames(canDumpThread.get100Poll());
 					Thread.sleep(0,100);
 
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-
 			}
-
 		}
 	}
 

@@ -30,6 +30,7 @@ public class CanSendThread extends Thread {
 	private void executeCommand(String command) {
 		Process p;
 		try {
+			//execute a command and wait for the response
 			p = Runtime.getRuntime().exec(command);
 			p.waitFor();
 			p.destroy();

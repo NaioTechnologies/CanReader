@@ -8,7 +8,13 @@ import android.view.ViewGroup;
 
 import com.naio.canreader.R;
 
-public class BlocTensionActivity extends Fragment{
+/**
+ * Return the inflated bloc tension
+ * 
+ * @author bodereau
+ * 
+ */
+public class BlocTensionActivity extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

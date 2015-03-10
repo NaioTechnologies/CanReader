@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
-import android.util.Log;
 
 /**
  * CanDumpThread is the thread which execute the command candump and which place
@@ -23,7 +22,7 @@ public class CanDumpThread extends Thread {
 
 	private final Object lock1 = new Object();
 	private final Object entreThread = new Object();
-	private static Integer numberThread = 1;
+
 	/**
 	 * @return the entreThread
 	 */
@@ -38,7 +37,6 @@ public class CanDumpThread extends Thread {
 	public ConcurrentLinkedQueue<String> queue = new ConcurrentLinkedQueue<String>();
 	Runnable runnable;
 	private boolean quitTheThread = false;
-	private Integer numeroThread;
 
 	/**
 	 * @return the quitTheThread
@@ -56,7 +54,6 @@ public class CanDumpThread extends Thread {
 	public void setQuitTheThread(boolean quitTheThread) {
 		synchronized (lock3) {
 			this.quitTheThread = quitTheThread;
-			CanDumpThread.numberThread++;
 		}
 	}
 
@@ -80,13 +77,15 @@ public class CanDumpThread extends Thread {
 		}
 	}
 
-	private void executeCommand(String command) {
-
+	/**
+	 * execute a command and read the output of it until the thread is killed
+	 * 
+	 * @param command
+	 */
+	private void executeCommandLoop(String command) {
 		Process p;
 		try {
-
 			p = Runtime.getRuntime().exec(command);
-
 			String line = null;
 			BufferedReader reader = new BufferedReader(new InputStreamReader(
 					p.getInputStream()));
@@ -97,18 +96,19 @@ public class CanDumpThread extends Thread {
 						getQueue().offer(line);
 						entreThread.notify();
 					}
-					Log.e("thread", ""+ numeroThread);
-					Thread.sleep(0,10);
-					if(quitTheThread){
+
+					Thread.sleep(0, 10);
+
+					if (quitTheThread) {
 						reader.close();
 						Thread.currentThread().interrupt();
 						break;
 					}
 				}
-				if(quitTheThread){
+				if (quitTheThread) {
 					break;
 				}
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,8 +119,8 @@ public class CanDumpThread extends Thread {
 	 * @return the queue
 	 */
 	public ConcurrentLinkedQueue<String> getQueue() {
-			return queue;
-		
+		return queue;
+
 	}
 
 	public String getOnePoll() {
@@ -134,26 +134,22 @@ public class CanDumpThread extends Thread {
 	 * @return
 	 */
 	public String get100Poll() {
-		
-		String data = "(000.0000000) can0 480 [2] remote";
+		// false trame to avoid return null
+		String fakeTrame = "(000.0000000) can0 480 [2] remote";
 		String poll = "";
 		for (int i = 0; i < 100; i++) {
 			poll = getOnePoll();
 			if (poll == null)
-				return data;
-			data += "\n" + poll;
+				return fakeTrame;
+			fakeTrame += "\n" + poll;
 		}
-
-		return data;
+		return fakeTrame;
 	}
 
 	public void run() {
-		numeroThread = CanDumpThread.numberThread;
 		setQuitTheThread(false);
 		queue = new ConcurrentLinkedQueue<String>();
-		executeCommand(cmd);
-		
-
+		executeCommandLoop(cmd);
 	}
 
 	public void quit() {

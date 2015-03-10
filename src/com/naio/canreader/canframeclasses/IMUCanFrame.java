@@ -55,6 +55,7 @@ public class IMUCanFrame extends CanFrame {
 	}
 
 	/**
+	 * Put all the variables to 0
 	 * 
 	 */
 	private void init() {
@@ -187,10 +188,7 @@ public class IMUCanFrame extends CanFrame {
 	private void save_data_board() {
 		board = getData().get(0);
 		rev = getData().get(1);
-
 	}
-
-
 
 	/**
 	 * @param rl
@@ -494,7 +492,6 @@ public class IMUCanFrame extends CanFrame {
 		//NOT USE
 		adresse3 = getData().get(0);
 		deviceSEL3 = getData().get(1);
-
 	}
 
 	/**
@@ -505,7 +502,6 @@ public class IMUCanFrame extends CanFrame {
 		adresse2 = getData().get(0);
 		donnee2 = getData().get(1);
 		deviceSEL2 = getData().get(2);
-
 	}
 
 	/**
@@ -516,7 +512,6 @@ public class IMUCanFrame extends CanFrame {
 		adresse1 = getData().get(0);
 		donnee1 = getData().get(1);
 		deviceSEL1 = getData().get(2);
-
 	}
 
 }

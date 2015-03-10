@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.naio.canreader.R;
 
 /**
+ *  Return the inflated bloc gsm
+ *  
  * @author bodereau
  *
  */

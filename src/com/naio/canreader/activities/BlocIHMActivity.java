@@ -14,14 +14,17 @@ import android.view.ViewGroup;
 import com.naio.canreader.R;
 
 /**
+ * 
+ * Return the inflated bloc ihm
+ * 
  * @author bodereau
- *
+ * 
  */
-public class BlocIHMActivity extends Fragment{
+public class BlocIHMActivity extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		 
+
 		return inflater.inflate(R.layout.bloc_ihm, container, false);
 	}
 }

@@ -78,9 +78,6 @@ public class CanFrame {
 	 * @param rl
 	 * @param pager
 	 */
-	public void display_on(RelativeLayout rl, ViewPager pager) {
-		// TODO Auto-generated method stub
-
-	}
+	public void display_on(RelativeLayout rl, ViewPager pager) {}
 
 }

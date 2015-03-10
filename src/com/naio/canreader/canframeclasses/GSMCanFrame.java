@@ -37,7 +37,7 @@ public class GSMCanFrame extends CanFrame {
 		if (id == 641)
 			return this;
 		synchronized (lock) {
-
+			//we all the data that we read because the response is sent char by char
 			gsmData.add(getData().get(0));
 			return this;
 		}
@@ -45,11 +45,9 @@ public class GSMCanFrame extends CanFrame {
 
 	public void display_on(RelativeLayout rl, ViewPager vp) {
 		synchronized (lock) {
-
 			if (vp != null) {
 				this.rl_second_layout = (RelativeLayout) vp.getChildAt(1).findViewById(
 						R.id.rl_gsm_activity);
-				
 				if (vp.getCurrentItem() != 1) {
 					return;
 				}

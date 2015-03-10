@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Display the data of the Brain
+ * Display the data of the Brain ( yet only the cpu temperature )
  * 
  * @author bodereau
  * 

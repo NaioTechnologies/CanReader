@@ -155,7 +155,6 @@ public class IHMCanFrame extends CanFrame {
 	private void save_data_board() {
 		board = getData().get(0);
 		rev = getData().get(1);
-
 	}
 
 	/**
@@ -177,7 +176,6 @@ public class IHMCanFrame extends CanFrame {
 	 */
 	private void save_data_backlight() {
 		backlight = getData().get(0);
-
 	}
 
 	/**
@@ -199,7 +197,6 @@ public class IHMCanFrame extends CanFrame {
 	 */
 	private void save_data_contraste() {
 		contraste = getData().get(0);
-
 	}
 
 	/**
@@ -356,41 +353,22 @@ public class IHMCanFrame extends CanFrame {
 	private void display_data_etat_clavier(RelativeLayout rl) {
 
 		String text = Integer.toBinaryString(etatClavier);
-		switch (text.length()) {
-		case 0:
-			text = '0' + text;
-		case 1:
-			text = '0' + text;
-		case 2:
-			text = '0' + text;
-		case 3:
-			text = '0' + text;
-		case 4:
-			text = '0' + text;
-		case 5:
-			text = '0' + text;
-		case 6:
-			text = '0' + text;
-		case 7:
-			text = '0' + text;
-
-		default:
-			break;
-		}
+		text = BytesFunction.fillWithZeroTheBinaryString(text);
 		String[] data = text.split("(?<!^)");
-		String write = "";
-
-		write += "valide:" + data[6];
-		write += " annuler:" + data[7];
-		write += " droite:" + data[3];
-		write += " gauche:" + data[2];
-		write += " haut:" + data[5];
-		write += " bas:" + data[4];
+		
+		String keyboardState = "";
+		keyboardState += "valide:" + data[6];
+		keyboardState += " annuler:" + data[7];
+		keyboardState += " droite:" + data[3];
+		keyboardState += " gauche:" + data[2];
+		keyboardState += " haut:" + data[5];
+		keyboardState += " bas:" + data[4];
+		
 		if (rl == null) {
-			((TextView) rlimu.findViewById(R.id.etat_clavier)).setText(write);
+			((TextView) rlimu.findViewById(R.id.etat_clavier)).setText(keyboardState);
 			return;
 		}
-		((TextView) rl.findViewById(R.id.etat_clavier)).setText(write);
+		((TextView) rl.findViewById(R.id.etat_clavier)).setText(keyboardState);
 	}
 
 	/**
@@ -398,7 +376,6 @@ public class IHMCanFrame extends CanFrame {
 	 */
 	private void save_data_clavier() {
 		etatClavier = getData().get(0);
-
 	}
 
 	/**

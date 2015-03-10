@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 /**
- * Display the data of the verin and of the ODO
+ * Display the data of the verin, the ODO and of the tension
  * 
  * @author bodereau
  * 
@@ -33,11 +33,12 @@ public class VerinCanFrame extends CanFrame {
 			flagSortie;
 	private Integer t24vLSB, t24vMSB, pileLSB, pileMSB;
 	private RelativeLayout rl_second_layout;
-	static private Integer cptAvg, cptArg, cptAvd, cptArd;
 	private boolean is_there_data_requete, is_there_data_retour,
 			is_there_data_commande, is_there_data_capteur,
 			is_there_data_sortie, is_there_data_version,
 			is_there_data_tension_principale, is_there_data_tension_12v;
+	//global variables for the counter of the ODO
+	static private Integer cptAvg, cptArg, cptAvd, cptArd;
 	private static boolean state_ard;
 	private static boolean state_avd;
 	private static boolean state_arg;
@@ -127,13 +128,11 @@ public class VerinCanFrame extends CanFrame {
 					this.rl_second_layout = (RelativeLayout) vp.getChildAt(4)
 							.findViewById(R.id.rl_tension_activity);
 				}
-				/*
-				 * if (vp.getCurrentItem() != 3) { return; }
-				 */
 			}
 			if (idMess == null) {
 				return;
 			}
+			//Info to display on the VerinActivity
 			if (vp.getCurrentItem() == 3) {
 				if (is_there_data_requete)
 					display_data_requete(rl);
@@ -148,6 +147,8 @@ public class VerinCanFrame extends CanFrame {
 				if (is_there_data_version)
 					display_data_version(rl);
 			}
+			
+			//info to display on the TensionActivity
 			if (vp.getCurrentItem() == 4) {
 				if (is_there_data_tension_12v)
 					display_data_tension_12v(rl);
@@ -269,7 +270,6 @@ public class VerinCanFrame extends CanFrame {
 	private void save_data_version() {
 		versionMaj = getData().get(0);
 		versionMin = getData().get(1);
-
 	}
 
 	/**
@@ -379,7 +379,6 @@ public class VerinCanFrame extends CanFrame {
 	 */
 	private void save_data_capteur() {
 		lectureODO = getData().get(0);
-
 	}
 
 	/**
@@ -404,7 +403,6 @@ public class VerinCanFrame extends CanFrame {
 	 */
 	private void save_data_commande() {
 		commandeMoteur = getData().get(0);
-
 	}
 
 	/**
@@ -454,7 +452,6 @@ public class VerinCanFrame extends CanFrame {
 	private void save_data_retour() {
 		retourPosition = getData().get(0);
 		etatVerin = getData().get(1);
-
 	}
 
 	/**
@@ -483,9 +480,10 @@ public class VerinCanFrame extends CanFrame {
 	}
 
 	/**
-	 * 
+	 * Put all the global variables to 0
 	 */
 	public static void resetCpt() {
+		
 		VerinCanFrame.cptArd = 0;
 		VerinCanFrame.cptAvg = 0;
 		VerinCanFrame.cptArg = 0;

@@ -3,7 +3,12 @@ package com.naio.canreader.canframeclasses;
 import java.util.List;
 
 import android.widget.RelativeLayout;
-
+/**
+ * TODO when ready
+ * 
+ * @author bodereau
+ *
+ */
 public class MotorCanFrame extends CanFrame {
 
 	protected Integer consigne, sensRotation;
