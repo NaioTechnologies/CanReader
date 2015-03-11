@@ -39,30 +39,28 @@ public class IMUCanFrame extends CanFrame {
 	static private Double freqMagneto, freqAccel, freqGyro;
 	static private Double time, timeAccel, timeGyro, timeMagneto;
 	static private int indexDisplay, indexDisplay2;
-	private boolean is_there_data_accel, is_there_data_gyro, is_there_data_magneto, is_there_data_temperature, is_there_data_version, is_there_data_board;
+	private boolean is_there_data_accel, is_there_data_gyro,
+			is_there_data_magneto, is_there_data_temperature,
+			is_there_data_version, is_there_data_board;
 
 	public IMUCanFrame(int id, int dlc, List<Integer> data, Double time) {
 		super(id, dlc, data);
-		
 		init();
 	}
-
-
 
 	public IMUCanFrame() {
 		init();
-
 	}
 
 	/**
-	 * Put all the variables to 0
+	 * Put all the variables to 0.0
 	 * 
 	 */
 	private void init() {
 		this.type = "IMU";
 		df = new DecimalFormat("###.##");
 		df2 = new DecimalFormat("###");
-		
+
 		if (IMUCanFrame.timeMagneto == null) {
 			IMUCanFrame.freqMagneto = 0.0;
 			IMUCanFrame.freqAccel = 0.0;
@@ -82,9 +80,8 @@ public class IMUCanFrame extends CanFrame {
 		is_there_data_temperature = false;
 		is_there_data_version = false;
 		is_there_data_board = false;
-		
 	}
-	
+
 	public IMUCanFrame setParams(int id, int dlc, List<Integer> data,
 			Double time) {
 		super.setParams(id, dlc, data);
@@ -130,10 +127,9 @@ public class IMUCanFrame extends CanFrame {
 
 	public void display_on(RelativeLayout rl, ViewPager vp) {
 		synchronized (lock) {
-
 			if (vp != null) {
-				this.rl_second_layout = (RelativeLayout) vp.getChildAt(0).findViewById(
-						R.id.rl_imu_activity);
+				this.rl_second_layout = (RelativeLayout) vp.getChildAt(0)
+						.findViewById(R.id.rl_imu_activity);
 				if (vp.getCurrentItem() != 0) {
 					return;
 				}
@@ -158,9 +154,7 @@ public class IMUCanFrame extends CanFrame {
 
 			if (is_there_data_board)
 				display_data_board(rl);
-
 		}
-
 	}
 
 	/**
@@ -172,8 +166,8 @@ public class IMUCanFrame extends CanFrame {
 			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rl_second_layout.findViewById(R.id.magneto_boardf)).setText(""
-					+ board);
+			((TextView) rl_second_layout.findViewById(R.id.magneto_boardf))
+					.setText("" + board);
 			((TextView) rl_second_layout.findViewById(R.id.magneto_revf))
 					.setText("" + rev);
 			return;
@@ -199,10 +193,10 @@ public class IMUCanFrame extends CanFrame {
 			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rl_second_layout.findViewById(R.id.imu_majf)).setText(""
-					+ versionMaj);
-			((TextView) rl_second_layout.findViewById(R.id.imu_minf)).setText(""
-					+ versionMin);
+			((TextView) rl_second_layout.findViewById(R.id.imu_majf))
+					.setText("" + versionMaj);
+			((TextView) rl_second_layout.findViewById(R.id.imu_minf))
+					.setText("" + versionMin);
 			return;
 		}
 		((TextView) rl.findViewById(R.id.imu_maj)).setText("" + versionMaj);
@@ -228,8 +222,8 @@ public class IMUCanFrame extends CanFrame {
 			if (rl_second_layout == null) {
 				return;
 			}
-			((TextView) rl_second_layout.findViewById(R.id.imu_tempef)).setText(""
-					+ tempeFinal);
+			((TextView) rl_second_layout.findViewById(R.id.imu_tempef))
+					.setText("" + tempeFinal);
 			return;
 		}
 		((TextView) rl.findViewById(R.id.imu_tempe)).setText("" + tempeFinal);
@@ -245,46 +239,47 @@ public class IMUCanFrame extends CanFrame {
 
 	private void display_data_magneto(RelativeLayout rl) {
 
-		double val1 = BytesFunction.fromTwoComplement(magnetoXMSB, magnetoXLSB,
-				13, 1);
-		double val2 = BytesFunction.fromTwoComplement(magnetoYMSB, magnetoYLSB,
-				13, 1);
-		double val3 = BytesFunction.fromTwoComplement(magnetoZMSB, magnetoZLSB,
-				13, 1);
-		String txt = "";
-		String txt2 = "";
-		String txt3 = "";
-		if (val1 >= 0)
-			txt = " " + val1;
+		double valMagnetoX = BytesFunction.fromTwoComplement(magnetoXMSB,
+				magnetoXLSB, 13, 1);
+		double valMagnetoY = BytesFunction.fromTwoComplement(magnetoYMSB,
+				magnetoYLSB, 13, 1);
+		double valMagnetoZ = BytesFunction.fromTwoComplement(magnetoZMSB,
+				magnetoZLSB, 13, 1);
+		String magnetoX = "";
+		String magnetoY = "";
+		String magnetoZ = "";
+		if (valMagnetoX >= 0)
+			magnetoX = " " + valMagnetoX;
 		else
-			txt = "" + val1;
-		if (val2 >= 0)
-			txt2 = " " + val2;
+			magnetoX = "" + valMagnetoX;
+		if (valMagnetoY >= 0)
+			magnetoY = " " + valMagnetoY;
 		else
-			txt2 = "" + val2;
-		if (val3 >= 0)
-			txt3 = " " + val3;
+			magnetoY = "" + valMagnetoY;
+		if (valMagnetoZ >= 0)
+			magnetoZ = " " + valMagnetoZ;
 		else
-			txt3 = "" + val3;
+			magnetoZ = "" + valMagnetoZ;
 		if (rl == null) {
 			if (rl_second_layout == null) {
 				return;
 			}
 
 			if (IMUCanFrame.indexF == 99) {
-				((TextView) rl_second_layout.findViewById(R.id.magneto_time)).setText(""
-						+ df.format(IMUCanFrame.freqMagneto*1000) + " ms");
+				((TextView) rl_second_layout.findViewById(R.id.magneto_time))
+						.setText("" + df.format(IMUCanFrame.freqMagneto * 1000)
+								+ " ms");
 				IMUCanFrame.indexF = 0;
 				IMUCanFrame.freqMagneto = 0.0;
 			}
 			if (IMUCanFrame.indexDisplay2 == 9) {
 
 				((TextView) rl_second_layout.findViewById(R.id.magneto_xmsbf))
-						.setText(txt);
+						.setText(magnetoX);
 				((TextView) rl_second_layout.findViewById(R.id.magneto_ymsbf))
-						.setText(txt2);
+						.setText(magnetoY);
 				((TextView) rl_second_layout.findViewById(R.id.magneto_zmsbf))
-						.setText(txt3);
+						.setText(magnetoZ);
 				((TextView) rl_second_layout.findViewById(R.id.magneto_resmsbf))
 						.setText("" + (resMagnMSB * 256 + resMagnLSB));
 				IMUCanFrame.indexDisplay2 = 0;
@@ -295,16 +290,15 @@ public class IMUCanFrame extends CanFrame {
 		}
 		if (IMUCanFrame.indexDisplay2 == 9) {
 
-			((TextView) rl.findViewById(R.id.magneto_xmsb)).setText(txt);
-			((TextView) rl.findViewById(R.id.magneto_ymsb)).setText(txt2);
-			((TextView) rl.findViewById(R.id.magneto_zmsb)).setText(txt3);
+			((TextView) rl.findViewById(R.id.magneto_xmsb)).setText(magnetoX);
+			((TextView) rl.findViewById(R.id.magneto_ymsb)).setText(magnetoY);
+			((TextView) rl.findViewById(R.id.magneto_zmsb)).setText(magnetoZ);
 			((TextView) rl.findViewById(R.id.magneto_resmsb)).setText(""
 					+ (resMagnMSB * 256 + resMagnLSB));
 			IMUCanFrame.indexDisplay2 = 0;
 		} else {
 			IMUCanFrame.indexDisplay2 += 1;
 		}
-
 	}
 
 	/**
@@ -327,52 +321,54 @@ public class IMUCanFrame extends CanFrame {
 				+ (IMUCanFrame.time - IMUCanFrame.timeMagneto) * 0.01;
 		IMUCanFrame.timeMagneto = IMUCanFrame.time;
 		IMUCanFrame.indexF += 1;
-
 	}
 
 	private void display_data_gyro(RelativeLayout rl) {
 
-		double val1 = BytesFunction.fromTwoComplement(gyroXMSB, gyroXLSB, 16,
-				1024 / 32.8);
-		double val2 = BytesFunction.fromTwoComplement(gyroYMSB, gyroYLSB, 16,
-				1024 / 32.8);
-		double val3 = BytesFunction.fromTwoComplement(gyroZMSB, gyroZLSB, 16,
-				1024 / 32.8);
-		String txt = "";
-		String txt2 = "";
-		String txt3 = "";
-		if (val1 >= 0)
-			txt = " " + df2.format(val1);
+		double factor = 1024 / 32.8;
+		double valGyroX = BytesFunction.fromTwoComplement(gyroXMSB, gyroXLSB,
+				16, factor);
+		double valGyroY = BytesFunction.fromTwoComplement(gyroYMSB, gyroYLSB,
+				16, factor);
+		double valGyroZ = BytesFunction.fromTwoComplement(gyroZMSB, gyroZLSB,
+				16, factor);
+		String gyroX = "";
+		String gyroY = "";
+		String gyroZ = "";
+		if (valGyroX >= 0)
+			gyroX = " " + df2.format(valGyroX);
 		else
-			txt = "" + df2.format(val1);
-		if (val2 >= 0)
-			txt2 = " " + df2.format(val2);
+			gyroX = "" + df2.format(valGyroX);
+		if (valGyroY >= 0)
+			gyroY = " " + df2.format(valGyroY);
 		else
-			txt2 = "" + df2.format(val2);
-		if (val3 >= 0)
-			txt3 = " " + df2.format(val3);
+			gyroY = "" + df2.format(valGyroY);
+		if (valGyroZ >= 0)
+			gyroZ = " " + df2.format(valGyroZ);
 		else
-			txt3 = "" + df2.format(val3);
+			gyroZ = "" + df2.format(valGyroZ);
 		if (rl == null) {
 			if (rl_second_layout == null) {
 				return;
 			}
 			if (IMUCanFrame.indexA == 99) {
-				((TextView) rl_second_layout.findViewById(R.id.gyro_time)).setText(""
-						+ df.format(IMUCanFrame.freqGyro*1000) + " ms");
+				((TextView) rl_second_layout.findViewById(R.id.gyro_time))
+						.setText("" + df.format(IMUCanFrame.freqGyro * 1000)
+								+ " ms");
 				IMUCanFrame.indexA = 0;
 				IMUCanFrame.freqGyro = 0.0;
 			}
-			((TextView) rl_second_layout.findViewById(R.id.gyro_xmsbf)).setText(txt);
-			((TextView) rl_second_layout.findViewById(R.id.gyro_ymsbf)).setText(txt2);
-			((TextView) rl_second_layout.findViewById(R.id.gyro_zmsbf)).setText(txt3);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_xmsbf))
+					.setText(gyroX);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_ymsbf))
+					.setText(gyroY);
+			((TextView) rl_second_layout.findViewById(R.id.gyro_zmsbf))
+					.setText(gyroZ);
 			return;
 		}
-
-		((TextView) rl.findViewById(R.id.gyro_xmsb)).setText(txt);
-		((TextView) rl.findViewById(R.id.gyro_ymsb)).setText(txt2);
-		((TextView) rl.findViewById(R.id.gyro_zmsb)).setText(txt3);
-
+		((TextView) rl.findViewById(R.id.gyro_xmsb)).setText(gyroX);
+		((TextView) rl.findViewById(R.id.gyro_ymsb)).setText(gyroY);
+		((TextView) rl.findViewById(R.id.gyro_zmsb)).setText(gyroZ);
 	}
 
 	/**
@@ -393,49 +389,52 @@ public class IMUCanFrame extends CanFrame {
 				+ (IMUCanFrame.time - IMUCanFrame.timeGyro) * 0.01;
 		IMUCanFrame.timeGyro = IMUCanFrame.time;
 		IMUCanFrame.indexA += 1;
-
 	}
 
 	private void display_data_accel(RelativeLayout rl) {
 
-		double val1 = BytesFunction.fromTwoComplement(accelXMSB, accelXLSB, 12,
-				1024);
-		double val2 = BytesFunction.fromTwoComplement(accelYMSB, accelYLSB, 12,
-				1024);
-		double val3 = BytesFunction.fromTwoComplement(accelZMSB, accelZLSB, 12,
-				1024);
-		String txt = "";
-		String txt2 = "";
-		String txt3 = "";
-		if (val1 >= 0)
-			txt = " " + df.format(val1);
+		double valAccelX = BytesFunction.fromTwoComplement(accelXMSB,
+				accelXLSB, 12, 1024);
+		double valAccelY = BytesFunction.fromTwoComplement(accelYMSB,
+				accelYLSB, 12, 1024);
+		double valAccelZ = BytesFunction.fromTwoComplement(accelZMSB,
+				accelZLSB, 12, 1024);
+		String accelX = "";
+		String accelY = "";
+		String accelZ = "";
+		if (valAccelX >= 0)
+			accelX = " " + df.format(valAccelX);
 		else
-			txt = "" + df.format(val1);
-		if (val2 >= 0)
-			txt2 = " " + df.format(val2);
+			accelX = "" + df.format(valAccelX);
+		if (valAccelY >= 0)
+			accelY = " " + df.format(valAccelY);
 		else
-			txt2 = "" + df.format(val2);
-		if (val3 >= 0)
-			txt3 = " " + df.format(val3);
+			accelY = "" + df.format(valAccelY);
+		if (valAccelZ >= 0)
+			accelZ = " " + df.format(valAccelZ);
 		else
-			txt3 = "" + df.format(val3);
+			accelZ = "" + df.format(valAccelZ);
 		if (rl == null) {
 			if (rl_second_layout == null) {
 				return;
 			}
 			if (IMUCanFrame.indexC == 99) {
-				((TextView) rl_second_layout.findViewById(R.id.accel_time)).setText(""
-						+ df.format(IMUCanFrame.freqAccel*1000) + " ms");
+				((TextView) rl_second_layout.findViewById(R.id.accel_time))
+						.setText("" + df.format(IMUCanFrame.freqAccel * 1000)
+								+ " ms");
 				IMUCanFrame.indexC = 0;
 				IMUCanFrame.freqAccel = 0.0;
 			}
 			if (IMUCanFrame.indexDisplay == 9) {
 
-				((TextView) rl_second_layout.findViewById(R.id.accel_xmsbf)).setText(txt);
+				((TextView) rl_second_layout.findViewById(R.id.accel_xmsbf))
+						.setText(accelX);
 
-				((TextView) rl_second_layout.findViewById(R.id.accel_ymsbf)).setText(txt2);
+				((TextView) rl_second_layout.findViewById(R.id.accel_ymsbf))
+						.setText(accelY);
 
-				((TextView) rl_second_layout.findViewById(R.id.accel_zmsbf)).setText(txt3);
+				((TextView) rl_second_layout.findViewById(R.id.accel_zmsbf))
+						.setText(accelZ);
 				IMUCanFrame.indexDisplay = 0;
 			} else {
 				IMUCanFrame.indexDisplay += 1;
@@ -443,14 +442,13 @@ public class IMUCanFrame extends CanFrame {
 			return;
 		}
 		if (IMUCanFrame.indexDisplay == 9) {
-			((TextView) rl.findViewById(R.id.accel_xmsb)).setText(txt);
-			((TextView) rl.findViewById(R.id.accel_ymsb)).setText(txt2);
-			((TextView) rl.findViewById(R.id.accel_zmsb)).setText(txt3);
+			((TextView) rl.findViewById(R.id.accel_xmsb)).setText(accelX);
+			((TextView) rl.findViewById(R.id.accel_ymsb)).setText(accelY);
+			((TextView) rl.findViewById(R.id.accel_zmsb)).setText(accelZ);
 			IMUCanFrame.indexDisplay = 0;
 		} else {
 			IMUCanFrame.indexDisplay += 1;
 		}
-
 	}
 
 	/**
@@ -471,25 +469,23 @@ public class IMUCanFrame extends CanFrame {
 				+ (IMUCanFrame.time - IMUCanFrame.timeAccel) * 0.01;
 		IMUCanFrame.timeAccel = IMUCanFrame.time;
 		IMUCanFrame.indexC += 1;
-
 	}
-	
+
 	/**
 	 * @param rl
 	 */
 	private void display_data_adresse4(RelativeLayout rl) {
-		//NOT USE
+		// NOT USE
 		adresse4 = getData().get(0);
 		donnee4 = getData().get(1);
 		deviceSEL4 = getData().get(2);
-
 	}
 
 	/**
 	 * @param rl
 	 */
 	private void display_data_adresse3(RelativeLayout rl) {
-		//NOT USE
+		// NOT USE
 		adresse3 = getData().get(0);
 		deviceSEL3 = getData().get(1);
 	}
@@ -498,7 +494,7 @@ public class IMUCanFrame extends CanFrame {
 	 * @param rl
 	 */
 	private void display_data_adresse2(RelativeLayout rl) {
-		//NOT USE
+		// NOT USE
 		adresse2 = getData().get(0);
 		donnee2 = getData().get(1);
 		deviceSEL2 = getData().get(2);
@@ -508,10 +504,9 @@ public class IMUCanFrame extends CanFrame {
 	 * @param rl
 	 */
 	private void display_data_adresse1(RelativeLayout rl) {
-		//NOT USE
+		// NOT USE
 		adresse1 = getData().get(0);
 		donnee1 = getData().get(1);
 		deviceSEL1 = getData().get(2);
 	}
-
 }

@@ -24,7 +24,6 @@ public class BlocIHMActivity extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		return inflater.inflate(R.layout.bloc_ihm, container, false);
 	}
 }

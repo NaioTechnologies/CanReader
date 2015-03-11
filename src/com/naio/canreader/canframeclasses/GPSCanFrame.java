@@ -147,7 +147,6 @@ public class GPSCanFrame extends CanFrame {
 					.setText(convert_data_GPGSV(gps));
 			return;
 		}
-
 	}
 
 	/**
@@ -219,7 +218,5 @@ public class GPSCanFrame extends CanFrame {
 		String utctime = gps[5];
 		return "Lat:" + latf_degrees + "\nLon:" + lonf_degrees + "\nUTC:"
 				+ utctime;
-
 	}
-
 }

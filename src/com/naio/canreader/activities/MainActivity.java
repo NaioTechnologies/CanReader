@@ -18,17 +18,14 @@ import com.naio.canreader.utils.MyPagerAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Handler;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,9 +37,9 @@ import android.widget.Spinner;
 
 /**
  * 
- * MainActivity call a function every 10 ms when the Read button is pressed, this
- * function read the FIFO filled by CanDumpThread and display it on the screen.
- * Also the button connect allow to mount the can interface. 
+ * MainActivity call a function every 10 ms when the Read button is pressed,
+ * this function read the FIFO filled by CanDumpThread and display it on the
+ * screen. Also the button connect allow to mount the can interface.
  * 
  * @author bodereau
  */
@@ -53,10 +50,13 @@ public class MainActivity extends FragmentActivity {
 	private final Object lock = new Object();
 	private int indexDebug;
 	private static final int MILLISECONDS_RUNNABLE = 10;
-	//50 * MILLISECONDS_RUNNABLE for re send the keep control message
+
+	// 50 * MILLISECONDS_RUNNABLE for re send the keep control message
 	private static final int KEEP_CONTROL_CAN_LOOP = 50;
-	//message for keeping the hand over the Pascal's code ( only the '69' is important )
+	// message for keeping the hand over the Pascal's code ( only the '69' is
+	// important )
 	private static final String KEEP_CONTROL_CAN_LOOP_MESSAGE = "69.55.21.23.25.12.11.FF";
+
 	private static boolean binary_added = false;
 
 	/**
@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity {
 	Runnable runnable = new Runnable() {
 		public void run() {
 
-			read_the_can();
+			display_the_can();
 
 		}
 	};
@@ -106,7 +106,7 @@ public class MainActivity extends FragmentActivity {
 			executeCommand("su -c mount -o rw,remount /");
 			File file = new File("/sbin/candump");
 			executeCommand("su -c mount -o ro,remount /");
-			if(file.exists())
+			if (file.exists())
 				binary_added = true;
 			else {
 				executeCommand("su -c mount -o rw,remount /");
@@ -171,7 +171,6 @@ public class MainActivity extends FragmentActivity {
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
 		layoutPage = false;
-
 	}
 
 	@Override
@@ -205,21 +204,17 @@ public class MainActivity extends FragmentActivity {
 			dialog.show();
 			return true;
 		}
-		
-		//Allow to change the layout to an another with all in it ( not maj btw )
-		/*if (id == R.id.action_layout) {
-			if (layoutPage) {
-				change_activity_layout(false);
-				return true;
-			}
-			change_activity_layout(true);
-			return true;
-		}*/
+
+		// Allow to change the layout to an another with all in it ( not maj btw
+		// )
+		/*
+		 * if (id == R.id.action_layout) { if (layoutPage) {
+		 * change_activity_layout(false); return true; }
+		 * change_activity_layout(true); return true; }
+		 */
 
 		return super.onOptionsItemSelected(item);
 	}
-	
-
 
 	/**
 	 * @param b
@@ -234,7 +229,6 @@ public class MainActivity extends FragmentActivity {
 		finish();
 		intent.putExtra("layout", b);
 		startActivity(intent);
-
 	}
 
 	/**
@@ -246,7 +240,8 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
-			//the sleep here is for avoid the user to press the button multi-time before it changes its state
+			// the sleep here is for avoid the user to press the button
+			// multi-time before it changes its state
 			try {
 				Thread.sleep(400);
 			} catch (InterruptedException e) {
@@ -272,7 +267,8 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.interrupt();
 		handler.removeCallbacks(runnable);
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
-		//the sleep here is just because there is a sleep when the user press the READ button, so do the STOP.
+		// the sleep here is just because there is a sleep when the user press
+		// the READ button, so do the STOP.
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
@@ -280,19 +276,21 @@ public class MainActivity extends FragmentActivity {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
-		//When back is pressed, we stop all the thread and hope it's really the case
+		// When back is pressed, we stop all the thread and hope it's really the
+		// case
 		super.onBackPressed();
-		reading = false;
-		canDumpThread.quit();
-		canParserThread.setStop(false);
-		canDumpThread.interrupt();
-		canParserThread.interrupt();
-		canSendThread.interrupt();
-		handler.removeCallbacks(runnable);
-		
+		if (reading) {
+			reading = false;
+			canDumpThread.quit();
+			canParserThread.setStop(false);
+			canDumpThread.interrupt();
+			canParserThread.interrupt();
+			canSendThread.interrupt();
+			handler.removeCallbacks(runnable);
+		}
 	}
 
 	/**
@@ -311,8 +309,8 @@ public class MainActivity extends FragmentActivity {
 	 * not 100 values ) and parse the data with CanParser to finally call the
 	 * action method of the CanFrame class instantiate by the CanParser.
 	 */
-	private void read_the_can() {
-
+	private void display_the_can() {
+		// display all the informations on screen
 		canParserThread.getCanParser().getGpscanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getImucanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getGsmcanframe().display_on(rl, pager);
@@ -333,7 +331,6 @@ public class MainActivity extends FragmentActivity {
 			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			indexDebug = 0;
 		}
-
 	}
 
 	/**
@@ -344,7 +341,7 @@ public class MainActivity extends FragmentActivity {
 	 * @return
 	 */
 	private String executeCommand(String command) {
-		//Only use by the CONNECT button
+		// Only use by the CONNECT button
 		StringBuffer output = new StringBuffer();
 		Process p;
 		try {
@@ -355,7 +352,6 @@ public class MainActivity extends FragmentActivity {
 			e.printStackTrace();
 		}
 		return output.toString();
-
 	}
 
 	public void button_send_gsm_clicked(View v) {
@@ -380,9 +376,7 @@ public class MainActivity extends FragmentActivity {
 
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	/**
@@ -406,7 +400,7 @@ public class MainActivity extends FragmentActivity {
 	public void button_config_gsm_clicked(View v) {
 		cansend_gsm("AT+CSCS=\"GSM\"\r");
 	}
-	
+
 	/**
 	 * Open a dialog which allows the user to enter his own command
 	 * 
@@ -414,7 +408,7 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * 
 	 */
-	public void button_custom_gsm_clicked(View v){ 
+	public void button_custom_gsm_clicked(View v) {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.custom_at_command_dialog);
@@ -428,7 +422,7 @@ public class MainActivity extends FragmentActivity {
 			@Override
 			public void onClick(View v) {
 				String txt = editCommand.getText().toString();
-				cansend_gsm("AT+"+txt+"\r");
+				cansend_gsm("AT+" + txt + "\r");
 				dialog.dismiss();
 
 			}
@@ -487,9 +481,7 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	/**
@@ -533,19 +525,21 @@ public class MainActivity extends FragmentActivity {
 						+ spinner2.getSelectedItem().toString()
 						+ spinnerGauche.getSelectedItem().toString();
 
-				binary_led = String.format("%02X", Long.parseLong(binary_led, 2));
-				String binary_colors = "0000" + spinnerCDroite.getSelectedItemPosition()
+				binary_led = String.format("%02X",
+						Long.parseLong(binary_led, 2));
+				String binary_colors = "0000"
+						+ spinnerCDroite.getSelectedItemPosition()
 						+ spinnerC3.getSelectedItemPosition()
 						+ spinnerC2.getSelectedItemPosition()
 						+ spinnerCGauche.getSelectedItemPosition();
-				binary_colors = String.format("%02X", Long.parseLong(binary_colors, 2));
+				binary_colors = String.format("%02X",
+						Long.parseLong(binary_colors, 2));
 
 				canParser.setGsmcanframe(new GSMCanFrame());
 				cansend("382", binary_led + binary_colors);
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -578,7 +572,6 @@ public class MainActivity extends FragmentActivity {
 	 * text to display on the LCD screen
 	 * 
 	 * @param v
-	 * 
 	 * 
 	 */
 	public void button_envoie_affichage_clicked(View v) {
@@ -636,7 +629,6 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -713,7 +705,6 @@ public class MainActivity extends FragmentActivity {
 				cansend("383", "02.10.10.10.02.32");
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -757,7 +748,6 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -790,7 +780,6 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -823,7 +812,6 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -855,7 +843,6 @@ public class MainActivity extends FragmentActivity {
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
 	}
 
@@ -925,18 +912,18 @@ public class MainActivity extends FragmentActivity {
 		});
 		dialog.show();
 	}
-	
-	
-	public void button_tension_clicked(View v){
+
+	public void button_tension_clicked(View v) {
 		cansend("406", "R");
 	}
-	
-	public void button_batterie_clicked(View v){
+
+	public void button_batterie_clicked(View v) {
 		cansend("407", "R");
 	}
 
 	/**
-	 * Function specific for sending GSM trame on the can ( all char one by one )
+	 * Function specific for sending GSM trame on the can ( all char one by one
+	 * )
 	 * 
 	 * @param command
 	 */
@@ -948,7 +935,6 @@ public class MainActivity extends FragmentActivity {
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommandForGSM("281", command);
 		canSendThread.start();
-
 	}
 
 	/**
@@ -965,5 +951,4 @@ public class MainActivity extends FragmentActivity {
 		canSendThread.addStringCommand(id, command);
 		canSendThread.start();
 	}
-
 }

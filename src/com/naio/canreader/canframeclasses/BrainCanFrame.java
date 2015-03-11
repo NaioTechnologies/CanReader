@@ -43,7 +43,6 @@ public class BrainCanFrame extends CanFrame {
 			}
 			if (is_there_data_temperature)
 				display_data_temperature(rl);
-
 		}
 	}
 
@@ -87,6 +86,5 @@ public class BrainCanFrame extends CanFrame {
 		}
 		((TextView) rl.findViewById(R.id.temperature_cpu)).setText(""
 				+ temperature.toString() + " °C");
-
 	}
 }

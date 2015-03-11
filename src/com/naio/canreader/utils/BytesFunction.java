@@ -34,28 +34,28 @@ public class BytesFunction {
 		return result / factor;
 	}
 	
-	public static String fillWithZeroTheBinaryString(String text){
-		switch (text.length()) {
+	public static String fillWithZeroTheBinaryString(String binaryText){
+		switch (binaryText.length()) {
 		case 0:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 1:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 2:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 3:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 4:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 5:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 6:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		case 7:
-			text = '0' + text;
+			binaryText = '0' + binaryText;
 		default:
 			break;
 		}
-		return text;
+		return binaryText;
 	}
 
 }
