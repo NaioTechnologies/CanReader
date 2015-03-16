@@ -402,22 +402,22 @@
 
     <Button
         android:id="@+id/button_read_main_activity"
-        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_width="@dimen/nexus7_550px_w"
         android:layout_height="@dimen/nexus7_300px_h"
-        android:layout_marginLeft="@dimen/nexus7_1700px_w"
+        android:layout_marginLeft="@dimen/nexus7_1400px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_read_clicked"
         android:text="READ"
         android:textSize="@dimen/nexus7_25dp" />
 
-    <Button
+<!--     <Button
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_300px_h"
         android:layout_marginLeft="@dimen/nexus7_1370px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_connect_clicked"
         android:text="CONNECT"
-        android:textSize="@dimen/nexus7_25dp" />
+        android:textSize="@dimen/nexus7_25dp" /> -->
 
     <TextView
         android:layout_width="@dimen/nexus7_700px_w"

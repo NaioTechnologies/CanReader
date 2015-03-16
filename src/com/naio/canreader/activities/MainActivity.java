@@ -240,6 +240,7 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
+			button_connect_clicked(v);
 			// the sleep here is for avoid the user to press the button
 			// multi-time before it changes its state
 			try {
