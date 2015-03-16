@@ -278,6 +278,13 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	@Override
+	protected void onPause() {
+		//we stop the app when onPause because other app could read the can
+		super.onPause();
+		onBackPressed();
+	}
+	
+	@Override
 	public void onBackPressed() {
 		// When back is pressed, we stop all the thread and hope it's really the
 		// case
