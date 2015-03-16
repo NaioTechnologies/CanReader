@@ -32,8 +32,8 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_600px_h"
         android:onClick="button_receive_gsm_clicked"
-        android:text="READ"
-        android:textSize="@dimen/nexus7_40dp" />
+        android:text="READ the sms"
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
         android:id="@+id/button_custom"
@@ -52,8 +52,8 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_send_gsm_clicked"
-        android:text="SEND"
-        android:textSize="@dimen/nexus7_40dp" />
+        android:text="SEND a sms"
+        android:textSize="@dimen/nexus7_25dp" />
 
     <Button
         android:id="@+id/textview_gsm_statut"
@@ -92,6 +92,16 @@
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:onClick="button_config_pin_clicked"
         android:text="PIN"
+        android:textSize="@dimen/nexus7_40dp" />
+
+    <TextView
+        android:id="@+id/text_connection"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#90000000"
+        android:gravity="center"
+        android:text="Veuillez appuyer sur le bouton READ"
+        android:textColor="#FFFFFFFF"
         android:textSize="@dimen/nexus7_40dp" />
 
 </RelativeLayout>

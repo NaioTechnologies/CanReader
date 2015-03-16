@@ -124,20 +124,22 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
 				binary_added = true;
-				new AlertDialog.Builder(this)
-						.setTitle("Information")
-						.setMessage(
-								"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.")
-						.setPositiveButton(android.R.string.yes,
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int which) {
-										// continue with delete
-									}
-								}).setIcon(android.R.drawable.ic_dialog_info)
-						.show();
+				
 			}
 		}
+		new AlertDialog.Builder(this)
+		.setTitle("Information")
+		.setMessage(
+				"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n" +
+				"Et assurez vous bien que le robot soit allumé ( il affiche 'mode : binage ' ) et que l'interface can soit allumée avant d'appuyer sur READ.")
+		.setPositiveButton(android.R.string.yes,
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int which) {
+						// continue with delete
+					}
+				}).setIcon(android.R.drawable.ic_dialog_info)
+		.show();
 
 	}
 
@@ -170,6 +172,8 @@ public class MainActivity extends FragmentActivity {
 		pager.setOffscreenPageLimit(4);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
+
+		//pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
 		layoutPage = false;
 	}
 
@@ -254,6 +258,10 @@ public class MainActivity extends FragmentActivity {
 			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
 			canDumpThread.start();
 			canParserThread.start();
+			pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.GONE);
+			pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.GONE);
+			pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.GONE);
+			pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.GONE);
 			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
@@ -266,6 +274,10 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.setStop(false);
 		canDumpThread.interrupt();
 		canParserThread.interrupt();
+		pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		// the sleep here is just because there is a sleep when the user press
@@ -955,6 +967,14 @@ public class MainActivity extends FragmentActivity {
 		if (canSendThread != null) {
 			canSendThread = null;
 		}
+		if(command == null || command.isEmpty())
+			return;
+		if(command.contentEquals("0"))
+			command = "00";
+		if(command.contentEquals("1"))
+			command = "01";
+		if(command.contentEquals("2"))
+			command = "02";
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommand(id, command);
 		canSendThread.start();

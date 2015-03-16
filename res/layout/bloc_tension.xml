@@ -169,6 +169,16 @@
         android:gravity="center"
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
+     
+         <TextView
+        android:id="@+id/text_connection"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#90000000"
+        android:gravity="center"
+        android:text="Veuillez appuyer sur le bouton READ"
+        android:textColor="#FFFFFFFF"
+        android:textSize="@dimen/nexus7_40dp" />
 
 <!--     <TextView
         android:layout_width="@dimen/nexus7_1370px_w"

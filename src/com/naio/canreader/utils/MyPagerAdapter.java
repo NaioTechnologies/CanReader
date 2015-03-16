@@ -28,9 +28,11 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
 		this.fragments = fragments;
 	}
 
+
 	@Override
 	public Fragment getItem(int position) {
-		return (Fragment) this.fragments.get(position);
+			return (Fragment) this.fragments.get(position);
+
 	}
 
 	@Override

@@ -361,8 +361,8 @@ public class IHMCanFrame extends CanFrame {
 		keyboardState += " annuler:" + data[7];
 		keyboardState += " droite:" + data[3];
 		keyboardState += " gauche:" + data[2];
-		keyboardState += " haut:" + data[5];
-		keyboardState += " bas:" + data[4];
+		keyboardState += " (+):" + data[5];
+		keyboardState += " (-):" + data[4];
 		
 		if (rl == null) {
 			((TextView) rlimu.findViewById(R.id.etat_clavier)).setText(keyboardState);
