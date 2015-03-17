@@ -1,6 +1,8 @@
 package com.naio.canreader.activities;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.lang.Process;
 import java.util.List;
 import java.util.Vector;
@@ -26,6 +28,7 @@ import android.os.Handler;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +37,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 /**
  * 
@@ -123,22 +127,21 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
 				binary_added = true;
-				
+
 			}
 		}
 		new AlertDialog.Builder(this)
-		.setTitle("Information")
-		.setMessage(
-				"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n" +
-				"Et assurez vous bien que le robot soit allumé et que l'interface can soit allumée avant d'appuyer sur READ.")
-		.setPositiveButton(android.R.string.yes,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
-						// continue with delete
-					}
-				}).setIcon(android.R.drawable.ic_dialog_info)
-		.show();
+				.setTitle("Information")
+				.setMessage(
+						"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n"
+								+ "Et assurez vous bien que le robot soit allumé et que l'interface can soit allumée avant d'appuyer sur READ.")
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// continue with delete
+							}
+						}).setIcon(android.R.drawable.ic_dialog_info).show();
 
 	}
 
@@ -172,7 +175,7 @@ public class MainActivity extends FragmentActivity {
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
 
-		//pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		// pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
 		layoutPage = false;
 	}
 
@@ -243,7 +246,10 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
-			button_connect_clicked(v);
+			if(button_connect_clicked(v).contains("can0")){
+				Toast.makeText(this, "Branche la putain d'interface CAN gros sac à merde, bordel ! Mais t'es trop con...", Toast.LENGTH_LONG).show();
+				return;
+			}
 			// the sleep here is for avoid the user to press the button
 			// multi-time before it changes its state
 			try {
@@ -254,14 +260,19 @@ public class MainActivity extends FragmentActivity {
 			}
 			canDumpThread = new CanDumpThread();
 			canParserThread = new CanParserThread(canDumpThread);
-			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
+			canDumpThread
+					.setCmd("su -c /sbin/candump -tz -e can0,0:0,#FFFFFFFF");
 			canDumpThread.start();
 			canParserThread.start();
-			pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
+			pager.getChildAt(1).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(2).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(3).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(4).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			// cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
 					.setText("STOP");
@@ -273,10 +284,14 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.setStop(false);
 		canDumpThread.interrupt();
 		canParserThread.interrupt();
-		pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		pager.getChildAt(1).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(2).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(3).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(4).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		// the sleep here is just because there is a sleep when the user press
@@ -291,11 +306,11 @@ public class MainActivity extends FragmentActivity {
 
 	@Override
 	protected void onPause() {
-		//we stop the app when onPause because other app could read the can
+		// we stop the app when onPause because other app could read the can
 		super.onPause();
-		onBackPressed();
+		// onBackPressed();
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// When back is pressed, we stop all the thread and hope it's really the
@@ -308,6 +323,8 @@ public class MainActivity extends FragmentActivity {
 			canDumpThread.interrupt();
 			canParserThread.interrupt();
 			canSendThread.interrupt();
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
 			handler.removeCallbacks(runnable);
 		}
 	}
@@ -318,8 +335,12 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 */
-	public void button_connect_clicked(View v) {
-		executeCommand("su -c ip link set can0 up type can bitrate 1000000");
+	public String button_connect_clicked(View v) {
+		return executeCommand("su -c ip link set can0 up type can bitrate 1000000");
+	}
+	
+	public void disconnect_can(){
+		executeCommand("su -c ip link set can0 down");
 	}
 
 	/**
@@ -336,6 +357,26 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.getCanParser().getVerincanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getIhmcanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getBraincanframe().display_on(rl, pager);
+		if (!canParserThread.getCanParser().getErrorcanframe().getError()
+				.contentEquals("no error")) {
+			reading = false;
+			canDumpThread.quit();
+			canParserThread.setStop(false);
+			canDumpThread.interrupt();
+			canParserThread.interrupt();
+			canSendThread.interrupt();
+			handler.removeCallbacks(runnable);
+			Toast.makeText(
+					this,
+					"can error fuck this shit you know man because : "
+							+ canParserThread.getCanParser().getErrorcanframe()
+									.getComplementError(), Toast.LENGTH_LONG)
+					.show();
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
+			disconnect_can();
+			return;
+		}
 		keep_control_of_can();
 		handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 	}
@@ -363,14 +404,27 @@ public class MainActivity extends FragmentActivity {
 		// Only use by the CONNECT button
 		StringBuffer output = new StringBuffer();
 		Process p;
+		String line = "";
+		String answer = "";
 		try {
 			p = Runtime.getRuntime().exec(command);
+			
+				BufferedReader stdError = new BufferedReader(new 
+				     InputStreamReader(p.getErrorStream()));
+
+				String s = null;
+				
+				// read any errors from the attempted command
+				while ((s = stdError.readLine()) != null) {
+				    answer+=s;
+				}
 			p.waitFor();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return output.toString();
+		return answer;
 	}
 
 	public void button_send_gsm_clicked(View v) {
@@ -966,13 +1020,13 @@ public class MainActivity extends FragmentActivity {
 		if (canSendThread != null) {
 			canSendThread = null;
 		}
-		if(command == null || command.isEmpty())
+		if (command == null || command.isEmpty())
 			return;
-		if(command.contentEquals("0"))
+		if (command.contentEquals("0"))
 			command = "00";
-		if(command.contentEquals("1"))
+		if (command.contentEquals("1"))
 			command = "01";
-		if(command.contentEquals("2"))
+		if (command.contentEquals("2"))
 			command = "02";
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommand(id, command);

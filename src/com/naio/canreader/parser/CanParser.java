@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.naio.canreader.canframeclasses.BrainCanFrame;
 import com.naio.canreader.canframeclasses.CanFrame;
+import com.naio.canreader.canframeclasses.ErrorCanFrame;
 import com.naio.canreader.canframeclasses.GPSCanFrame;
 import com.naio.canreader.canframeclasses.GSMCanFrame;
 import com.naio.canreader.canframeclasses.IHMCanFrame;
@@ -36,6 +37,8 @@ public class CanParser {
 	private IMUCanFrame imucanframe;
 	private final Object lock1 = new Object();
 	private BrainCanFrame braincanframe;
+	private ErrorCanFrame errorcanframe;
+	private Integer count;
 
 	public CanParser() {
 		super();
@@ -46,6 +49,8 @@ public class CanParser {
 		ihmcanframe = new IHMCanFrame();
 		verincanframe = new VerinCanFrame();
 		braincanframe = new BrainCanFrame();
+		errorcanframe = new ErrorCanFrame();
+		count = 0;
 	}
 
 	/**
@@ -61,7 +66,16 @@ public class CanParser {
 
 		if (frame.contains("remote"))
 			return null;
-
+		if(count==1){
+			errorcanframe.setComplementError(frame);
+			count=0;
+			return null;
+		}
+		if(frame.contains("ERRORFRAME")){
+			errorcanframe.setError(frame);
+			count =1;
+			return null;
+		}
 		String[] split = frame.split("\\s+");// split with the space character
 		List<Integer> data = new ArrayList<Integer>();
 		for (int i = 4; i < split.length; i++) {
@@ -204,6 +218,10 @@ public class CanParser {
 	 */
 	public BrainCanFrame getBraincanframe() {
 		return braincanframe;
+	}
+
+	public ErrorCanFrame getErrorcanframe() {
+		return errorcanframe;
 	}
 
 }

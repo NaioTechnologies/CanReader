@@ -5,10 +5,13 @@
  */
 package com.naio.canreader.threads;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * CanSendThread is the thread which execute the command cansend
