@@ -71,7 +71,6 @@ public class MainActivity extends FragmentActivity {
 	CanParser canParser = new CanParser();
 	Runnable runnable = new Runnable() {
 		public void run() {
-
 			display_the_can();
 
 		}
@@ -131,7 +130,7 @@ public class MainActivity extends FragmentActivity {
 		.setTitle("Information")
 		.setMessage(
 				"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n" +
-				"Et assurez vous bien que le robot soit allumé ( il affiche 'mode : binage ' ) et que l'interface can soit allumée avant d'appuyer sur READ.")
+				"Et assurez vous bien que le robot soit allumé et que l'interface can soit allumée avant d'appuyer sur READ.")
 		.setPositiveButton(android.R.string.yes,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
