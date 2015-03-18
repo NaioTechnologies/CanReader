@@ -4,7 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true" >
-
+<!--      <Button
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_100px_h"
+        android:layout_marginLeft="@dimen/nexus7_920px_w"
+        android:layout_marginTop="@dimen/nexus7_350px_h"
+        android:gravity="center"
+        android:onClick="button_keep_control_clicked"
+        android:text="Controll"
+        android:textSize="@dimen/nexus7_25dp" /> -->
     <TextView
         android:layout_width="1920px"
         android:layout_height="@dimen/nexus7_100px_h"
@@ -292,6 +300,8 @@
         android:onClick="button_magneto_board_clicked"
         android:text="Board:"
         android:textSize="@dimen/nexus7_25dp" />
+    
+
 
     <TextView
         android:id="@+id/magneto_boardf"

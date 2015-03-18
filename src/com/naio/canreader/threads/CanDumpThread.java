@@ -110,7 +110,6 @@ public class CanDumpThread extends Thread {
 					}*/
 					synchronized (entreThread) {
 						getQueue().offer(line);
-						Log.e("errrrr",line);
 						entreThread.notify();
 					}
 

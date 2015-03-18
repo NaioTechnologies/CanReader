@@ -23,24 +23,45 @@ public class CanSendThread extends Thread {
 	private final Object lock12 = new Object();
 	Handler handler = new Handler();
 	private List<String> cmd = new ArrayList<String>();
+	private String response;
 
 	public void run() {
-		for (String cmd : getCmd()) {
-			readOnce(cmd);
+		synchronized (lock12) {
+
+			for (String cmd : getCmd()) {
+				if ((response = readOnce(cmd)) != null) {
+					return;
+				}
+			}
 		}
 	}
-	
-	private void executeCommand(String command) {
+
+	private String executeCommand(String command) {
 		Process p;
+		String answer = " ";
 		try {
-			//execute a command and wait for the response
+			// execute a command and wait for the response
 			p = Runtime.getRuntime().exec(command);
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(
+					p.getErrorStream()));
+
+			String s = "";
+
+			// read any errors from the attempted command
+			while ((s = stdError.readLine()) != null) {
+				answer += s;
+			}
+			Log.e("canseee", ""+answer);
 			p.waitFor();
 			p.destroy();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(answer.length() > 2)
+			return answer;
+		else
+			return null;
 	}
 
 	/**
@@ -72,7 +93,7 @@ public class CanSendThread extends Thread {
 		String base = "su -c /sbin/cansend can0 " + id + "#";
 		addCmd(base + data);
 	}
-	
+
 	/**
 	 * @param cmd
 	 *            the cmd to set
@@ -83,18 +104,24 @@ public class CanSendThread extends Thread {
 		}
 	}
 
-	public void readOnce(String cmd) {
+	public String readOnce(String cmd) {
 		synchronized (lock12) {
-			executeCommand(cmd);
+			return executeCommand(cmd);
 		}
 	}
-	
+
 	/**
 	 * @return the cmd
 	 */
 	public List<String> getCmd() {
 		synchronized (lock12) {
 			return cmd;
+		}
+	}
+
+	public String getResponse() {
+		synchronized (lock12) {
+			return response;
 		}
 	}
 }
