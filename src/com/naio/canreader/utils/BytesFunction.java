@@ -57,5 +57,6 @@ public class BytesFunction {
 		}
 		return binaryText;
 	}
+	
 
 }

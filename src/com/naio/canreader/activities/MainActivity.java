@@ -2,8 +2,13 @@ package com.naio.canreader.activities;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.Process;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,6 +25,7 @@ import com.naio.canreader.utils.MyPagerAdapter;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +43,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -172,13 +179,16 @@ public class MainActivity extends FragmentActivity {
 				BlocVerinActivity.class.getName()));
 		fragments.add(Fragment.instantiate(this,
 				BlocTensionActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocErrorCanActivity.class.getName()));
 		// Création de l'adapter qui s'occupera de l'affichage de la
 		// liste de Fragments
+
 		this.mPagerAdapter = new MyPagerAdapter(
 				super.getSupportFragmentManager(), fragments);
 
 		pager = (ViewPager) super.findViewById(R.id.viewpager);
-		pager.setOffscreenPageLimit(4);
+		pager.setOffscreenPageLimit(5);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
 
@@ -270,7 +280,6 @@ public class MainActivity extends FragmentActivity {
 			try {
 				Thread.sleep(400);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			canDumpThread = new CanDumpThread();
@@ -313,7 +322,7 @@ public class MainActivity extends FragmentActivity {
 		pager.getChildAt(4).findViewById(R.id.text_connection)
 				.setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
-		cptGsm=0;
+		cptGsm = 0;
 		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
 		// the sleep here is just because there is a sleep when the user press
 		// the READ button, so do the STOP.
@@ -388,14 +397,11 @@ public class MainActivity extends FragmentActivity {
 			if (canParserThread.getCanParser().getErrorcanframe()
 					.getComplementError().length() > 2) {
 				button_read_clicked(null);
-				Log.e("haricots","fin des");
-				Toast.makeText(
-						this,
-						"can error : \n"
-								+ canParserThread.getCanParser()
-										.getErrorcanframe()
-										.getComplementError(),
-						Toast.LENGTH_LONG).show();
+				String errorText = "can error : \n"
+						+ canParserThread.getCanParser().getErrorcanframe()
+								.getComplementError();
+				Toast.makeText(this, errorText, Toast.LENGTH_LONG).show();
+				write_in_file(this, errorText);
 				disconnect_can();
 				return;
 			}
@@ -407,8 +413,8 @@ public class MainActivity extends FragmentActivity {
 		 * Toast.LENGTH_LONG).show(); }
 		 */
 		keep_control_of_can();
-		if(!stopTheHandler)
-		handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
+		if (!stopTheHandler)
+			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 	}
 
 	/**
@@ -427,7 +433,7 @@ public class MainActivity extends FragmentActivity {
 			indexDebug++;
 			if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
 				cansend_gsm("AT+CPIN?\r");
-				cptGsm ++;
+				cptGsm++;
 			}
 			if (indexDebug == 2 * KEEP_CONTROL_CAN_LOOP) {
 				if (canParserThread.getCanParser().getGsmcanframe()
@@ -437,12 +443,16 @@ public class MainActivity extends FragmentActivity {
 				indexDebug = 0;
 			}
 		}
-		if(!gsmWork && cptGsm > 5){
+		if (!gsmWork && cptGsm > 5) {
 			gsmWork = true;
 			indexDebug = 0;
-			cptGsm =0;
-			for(int k = 0; k< 2;k++)
-				Toast.makeText(this, "Le GSM ne réponds pas sur le CAN.\nJe vous invite donc à redemarrer OZ et d'attendre plus longtemps pour appuyer sur READ", Toast.LENGTH_LONG).show();
+			cptGsm = 0;
+			for (int k = 0; k < 2; k++)
+				Toast.makeText(
+						this,
+						"Le GSM ne réponds pas sur le CAN.\nJe vous invite donc à redemarrer OZ et d'attendre plus longtemps pour appuyer sur READ",
+						Toast.LENGTH_LONG).show();
+			write_in_file(this, "GSM not responding");
 		}
 		// }
 	}
@@ -479,7 +489,6 @@ public class MainActivity extends FragmentActivity {
 		}
 		return answer;
 	}
-
 
 	public void button_send_gsm_clicked(View v) {
 		// create a Dialog component
@@ -1047,6 +1056,24 @@ public class MainActivity extends FragmentActivity {
 	public void button_batterie_clicked(View v) {
 		cansend("407", "R");
 	}
+	
+	public void button_actualiser_erreur_clicked(View v){ 
+		try {
+			String textToParse = getStringFromFile(this);
+			String[] textParsed = textToParse.split("-separator-");
+			String textFinish = "";
+//			for(int i = 0; i<textParsed.length;i++){
+//				Log.e("gjcfjghf", textParsed[i]+ "-------"+ i );
+//				textFinish += textParsed[i];
+//			}
+			for(int i = textParsed.length-1; i>=0;i--){
+				textFinish += textParsed[i]+"\n";
+			}
+			((TextView) findViewById(R.id.historique_can)).setText(textFinish);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Function specific for sending GSM trame on the can ( all char one by one
@@ -1065,10 +1092,10 @@ public class MainActivity extends FragmentActivity {
 
 		String responseCanSend = null;
 		if ((responseCanSend = canSendThread.getResponse()) != null) {
-			Toast.makeText(
-					this,
-					"Ecriture sur le can impossible : \n" + command + "\n"
-							+ responseCanSend, Toast.LENGTH_SHORT).show();
+			String errorText = "Ecriture sur le can impossible : \n" + command
+					+ "\n" + responseCanSend;
+			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+			write_in_file(this, errorText);
 			reading = false;
 			if (canDumpThread != null) {
 				canDumpThread.quit();
@@ -1121,17 +1148,15 @@ public class MainActivity extends FragmentActivity {
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		String responseCanSend = null;
 		if ((responseCanSend = canSendThread.getResponse()) != null) {
-			Toast.makeText(
-					this,
-					"Ecriture sur le can impossible : \ncommand : @" + id
-							+ " =>" + command + "\n" + responseCanSend,
-					Toast.LENGTH_SHORT).show();
+			String errorText = "Ecriture sur le can impossible : \ncommand : @"
+					+ id + " =>" + command + "\n" + responseCanSend;
+			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+			write_in_file(this, errorText);
 			reading = false;
 			if (canDumpThread != null) {
 				canDumpThread.quit();
@@ -1157,5 +1182,55 @@ public class MainActivity extends FragmentActivity {
 			pager.getChildAt(4).findViewById(R.id.text_connection)
 					.setVisibility(View.VISIBLE);
 		}
+	}
+
+	public void write_in_file(Context ctx, String error) {
+		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		Date date = new Date();
+		FileWriter writer;
+		try {
+			writer = new FileWriter(gpxfile, true);
+			writer.append(date.toString() + "---" + error + "\n-separator-");
+			writer.flush();
+			writer.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	public void button_delete_file_clicked(View v){
+		delete_file(this);
+	}
+	
+	public void delete_file(Context ctx) {
+		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		FileWriter writer;
+		try {
+			writer = new FileWriter(gpxfile, false);
+			writer.append(" ");
+			writer.flush();
+			writer.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	private String convertStreamToString(InputStream is) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			sb.append(line).append("\n");
+		}
+		reader.close();
+		return sb.toString();
+	}
+
+	public String getStringFromFile(Context ctx) throws Exception {
+		File fl = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		FileInputStream fin = new FileInputStream(fl);
+		String ret = convertStreamToString(fin);
+		fin.close();
+		return ret;
 	}
 }

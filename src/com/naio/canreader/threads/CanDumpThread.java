@@ -94,22 +94,9 @@ public class CanDumpThread extends Thread {
 			while (true) {
 				line = null;
 				while ((line = reader.readLine()) != null) {
-					//get the info of the error
-					/*if(count == 1){
-						Log.e("errrrr",line);
-						reader.close();
-						Thread.currentThread().interrupt();
-						break;
-					}
-					//get the error
-					if(line.contains("ERRORFRAME")){
-						//Thread.sleep(10,0);
-						Log.e("errrrrr",line);
-						count++;
-						continue;
-					}*/
 					synchronized (entreThread) {
 						getQueue().offer(line);
+						//the notify here says to the CanParserThread that a frame is available
 						entreThread.notify();
 					}
 
@@ -150,7 +137,7 @@ public class CanDumpThread extends Thread {
 	 * @return
 	 */
 	public String get100Poll() {
-		// false trame to avoid return null
+		// fake trame to avoid return null
 		String fakeTrame = "(000.0000000) can0 480 [2] remote";
 		String poll = "";
 		for (int i = 0; i < 100; i++) {

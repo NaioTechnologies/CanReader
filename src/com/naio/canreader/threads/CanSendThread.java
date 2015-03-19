@@ -51,14 +51,13 @@ public class CanSendThread extends Thread {
 			while ((s = stdError.readLine()) != null) {
 				answer += s;
 			}
-			Log.e("canseee", ""+answer);
 			p.waitFor();
 			p.destroy();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		if(answer.length() > 2)
+		if(answer.length() > 2) //if an error occurred, we return it
 			return answer;
 		else
 			return null;

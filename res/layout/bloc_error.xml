@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_error_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true" >
+
+    <TextView
+        android:layout_width="1920px"
+        android:layout_height="@dimen/nexus7_100px_h"
+        android:layout_marginLeft="0px"
+        android:layout_marginTop="0px"
+        android:background="@android:color/background_dark"
+        android:gravity="center"
+        android:text="Historique des erreurs CAN"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/nexus7_40dp" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/nexus7_20px_w"
+        android:layout_marginTop="@dimen/nexus7_100px_h" >
+
+        <TextView
+            android:id="@+id/historique_can"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="..."
+            android:textSize="@dimen/nexus7_15dp" />
+    </ScrollView>
+ <Button
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1700px_w"
+        android:layout_marginTop="@dimen/nexus7_350px_h"
+        android:onClick="button_delete_file_clicked"
+        android:text="Supprimer" />
+    <Button
+        android:layout_width="@dimen/nexus7_300px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1700px_w"
+        android:layout_marginTop="@dimen/nexus7_760px_h"
+        android:onClick="button_actualiser_erreur_clicked"
+        android:text="Actualiser" />
+
+</RelativeLayout>
