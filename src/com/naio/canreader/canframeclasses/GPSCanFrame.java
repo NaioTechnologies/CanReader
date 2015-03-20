@@ -78,6 +78,14 @@ public class GPSCanFrame extends CanFrame {
 		}
 	}
 
+	public String getGpsDataInString(){
+
+		String text = "";
+		for (int a : gpsData) {
+			text += (char) a;
+		}
+		return text;
+	}
 	private void display_data_gps(RelativeLayout rl) {
 
 		String text = "";

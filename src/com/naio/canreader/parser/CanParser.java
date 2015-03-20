@@ -158,7 +158,6 @@ public class CanParser {
 				continue;
 			arrayListFrame.add(canframe);
 		}
-
 		return arrayListFrame;
 	}
 

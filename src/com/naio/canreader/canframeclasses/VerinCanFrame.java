@@ -483,7 +483,6 @@ public class VerinCanFrame extends CanFrame {
 	 * Put all the global variables to 0
 	 */
 	public static void resetCpt() {
-		
 		VerinCanFrame.cptArd = 0;
 		VerinCanFrame.cptAvg = 0;
 		VerinCanFrame.cptArg = 0;
@@ -496,6 +495,21 @@ public class VerinCanFrame extends CanFrame {
 		VerinCanFrame.state_avg = true;
 		VerinCanFrame.state_arg = true;
 		VerinCanFrame.state_avd = true;
-
 	}
+
+	/**
+	 * @return the requetePosition
+	 */
+	public Integer getRequetePosition() {
+		return requetePosition;
+	}
+
+	/**
+	 * @return the retourPosition
+	 */
+	public Integer getRetourPosition() {
+		return retourPosition;
+	}
+	
+	
 }

@@ -7,7 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.naio.canreader.R;
-
+/**
+ * Bloc of the can error
+ * Every time a error relative to the can occured, it is written in a file.
+ * This file is read when 'actualiser' button is pressed.
+ * This file is deleted when 'supprimer' button is pressed
+ * 
+ * @author bodereau
+ *
+ */
 public class BlocErrorCanActivity extends Fragment {
 
 	@Override

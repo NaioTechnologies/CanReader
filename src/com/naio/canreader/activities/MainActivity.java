@@ -34,7 +34,6 @@ import android.os.Handler;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +61,7 @@ public class MainActivity extends FragmentActivity {
 	private int indexDebug;
 	private static final int MILLISECONDS_RUNNABLE = 10;
 
-	// 50 * MILLISECONDS_RUNNABLE for re send the keep control message
+	// KEEP_CONTROL_CAN_LOOP * MILLISECONDS_RUNNABLE for re sending the keep control message
 	private static final int KEEP_CONTROL_CAN_LOOP = 50;
 	// message for keeping the hand over the Pascal's code ( only the '69' is
 	// important )
@@ -90,7 +89,6 @@ public class MainActivity extends FragmentActivity {
 	private MyPagerAdapter mPagerAdapter;
 	private ViewPager pager;
 	private CanParserThread canParserThread;
-	private boolean keep_control;
 	private boolean gsmWork;
 	private int cptGsm;
 	private boolean stopTheHandler;
@@ -162,10 +160,8 @@ public class MainActivity extends FragmentActivity {
 	 */
 	private void set_fragment_layout() {
 		setContentView(R.layout.viewpager);// Création de la liste de
-		// Fragments que fera
-		// défiler le PagerAdapter
+		// Fragments que fera défiler le PagerAdapter
 		List fragments = new Vector();
-		keep_control = false;
 		cptGsm = 0;
 		stopTheHandler = false;
 		// Ajout des Fragments dans la liste
@@ -422,7 +418,6 @@ public class MainActivity extends FragmentActivity {
 	 * on the can
 	 */
 	private void keep_control_of_can() {
-		// if (keep_control) {
 		if (gsmWork) {
 			indexDebug++;
 			if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
@@ -454,7 +449,7 @@ public class MainActivity extends FragmentActivity {
 						Toast.LENGTH_LONG).show();
 			write_in_file(this, "GSM not responding");
 		}
-		// }
+		
 	}
 
 	/**
@@ -773,7 +768,6 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 * 
-	 * 
 	 */
 	public void button_envoie_buzzer_clicked(View v) {
 		// create a Dialog component
@@ -988,8 +982,6 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 * 
-	 * 
-	 * 
 	 */
 	public void button_etat_clavier_clicked(View v) {
 		final Dialog dialog = new Dialog(this);
@@ -1056,19 +1048,22 @@ public class MainActivity extends FragmentActivity {
 	public void button_batterie_clicked(View v) {
 		cansend("407", "R");
 	}
-	
-	public void button_actualiser_erreur_clicked(View v){ 
+
+	/**
+	 * Display the file where is written the can error ( and display it in order
+	 * )
+	 * 
+	 */
+	public void button_actualiser_erreur_clicked(View v) {
 		try {
 			String textToParse = getStringFromFile(this);
 			String[] textParsed = textToParse.split("-separator-");
 			String textFinish = "";
-//			for(int i = 0; i<textParsed.length;i++){
-//				Log.e("gjcfjghf", textParsed[i]+ "-------"+ i );
-//				textFinish += textParsed[i];
-//			}
-			for(int i = textParsed.length-1; i>=0;i--){
-				textFinish += textParsed[i]+"\n";
+
+			for (int i = textParsed.length - 1; i >= 0; i--) {
+				textFinish += textParsed[i] + "\n";
 			}
+
 			((TextView) findViewById(R.id.historique_can)).setText(textFinish);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1137,10 +1132,24 @@ public class MainActivity extends FragmentActivity {
 			return;
 		if (command.contentEquals("0"))
 			command = "00";
-		if (command.contentEquals("1"))
+		else if (command.contentEquals("1"))
 			command = "01";
-		if (command.contentEquals("2"))
+		else if (command.contentEquals("2"))
 			command = "02";
+		else if (command.contentEquals("3"))
+			command = "03";
+		else if (command.contentEquals("4"))
+			command = "04";
+		else if (command.contentEquals("5"))
+			command = "05";
+		else if (command.contentEquals("6"))
+			command = "06";
+		else if (command.contentEquals("7"))
+			command = "07";
+		else if (command.contentEquals("8"))
+			command = "08";
+		else if (command.contentEquals("9"))
+			command = "09";
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommand(id, command);
 		canSendThread.start();
@@ -1184,6 +1193,12 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 
+	/**
+	 * write can error in a file
+	 * 
+	 * @param ctx
+	 * @param error
+	 */
 	public void write_in_file(Context ctx, String error) {
 		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
 		Date date = new Date();
@@ -1197,11 +1212,22 @@ public class MainActivity extends FragmentActivity {
 			e1.printStackTrace();
 		}
 	}
-	
-	public void button_delete_file_clicked(View v){
+
+	/**
+	 * Call the function which delete the content of the error can file
+	 * 
+	 * @param v
+	 */
+	public void button_delete_file_clicked(View v) {
 		delete_file(this);
+		((TextView) findViewById(R.id.historique_can)).setText(" ");
 	}
-	
+
+	/**
+	 * Delete the content of the error can file
+	 * 
+	 * @param ctx
+	 */
 	public void delete_file(Context ctx) {
 		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
 		FileWriter writer;
@@ -1214,7 +1240,14 @@ public class MainActivity extends FragmentActivity {
 			e1.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Convert a inputStream to a string
+	 * 
+	 * @param is
+	 * @return
+	 * @throws Exception
+	 */
 	private String convertStreamToString(InputStream is) throws Exception {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 		StringBuilder sb = new StringBuilder();
@@ -1226,6 +1259,13 @@ public class MainActivity extends FragmentActivity {
 		return sb.toString();
 	}
 
+	/**
+	 * Read a file and return the content of it as a string
+	 * 
+	 * @param ctx
+	 * @return
+	 * @throws Exception
+	 */
 	public String getStringFromFile(Context ctx) throws Exception {
 		File fl = new File(ctx.getFilesDir(), "history_of_crash.naio");
 		FileInputStream fin = new FileInputStream(fl);

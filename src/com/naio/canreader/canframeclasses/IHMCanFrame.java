@@ -396,4 +396,33 @@ public class IHMCanFrame extends CanFrame {
 		}
 
 	}
+
+	/**
+	 * @return the etatLed
+	 */
+	public Integer getEtatLed() {
+		return etatLed;
+	}
+
+	/**
+	 * @return the couleurLed
+	 */
+	public Integer getCouleurLed() {
+		return couleurLed;
+	}
+
+	/**
+	 * @return the contraste
+	 */
+	public Integer getContraste() {
+		return contraste;
+	}
+
+	/**
+	 * @return the etatClavier
+	 */
+	public Integer getEtatClavier() {
+		return etatClavier;
+	}
+	
 }
