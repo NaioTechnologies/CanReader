@@ -459,7 +459,7 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @return
 	 */
-	private String executeCommand(String command) {
+	public String executeCommand(String command) {
 		// Only use by the CONNECT button
 		StringBuffer output = new StringBuffer();
 		Process p;
