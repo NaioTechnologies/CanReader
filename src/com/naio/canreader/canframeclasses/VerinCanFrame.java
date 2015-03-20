@@ -510,6 +510,105 @@ public class VerinCanFrame extends CanFrame {
 	public Integer getRetourPosition() {
 		return retourPosition;
 	}
+
+	/**
+	 * @return the lectureODO
+	 */
+	public Integer getLectureODO() {
+		return lectureODO;
+	}
+
+	/**
+	 * @return the versionMaj
+	 */
+	public Integer getVersionMaj() {
+		return versionMaj;
+	}
+
+	/**
+	 * @return the versionMin
+	 */
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	/**
+	 * @return the t12vLSB
+	 */
+	public Integer getT12vLSB() {
+		return t12vLSB;
+	}
+
+	/**
+	 * @return the t12vMSB
+	 */
+	public Integer getT12vMSB() {
+		return t12vMSB;
+	}
+
+	/**
+	 * @return the t33vLSB
+	 */
+	public Integer getT33vLSB() {
+		return t33vLSB;
+	}
+
+	/**
+	 * @return the t33vMSB
+	 */
+	public Integer getT33vMSB() {
+		return t33vMSB;
+	}
+
+	/**
+	 * @return the t5vLSB
+	 */
+	public Integer getT5vLSB() {
+		return t5vLSB;
+	}
+
+	/**
+	 * @return the t5vMSB
+	 */
+	public Integer getT5vMSB() {
+		return t5vMSB;
+	}
+
+	/**
+	 * @return the flagSortie
+	 */
+	public Integer getFlagSortie() {
+		return flagSortie;
+	}
+
+	/**
+	 * @return the t24vLSB
+	 */
+	public Integer getT24vLSB() {
+		return t24vLSB;
+	}
+
+	/**
+	 * @return the t24vMSB
+	 */
+	public Integer getT24vMSB() {
+		return t24vMSB;
+	}
+
+	/**
+	 * @return the pileLSB
+	 */
+	public Integer getPileLSB() {
+		return pileLSB;
+	}
+
+	/**
+	 * @return the pileMSB
+	 */
+	public Integer getPileMSB() {
+		return pileMSB;
+	}
+	
 	
 	
 }

@@ -551,8 +551,139 @@ public class IMUCanFrame extends CanFrame {
 	public Integer getMagnetoXLSB() {
 		return magnetoXLSB;
 	}
-	
-	
+
+	/**
+	 * @return the accelYLSB
+	 */
+	public Integer getAccelYLSB() {
+		return accelYLSB;
+	}
+
+	/**
+	 * @return the accelYMSB
+	 */
+	public Integer getAccelYMSB() {
+		return accelYMSB;
+	}
+
+	/**
+	 * @return the accelZLSB
+	 */
+	public Integer getAccelZLSB() {
+		return accelZLSB;
+	}
+
+	/**
+	 * @return the accelZMSB
+	 */
+	public Integer getAccelZMSB() {
+		return accelZMSB;
+	}
+
+	/**
+	 * @return the gyroYMSB
+	 */
+	public Integer getGyroYMSB() {
+		return gyroYMSB;
+	}
+
+	/**
+	 * @return the gyroYLSB
+	 */
+	public Integer getGyroYLSB() {
+		return gyroYLSB;
+	}
+
+	/**
+	 * @return the gyroZMSB
+	 */
+	public Integer getGyroZMSB() {
+		return gyroZMSB;
+	}
+
+	/**
+	 * @return the gyroZLSB
+	 */
+	public Integer getGyroZLSB() {
+		return gyroZLSB;
+	}
+
+	/**
+	 * @return the magnetoYMSB
+	 */
+	public Integer getMagnetoYMSB() {
+		return magnetoYMSB;
+	}
+
+	/**
+	 * @return the magnetoYLSB
+	 */
+	public Integer getMagnetoYLSB() {
+		return magnetoYLSB;
+	}
+
+	/**
+	 * @return the magnetoZMSB
+	 */
+	public Integer getMagnetoZMSB() {
+		return magnetoZMSB;
+	}
+
+	/**
+	 * @return the magnetoZLSB
+	 */
+	public Integer getMagnetoZLSB() {
+		return magnetoZLSB;
+	}
+
+	/**
+	 * @return the resMagnMSB
+	 */
+	public Integer getResMagnMSB() {
+		return resMagnMSB;
+	}
+
+	/**
+	 * @return the resMagnLSB
+	 */
+	public Integer getResMagnLSB() {
+		return resMagnLSB;
+	}
+
+	/**
+	 * @return the temperature
+	 */
+	public Integer getTemperature() {
+		return temperature;
+	}
+
+	/**
+	 * @return the versionMaj
+	 */
+	public Integer getVersionMaj() {
+		return versionMaj;
+	}
+
+	/**
+	 * @return the versionMin
+	 */
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	/**
+	 * @return the board
+	 */
+	public Integer getBoard() {
+		return board;
+	}
+
+	/**
+	 * @return the rev
+	 */
+	public Integer getRev() {
+		return rev;
+	}
 	
 	
 }

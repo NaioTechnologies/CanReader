@@ -31,9 +31,26 @@ public class IHMCanFrameTest extends ActivityInstrumentationTestCase2<MainActivi
 		assertEquals(canParser.getIhmcanframe().getContraste().toString(), "100");
 	}
 	
+	public void testParseBacklight(){
+		canParser.parseOneFrame("(1215.1251) can0 388 [1] 64");
+		assertEquals(canParser.getIhmcanframe().getBacklight().toString(), "100");
+	}
+	
 	public void testParseClavier(){
 		canParser.parseOneFrame("(1215.1251) can0 381 [1] 01");
 		assertEquals(canParser.getIhmcanframe().getEtatClavier().toString(), "1");
+	}
+	
+	public void testParseVersionSoft(){
+		canParser.parseOneFrame("(1215.1251) can0 386 [1] 01 02");
+		assertEquals(canParser.getIhmcanframe().getVersionMaj().toString(), "1");
+		assertEquals(canParser.getIhmcanframe().getVersionMin().toString(), "2");
+	}
+	
+	public void testParseBoardRev(){
+		canParser.parseOneFrame("(1215.1251) can0 38F [1] 01 02");
+		assertEquals(canParser.getIhmcanframe().getBoard().toString(), "1");
+		assertEquals(canParser.getIhmcanframe().getRev().toString(), "2");
 	}
 
 }
