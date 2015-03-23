@@ -88,6 +88,13 @@ public class MainActivity extends FragmentActivity {
 	private RelativeLayout rl;
 	private MyPagerAdapter mPagerAdapter;
 	private ViewPager pager;
+	/**
+	 * @return the pager
+	 */
+	public ViewPager getPager() {
+		return pager;
+	}
+
 	private CanParserThread canParserThread;
 	private boolean gsmWork;
 	private int cptGsm;
@@ -333,7 +340,23 @@ public class MainActivity extends FragmentActivity {
 	protected void onPause() {
 		// we stop the app when onPause because other app could read the can
 		super.onPause();
-		onBackPressed();
+		if (reading) {
+			reading = false;
+			if (canDumpThread != null) {
+				canDumpThread.quit();
+				canDumpThread.interrupt();
+			}
+			if (canParserThread != null) {
+				canParserThread.setStop(false);
+				canParserThread.interrupt();
+			}
+			if (canSendThread != null)
+				canSendThread.interrupt();
+			gsmWork = false;
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
+			handler.removeCallbacks(runnable);
+		}
 	}
 
 	@Override
@@ -488,7 +511,6 @@ public class MainActivity extends FragmentActivity {
 	public void button_send_gsm_clicked(View v) {
 		// create a Dialog component
 		final Dialog dialog = new Dialog(this);
-
 		dialog.setContentView(R.layout.send_sms_dialog);
 		dialog.setTitle("Send a sms");
 

@@ -10,7 +10,6 @@ public class CanSendThreadTest extends
 
 	private CanSendThread canSendThread;
 
-	@SuppressWarnings("deprecation")
 	public CanSendThreadTest() {
 		super("com.naio.canreader.activities", MainActivity.class);
 	}

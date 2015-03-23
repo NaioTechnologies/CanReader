@@ -17,6 +17,7 @@
         android:textSize="@dimen/nexus7_40dp" />
 
     <ScrollView
+        android:id="@+id/scrollview_erreur_can"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginLeft="@dimen/nexus7_20px_w"

@@ -10,15 +10,12 @@ import android.test.ActivityInstrumentationTestCase2;
 public class BrainCanFrameTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private CanParser canParser;
 	
-	@SuppressWarnings("deprecation")
 	public BrainCanFrameTest() {
 		super("com.naio.canreader.activities",MainActivity.class);
 	}
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		
-		//MainActivity mainActivity = getActivity();
 		canParser = new CanParser();
 	}
 	

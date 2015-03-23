@@ -8,7 +8,6 @@ import android.test.ActivityInstrumentationTestCase2;
 public class BytesFunctionTest extends
 		ActivityInstrumentationTestCase2<MainActivity> {
 
-	@SuppressWarnings("deprecation")
 	public BytesFunctionTest() {
 		super("com.naio.canreader.activities", MainActivity.class);
 	}
@@ -20,16 +19,6 @@ public class BytesFunctionTest extends
 	}
 
 	public void testFillBinariesStrings() {
-		// see robotium
-		// Solo solo = new Solo(getInstrumentation(), getActivity());
-		// getInstrumentation().waitForIdleSync();
-		// // Now do whatever you need to do to trigger your dialog.
-		//
-		// // Let's assume a properly lame dialog title.
-		// assertTrue("Could not find the dialog!",
-		// solo.searchText("My Dialog Title"));
-		// or
-		// ViewAsserts.assertOnScreen(origin, view)
 		assertEquals(BytesFunction.fillWithZeroTheBinaryString("0"), "00000000");
 	}
 

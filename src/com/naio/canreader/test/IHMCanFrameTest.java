@@ -8,7 +8,6 @@ import android.test.ActivityInstrumentationTestCase2;
 public class IHMCanFrameTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private CanParser canParser;
 	
-	@SuppressWarnings("deprecation")
 	public IHMCanFrameTest() {
 		super("com.naio.canreader.activities",MainActivity.class);
 	}

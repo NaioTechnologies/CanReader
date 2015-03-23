@@ -8,7 +8,6 @@ import android.test.ActivityInstrumentationTestCase2;
 public class GPSCanFrameTest extends ActivityInstrumentationTestCase2<MainActivity> {
 	private CanParser canParser;
 	
-	@SuppressWarnings("deprecation")
 	public GPSCanFrameTest() {
 		super("com.naio.canreader.activities",MainActivity.class);
 	}

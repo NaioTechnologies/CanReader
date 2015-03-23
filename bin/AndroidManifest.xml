@@ -13,7 +13,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="com.naio.canreader.test" />
+        android:targetPackage="com.naio.canreader" />
 
     <application
         android:allowBackup="true"

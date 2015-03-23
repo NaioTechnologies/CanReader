@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true" >
-<!--      <Button
+
+    <!--
+          <Button
         android:layout_width="@dimen/nexus7_200px_w"
         android:layout_height="@dimen/nexus7_100px_h"
         android:layout_marginLeft="@dimen/nexus7_920px_w"
@@ -12,7 +14,9 @@
         android:gravity="center"
         android:onClick="button_keep_control_clicked"
         android:text="Controll"
-        android:textSize="@dimen/nexus7_25dp" /> -->
+        android:textSize="@dimen/nexus7_25dp" />
+    -->
+
     <TextView
         android:layout_width="1920px"
         android:layout_height="@dimen/nexus7_100px_h"
@@ -221,8 +225,8 @@
         android:gravity="center"
         android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
-    
-     <TextView
+
+    <TextView
         android:id="@+id/magneto_time"
         android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
@@ -231,8 +235,8 @@
         android:gravity="center"
         android:text="..."
         android:textSize="@dimen/nexus7_15dp" />
-     
-     <TextView
+
+    <TextView
         android:id="@+id/gyro_time"
         android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
@@ -241,8 +245,8 @@
         android:gravity="center"
         android:text="..."
         android:textSize="@dimen/nexus7_15dp" />
-     
-     <TextView
+
+    <TextView
         android:id="@+id/accel_time"
         android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_40px_h"
@@ -300,8 +304,6 @@
         android:onClick="button_magneto_board_clicked"
         android:text="Board:"
         android:textSize="@dimen/nexus7_25dp" />
-    
-
 
     <TextView
         android:id="@+id/magneto_boardf"
@@ -389,25 +391,25 @@
         android:layout_height="@dimen/nexus7_200px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_660px_h"
-        android:text=""
+        android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
-    
-        <TextView
+
+    <TextView
         android:id="@+id/textview_gps_text3_main_activity"
         android:layout_width="@dimen/nexus7_420px_w"
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="0px"
         android:layout_marginTop="@dimen/nexus7_850px_h"
-        android:text=""
+        android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
-        
-        <TextView
+
+    <TextView
         android:id="@+id/textview_gps_text4_main_activity"
         android:layout_width="@dimen/nexus7_420px_w"
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_850px_h"
-        android:text=""
+        android:text="..."
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -420,14 +422,16 @@
         android:text="READ"
         android:textSize="@dimen/nexus7_25dp" />
 
-<!--     <Button
+    <!--
+         <Button
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_300px_h"
         android:layout_marginLeft="@dimen/nexus7_1370px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_connect_clicked"
         android:text="CONNECT"
-        android:textSize="@dimen/nexus7_25dp" /> -->
+        android:textSize="@dimen/nexus7_25dp" />
+    -->
 
     <TextView
         android:layout_width="@dimen/nexus7_700px_w"

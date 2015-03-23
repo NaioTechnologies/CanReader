@@ -8,7 +8,6 @@ public class ExecuteCommandTest extends ActivityInstrumentationTestCase2<MainAct
 	
 	private MainActivity mainActivity;
 
-	@SuppressWarnings("deprecation")
 	public ExecuteCommandTest() {
 		super("com.naio.canreader.activities",MainActivity.class);
 	}
