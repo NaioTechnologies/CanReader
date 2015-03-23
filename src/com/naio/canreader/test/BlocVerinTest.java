@@ -57,11 +57,55 @@ public class BlocVerinTest extends
 	    assertNotNull("mIhm_min is null", mVerin_min);
 	}
 		
-	public void testTextView(){
+	public void testTextViews(){
 		textView_connection();
 		textView_odo();
 		textView_position();
 		textView_version();
+	}
+	
+	public void testDialogs(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		dialogPosition(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogCommande(han);
+	}
+	
+	public void testRTR(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrRetour(han);
+		getInstrumentation().waitForIdleSync();
+		rtrVersion(han);
+	}
+	
+	private void rtrRetour(Solo han) {
+		han.clickOnButton("Retour position %:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for retour position!", han.searchText("@401"));	
+	}
+	
+	private void rtrVersion(Solo han) {
+		han.clickOnButton("Version :");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for version!", han.searchText("@405"));	
 	}
 	
 	public void textView_connection() {
@@ -98,31 +142,13 @@ public class BlocVerinTest extends
 	    assertEquals(expectedMaj, actual_maj);
 	}
 	
-	public void testDialogPosition(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogPosition(Solo han){	
 		han.clickOnButton("Position %");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the position dialog!", han.searchText("Envoyer"));
 	}
 	
-	public void testDialogCommande(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogCommande(Solo han){
 		han.clickOnButton("Commande vérin");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the commande vérin dialog!", han.searchText("Envoyer"));

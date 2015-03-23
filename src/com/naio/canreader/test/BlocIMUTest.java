@@ -2,6 +2,7 @@ package com.naio.canreader.test;
 
 import com.naio.canreader.R;
 import com.naio.canreader.activities.MainActivity;
+import com.robotium.solo.Solo;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
@@ -93,13 +94,52 @@ public class BlocIMUTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		assertNotNull("mImu_gps_4 is null", mImu_gps_4);
 	}
 
-	public void testTextView() {
+	public void testTextViews() {
 		textView_accel();
 		textView_gyro();
 		textView_magneto();
 		textView_gps();
 		textView_version();
 		textView_res_temp();
+	}
+	
+	public void testRTR(){
+		Solo han = new Solo(getInstrumentation(),mBlocIMUActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		rtrTempe(han);
+		getInstrumentation().waitForIdleSync();
+		rtrBoard(han);
+		getInstrumentation().waitForIdleSync();
+		rtrVersion(han);
+	}
+	
+	public void testRead(){
+		Solo han = new Solo(getInstrumentation(),mBlocIMUActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.clickOnButton("READ");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for READ!", han.searchText("CAN"));	
+	
+	}
+
+	private void rtrVersion(Solo han) {
+		han.clickOnButton("Version:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for version!", han.searchText("@184"));	
+	}
+
+	private void rtrBoard(Solo han) {
+		han.clickOnButton("Board:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for board and rev!", han.searchText("@18F"));	
+	}
+
+	private void rtrTempe(Solo han) {
+		han.clickOnButton("Tempé:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for tempé!", han.searchText("@183"));	
 	}
 
 	public void textView_accel() {

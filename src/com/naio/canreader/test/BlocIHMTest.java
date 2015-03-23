@@ -63,13 +63,78 @@ public class BlocIHMTest extends
 	    assertNotNull("mIhm_rev is null", mIhm_rev);
 	}
 		
-	public void testTextView(){
+	public void testTextViews(){
 		textView_connection();
 		textView_etats();
 		textView_version();
 		textView_light();
 		textView_status();
 	}
+	
+	public void testDialogs(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		dialogBuzzer(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogAffichage(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogClavier(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogLed(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogContrast(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogBacklight(han);
+	}
+	
+	public void testRTR(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrStatus(han);
+		getInstrumentation().waitForIdleSync();
+		rtrVersion(han);
+		getInstrumentation().waitForIdleSync();
+		rtrBoard(han);
+	}
+	
+	private void rtrBoard(Solo han) {
+		han.clickOnButton("Board: ");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for board!", han.searchText("@38F"));	
+	}
+	
+	private void rtrStatus(Solo han) {
+		han.clickOnButton("Statut:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for status!", han.searchText("@384"));	
+	}
+	
+	private void rtrVersion(Solo han) {
+		han.clickOnButton("Version: ");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for version!", han.searchText("@386"));	
+	}
+	
 	public void textView_connection() {
 	    final String expected = "Veuillez appuyer sur le bouton READ";
 	    final String actual_co = mCo.getText().toString();
@@ -112,80 +177,38 @@ public class BlocIHMTest extends
 	    final String actual_status = mIhm_status.getText().toString();
 	    assertEquals(expected, actual_status);
 	}
-	
-	public void testDialogBuzzer(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+
+	public void dialogBuzzer(Solo han){
 		han.clickOnButton("Envoi commande buzzer");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the buzzer dialog!", han.searchText("Send buzzer command"));
 	}
 	
-	public void testDialogAffichage(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogAffichage(Solo han){
 		han.clickOnButton("Envoi commande affichage");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the display dialog!", han.searchText("Send display command"));
 	}
 	
-	public void testDialogClavier(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogClavier(Solo han){
 		han.clickOnButton("Clavier");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the keyboard dialog!", han.searchText("Clavier"));
 	}
 	
-	public void testDialogLed(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogLed(Solo han){
 		han.clickOnButton("LED");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the led dialog!", han.searchText("LED"));
 	}
 	
-	public void testDialogContrast(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogContrast(Solo han){
 		han.clickOnButton("Contraste %");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the contrast dialog!", han.searchText("Envoyer"));
 	}
 	
-	public void testDialogBacklight(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogBacklight(Solo han){
 		han.clickOnButton("Backlight %");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the backlight dialog!", han.searchText("Envoyer"));

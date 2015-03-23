@@ -2,6 +2,7 @@ package com.naio.canreader.test;
 
 import com.naio.canreader.R;
 import com.naio.canreader.activities.MainActivity;
+import com.robotium.solo.Solo;
 
 import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
@@ -64,10 +65,38 @@ public class BlocTensionTest extends
 		assertNotNull("mTension_flag is null", mTension_flag);
 	}
 
-	public void testTextView() {
+	public void testTextViews() {
 		textView_tempe();
 		textView_tension();
-
+	}
+	
+	public void testRTR(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrTension(han);
+		getInstrumentation().waitForIdleSync();
+		rtrTension2(han);
+	}
+	
+	private void rtrTension(Solo han) {
+		han.clickOnButton("Tension :");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for tension!", han.searchText("@407"));	
+	}
+	
+	private void rtrTension2(Solo han) {
+		han.clickOnButton("Tension:");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the toast for tension!", han.searchText("@406"));	
 	}
 
 	public void textView_tempe() {

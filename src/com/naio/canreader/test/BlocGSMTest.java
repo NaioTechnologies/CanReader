@@ -39,9 +39,26 @@ public class BlocGSMTest extends
 	    assertNotNull("mCo is null", mCo);
 	}
 	
-	public void testTextView(){
+	public void testTextViews(){
 		textView_sms();
 		textView_connection();
+	}
+	
+	public void testDialogs(){
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		dialogSendSms(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogCustom(han);
+		getInstrumentation().waitForIdleSync();
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
+		dialogPin(han);
 	}
 	
 	public void textView_sms() {
@@ -57,26 +74,22 @@ public class BlocGSMTest extends
 	    assertEquals(expected, actual_co);
 	}
 	
-	public void testDialogSendSms(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogSendSms(Solo han){
 		han.clickOnButton("SEND a sms");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the send a sms dialog!", han.searchText("Envoyer"));
 	}
 	
-	public void testDialogCustom(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
-		han.clickOnButton("OK");
-		getInstrumentation().waitForIdleSync();
-		han.scrollToSide(Solo.RIGHT);
-		getInstrumentation().waitForIdleSync();
+	public void dialogCustom(Solo han){
 		han.clickOnButton("CUSTOM");
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the custom dialog!", han.searchText("Envoyer"));
+	}
+	
+	private void dialogPin(Solo han) {
+		han.clickOnButton("PIN");
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the pin dialog!", han.searchText("Envoyer"));
 	}
 	
 }

@@ -143,7 +143,7 @@
         android:layout_marginTop="@dimen/nexus7_520px_h"
         android:gravity="center"
         android:onClick="button_version_ihm_clicked"
-        android:text="Version:"
+        android:text="Version: "
         android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
@@ -213,7 +213,7 @@
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:gravity="center"
         android:onClick="button_board_ihm_clicked"
-        android:text="Board:"
+        android:text="Board: "
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView

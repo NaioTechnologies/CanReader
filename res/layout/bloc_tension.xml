@@ -85,14 +85,14 @@
         android:textSize="@dimen/nexus7_25dp" />
      
      <Button
-        android:layout_width="@dimen/nexus7_400px_w"
-        android:layout_height="@dimen/nexus7_150px_h"
-        android:layout_marginLeft="@dimen/nexus7_10px_w"
-        android:layout_marginTop="@dimen/nexus7_500px_h"
-        android:onClick="button_tension_clicked"
-        android:gravity="center"
-        android:text="Tension :"
-        android:textSize="@dimen/nexus7_25dp" />
+         android:layout_width="@dimen/nexus7_400px_w"
+         android:layout_height="@dimen/nexus7_150px_h"
+         android:layout_marginLeft="@dimen/nexus7_10px_w"
+         android:layout_marginTop="@dimen/nexus7_500px_h"
+         android:gravity="center"
+         android:onClick="button_tension_clicked"
+         android:text="Tension:"
+         android:textSize="@dimen/nexus7_25dp" />
      
      <TextView
         android:layout_width="@dimen/nexus7_100px_w"
