@@ -1,9 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- &#8230; is "..." -->
     <string name="app_name">Can Reader</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- GLOBAL -->
+
+    <string name="global_text_not_connected">Veuillez appuyer sur le bouton READ</string>
+    <string name="global_button_envoyer"> Envoyer </string>
+
+    <!-- BLOC IMU -->
+
+    <string name="imu_name">IMU</string>
+    <string name="imu_accel_title">Accel</string>
+    <string name="imu_x">X:</string>
+    <string name="imu_y">Y:</string>
+    <string name="imu_z">Z:</string>
+    <string name="imu_accel_x_resp">&#8230;</string>
+    <string name="imu_accel_y_resp">&#8230;</string>
+    <string name="imu_accel_z_resp">&#8230;</string>
+    <string name="imu_gyro_title">Gyro</string>
+    <string name="imu_gyro_x_resp">&#8230;</string>
+    <string name="imu_gyro_y_resp">&#8230;</string>
+    <string name="imu_gyro_z_resp">&#8230;</string>
+    <string name="imu_magneto_title">Magneto</string>
+    <string name="imu_magneto_x_resp">&#8230;</string>
+    <string name="imu_magneto_y_resp">&#8230;</string>
+    <string name="imu_magneto_z_resp">&#8230;</string>
+    <string name="imu_freq_magneto">&#8230;</string>
+    <string name="imu_freq_gyro">&#8230;</string>
+    <string name="imu_freq_accel">&#8230;</string>
+    <string name="imu_resmng_title">ResMng:</string>
+    <string name="imu_resmng_resp">&#8230;</string>
+    <string name="imu_button_tempe">Tempé:</string>
+    <string name="imu_button_tempe_resp">&#8230;</string>
+    <string name="imu_button_board">Board:</string>
+    <string name="imu_button_board_resp">&#8230;</string>
+    <string name="imu_rev_title">Rev:</string>
+    <string name="imu_rev_resp">&#8230;</string>
+    <string name="imu_button_version">Version:</string>
+    <string name="imu_button_version_maj_resp">Maj</string>
+    <string name="imu_button_version_min_resp">Min</string>
+    <string name="imu_gps_title">GPS</string>
+    <string name="imu_gps_1_resp">&#8230;</string>
+    <string name="imu_gps_2_resp">&#8230;</string>
+    <string name="imu_gps_3_resp">&#8230;</string>
+    <string name="imu_gps_4_resp">&#8230;</string>
+    <string name="imu_button_read">READ</string>
+
+    <!-- BLOC GSM -->
+
+    <string name="gsm_name">GSM</string>
+    <string name="gsm_display_sms">>display sms here &#8230;</string>
+    <string name="gsm_button_read_sms">READ the sms</string>
+    <string name="gsm_button_custom">CUSTOM</string>
+    <string name="gsm_button_send_sms">Send a sms</string>
+    <string name="gsm_button_config">CONFIG</string>
+    <string name="gsm_button_config2">CONFIG2</string>
+    <string name="gsm_button_status">STATUT</string>
+    <string name="gsm_button_pin">PIN</string>
+
+    <!-- BLOC IHM -->
+
+    <string name="ihm_name">IHM</string>
+    <string name="ihm_button_envoi_affichage">Envoi commande affichage</string>
+    <string name="ihm_button_envoi_buzzer">Envoi commande buzzer</string>
+    <string name="ihm_button_clavier">Clavier</string>
+    <string name="ihm_button_clavier_resp">&#8230;</string>
+    <string name="ihm_button_led">LED</string>
+    <string name="ihm_button_led_resp">&#8230;</string>
+    <string name="ihm_button_contraste">Contraste %</string>
+    <string name="ihm_button_contraste_resp">&#8230;</string>
+    <string name="ihm_button_backlight">Backlight %</string>
+    <string name="ihm_button_backlight_resp">&#8230;</string>
+    <string name="ihm_button_statut">Statut:</string>
+    <string name="ihm_button_statut_resp">&#8230;</string>
+    <string name="ihm_button_version">version:</string>
+    <string name="ihm_button_version_maj_resp">Maj</string>
+    <string name="ihm_button_version_min_resp">Min</string>
+    <string name="ihm_button_board">board: </string>
+    <string name="ihm_button_board_resp">&#8230;</string>
+    <string name="ihm_button_rev">Rev:</string>
+    <string name="ihm_button_rev_resp">&#8230;</string>
+
+    <!-- BLOC VERIN ET ODO -->
+
+    <string name="verin_odo_name">VERIN et ODO</string>
+    <string name="verin_button_position">Position %</string>
+    <string name="verin_button_position_resp">&#8230;</string>
+    <string name="verin_button_commande">Commande vérin</string>
+    <string name="verin_button_commande_resp">&#8230;</string>
+    <string name="verin_button_retour">Retour position %:</string>
+    <string name="verin_button_retour_resp">&#8230;</string>
+    <string name="verin_etat_verin_title">Etat verin:</string>
+    <string name="verin_etat_verin_resp">&#8230;</string>
+    <string name="odo_lecture_title">Lecture ODO :</string>
+    <string name="odo_lecture_resp">&#8230;</string>
+    <string name="odo_button_reset">Reset compteur</string>
+    <string name="odo_button_reset_resp">&#8230;</string>
+    <string name="verin_odo_button_version">Version :</string>
+    <string name="verin_odo_button_version_maj_resp">Maj</string>
+    <string name="verin_odo_button_version_min_resp">Min</string>
+
+    <!-- BLOC TENSION ET TEMPE -->
+
+    <string name="tension_tempe_name">TENSION et TEMPE</string>
+    <string name="tempe_cpu_title">Température CPU:</string>
+    <string name="tempe_cpu_resp">&#8230;</string>
+    <string name="tension_button_tension_1">Tension :</string>
+    <string name="tension_24v_title">24V:</string>
+    <string name="tension_24v_resp">&#8230;</string>
+    <string name="tension_pile_title">Pile:</string>
+    <string name="tension_pile_resp">&#8230;</string>
+    <string name="tension_button_tension_2">Tension:</string>
+    <string name="tension_12v_title">12V:</string>
+    <string name="tension_12v_resp">&#8230;</string>
+    <string name="tension_33v_title">3,3V:</string>
+    <string name="tension_33v_resp">&#8230;</string>
+    <string name="tension_5v_title">5V:</string>
+    <string name="tension_5v_resp">&#8230;</string>
+    <string name="tension_flag_title">Flag sortie 12V:</string>
+    <string name="tension_flag_resp">&#8230;</string>
+
+    <!-- BLOC ERREUR -->
+
+    <string name="erreur_name">Historique des erreurs CAN</string>
+    <string name="erreur_display">&#8230;</string>
+    <string name="erreur_button_supprimer">Supprimer</string>
+    <string name="erreur_button_actualiser">Actualiser</string>
+
+    <!-- DIALOG CLAVIER IHM -->
+
+    <string name="clavier_title">Clavier</string>
+    <string name="clavier_button_valider"> Valider </string>
+    <string name="clavier_button_annuler"> Annuler </string>
+    <string name="clavier_button_haut"> Haut </string>
+    <string name="clavier_button_bas"> Bas </string>
+    <string name="clavier_button_gauche"> Gauche </string>
+    <string name="clavier_button_droite"> Droite </string>
+    <string name="clavier_button_quitter"> Quitter </string>
+
+    <!-- DIALOG LED -->
+
+    <string name="led_title_dialog">LED</string>
+
     <string-array name="led_etat">
         <item>0</item>
         <item>1</item>
@@ -12,4 +154,83 @@
         <item>rouge</item>
         <item>verte</item>
     </string-array>
+
+    <string name="led_title">Set the LEDs</string>
+    <string name="led_gauche">Led gauche :</string>
+    <string name="led_2">Led 2 :</string>
+    <string name="led_3">Led 3 :</string>
+    <string name="led_droite">Led droite :</string>
+
+    <!-- DIALOG CUSTOM AT COMMAND -->
+
+    <string name="at_title">Custom AT command</string>
+    <string name="at_beginning">AT+</string>
+    <string name="at_hint">CMEE=1</string>
+
+    <!-- DIALOG ENTER PIN -->
+
+    <string name="pin_title">Pin</string>
+    <string name="pin_hint">1234</string>
+
+    <!-- DIALOG ENVOI COMMANDE ECRAN -->
+
+    <string name="ecran_title">Send display command</string>
+    <string name="ecran_instruction">Ecrire en hexa la commande ou ecrire le texte à afficher:</string>
+    <string name="ecran_hexa_hint">00</string>
+    <string name="ecran_ou"> Ou </string>
+    <string name="ecran_first_line_hint">   NAIO     </string>
+    <string name="ecran_first_line">1ere ligne</string>
+    <string name="ecran_second_line_hint">TECHNOLOGIES</string>
+    <string name="ecran_second_line">2eme ligne</string>
+
+    <!-- DIALOG ENVOI COMMANDE BUZZER -->
+
+    <string name="buzzer_title">Send buzzer command</string>
+    <string name="buzzer_instruction">Ecrire en hexa la commande:</string>
+    <string name="buzzer_hexa_hint">00</string>
+    <string name="buzzer_button_stop">03</string>
+    <string name="buzzer_button_stop_title">Stop le son</string>
+    <string name="buzzer_button_joue_son">01 10 10 32</string>
+    <string name="buzzer_button_joue_son_title">Joue un son à 1600Hz pendant 160 ms à 50% de volume</string>
+    <string name="buzzer_button_joue_son_discontinu">02 10 10 10 02 32</string>
+    <string name="buzzer_button_joue_son_discontinu_title">Joue un son discontinu a 1600Hz pendant 160ms puis 160ms silencieuse 3 fois à 50% de volume</string>
+
+    <!-- DIALOG ENVOI UNE COMMANDE -->
+
+    <string name="command_verin_title">Verin command</string>
+    <string name="command_position_title">Request position</string>
+    <string name="command_contrast_title">Enter the contrast in hexa ( 00 to 64)</string>
+    <string name="command_backlight_title">Enter the backlight in hexa ( 00 to 64)</string>
+    <string name="command_instruction">Ecrire en hexa la commande:</string>
+    <string name="command_hint">00</string>
+
+    <!-- DIALOG INFO -->
+
+    <string name="info_title">INFO</string>
+    <string name="info_got_it"> Got it </string>
+    <string name="info_info">Utilisation : \n-Appuyez sur le bouton READ pour lire le can, si l\'interface CAN ne clignote pas, rebranchez la et recommencez. Reappuyez dessus ( quand il est devenu le bouton STOP ) pour arréter de lire le can.\n\nQuelques informations :\n-L\'interface CAN peut se démonter toute seul ( dû au port micro usb de la tablette pas forcement fiable), si c\'est le cas, regardez que l\'interface est bien allumée et appuyez sur READ.\n-Les boutons finissant par le caractère \':\' sont des remote request (rtr).\n-Les autres boutons ouvrent une fenêtre.\n-La partie GSM doit être configurée, pour cela il faut d\'abord cliquer sur STATUT, si la réponse est SIM PIN, il faut rentrer le code PIN ( pour cela, appuyez sur PIN ). Ensuite il faut cliquer sur le bouton CONFIG, attendre le  \'OK\', puis CONFIG2
+        \n-Les numéros rentrés pour envoyer un SMS doivent commencer par \'+33\'.\n-La première remote request ne marche jamais.\n-Appuyez bien sur STOP après avoir fini d\'utiliser l\'application.\n\nInformations détaillées:\n\n----BLOC IMU----\n-Acceléromètre : X,Y,Z au format XXX.XX\n-Gyroscope : X,Y,Z au format XXX\n-Magneto : X,Y,Z au format XXX.X\n-Sous chacun des élèments de l\'IMU, on affiche la fréquence de reception des messages en ms.\n-Resistance Magnetique : ResMng en ohm\n-Bouton \'Board:\' : affiche le board ( le cuivre ) et le rev ( reference ) en envoyant une remote request
+        \n-Bouton \'Version:\' : affiche la version du soft de l\'IMU (maj et min) en envoyant une remote request\n-Bouton \'Tempé:\' : affiche la température en degré Celsius en envoyant une remote request\n\n----BLOC GSM----\n-Bouton \'STATUT\' : envoi la commande \'AT+CPIN?\' au GSM, si la réponse est READY, pas besoin d\'entrer le code PIN, si la réponse est SIM PIN, il faut rentrer le code pin. Si la réponse est SIM PUK, il faut rentrer le code PUK, pour cela cliquez sur le bouton CUSTOM et rentrez \'CPIN=\"code puk\",\"code pin\" ( 0 sans guillemet si pas de code pin ) \'\n-Bouton \'CUSTOM\' : permet d\'entrer n\'importe quelle commande qui à juste besoin d\'un retour chariot à la fin\n-Bouton \'PIN\' : ouvre une fenetre demandant le code PIN pour delock le GSM, si ERROR le code PIN est erroné ou il ne faut pas de code PIN, si OK c\'est bon\n-Bouton \'CONFIG\' : envoi la commande \'AT+CSCS=GSM permettant de changer le mode du GSM, par défaut il est en mode IRA
+        \n-Bouton \'CONFIG2\' : envoi la commande \'AT+CMGF=1\' au GSM pour le passer en mode \'txt\', par défaut c\'est \'PDU\'\n-Bouton \'READ\' : envoi une commande qui va afficher dans le champ à côté tous les SMS non lus jusqu\'à maintenant
+        \n-Bouton \'SEND\' : ouvre une fenêtre demandant un numero de téléphone et un message en vu de l\'envoyer. Le numero doit être en \'+33\'.\n
+        \n----BLOC GPS---\n-Affiche la latitude, la longitude, l\'UTCtime, le HDOP, PDOP et le VDOP ainsi que la vitesse et le nombre de satellites.\n\n----BLOC VERIN ET ODO----\n-Bouton \'Position %%\' : ouvre une fenêtre demandant à combien de %% on veut mettre le vérin.\n-Bouton \'Commande vérin\' : ouvre une fenêtre demandant quelle commande envoyer au vérin ( 0,1 ou 2)
+        \n-Bouton \'Retour position %%:\' : affiche la position du vérin en envoyant une remote request et affiche l\'état du vérin à coté ( deplacement en cours / driver error )\n-Lecture Odo : affiche l\'état de l\'odométrie pour chaque roues\n-Bouton \'Reset compteur \' : reset le compteur de l\'odométrie\n-Bouton \'Version:\' : affiche la version du soft de l\'odo ( Maj et Min ) en envoyant une remote request\n
+        \n----BLOC IHM----\n-Bouton \'Envoi commande affichage\' : ouvre une fenêtre permettant de soit rentrer la commande en hexadecimal soit rentrer un texte à afficher sur l\'écran.\n-Bouton \'Envoi commande buzzer\' : ouvre une fenêtre permettant de rentrer la commande à envoyer au buzzer.\n-Bouton \'Clavier\' : ouvre une fenêtre permettant d\'émuler le clavier. Est affiché à coté du bouton l\'état du clavier.
+        \n-Bouton \'LED\' : ouvre une fenêtre permettant de paramétrer les LEDs ( allumé ou pas, rouge ou verte ). Est affiché à coté du bouton l\'état des LEDs\n-Bouton \'Contraste %%\' : ouvre une fenêtre pour paramétrer le contraste ( de 00 à 64 en hexa )\n-Bouton \'Backlight %%\' : ouvre une fenêtre pour paramétrer le rétro-eclairage ( de 00 à 64 en hexa ).
+        \n-Bouton \'Statut:\' : envoi une remote request mais aucune réponse n\'arrive &#8230;\n-Bouton \'Version:\' : affiche la version du soft de l\'IHM ( Maj et Min ) en envoyant une remote request.\n
+        \n----BLOC TENSION ET TEMPE----\n-Température CPU : affiche la température du CPU en degré celsius\n-1er bouton \'Tension:\' : Envoi une remote request qui va afficher la tension 24v et la tension de la pile en volt\n-2ème bouton \'Tension:\' : Envoi une remote request qui va afficher la tension 12v, la tension 3,3v et la tension 5v en volt. Elle affiche aussi les flags de sorties 12v ( lidar et can)\n
+        \n----BLOC HISTORIQUE DES ERREURS CAN----\n-Bouton \'Actualiser\' : Affiche les erreurs can ( sauvegardés dans un fichier ).\n-Bouton \'Supprimer\' : Supprime le contenu du fichier qui contient les erreurs can.\n\n</string>
+
+    <!-- DIALOG SEND SMS -->
+
+    <string name="sms_title">Send a sms</string>
+    <string name="sms_destinataire">Destinataire:</string>
+    <string name="sms_destinataire_hint">+33679451223</string>
+    <string name="sms_message">Message:</string>
+    <string name="sms_message_hint">ça va ?</string>
+
+    <!-- TOASTs -->
+
+    <string name="toast_gsm_fail">Le GSM ne réponds pas sur le CAN.\nJe vous invite donc à redemarrer OZ et d\'attendre plus longtemps pour appuyer sur READ</string>
+
 </resources>

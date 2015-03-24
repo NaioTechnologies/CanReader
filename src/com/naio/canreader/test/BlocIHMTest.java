@@ -118,100 +118,103 @@ public class BlocIHMTest extends
 	}
 	
 	private void rtrBoard(Solo han) {
-		han.clickOnButton("Board: ");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_board));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for board!", han.searchText("@38F"));	
 	}
 	
 	private void rtrStatus(Solo han) {
-		han.clickOnButton("Statut:");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_statut));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for status!", han.searchText("@384"));	
 	}
 	
 	private void rtrVersion(Solo han) {
-		han.clickOnButton("Version: ");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_version));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for version!", han.searchText("@386"));	
 	}
 	
 	public void textView_connection() {
-	    final String expected = "Veuillez appuyer sur le bouton READ";
+	    final String expected = mActivity.getString(R.string.global_text_not_connected);
 	    final String actual_co = mCo.getText().toString();
 	    assertEquals(true,mCo.isShown());
 	    assertEquals(expected, actual_co);
 	}
 	
 	public void textView_etats() {
-	    final String expected = "...";
+	    final String expected_clavier = mActivity.getString(R.string.ihm_button_clavier_resp);
+	    final String expected_led = mActivity.getString(R.string.ihm_button_led_resp);
 	    final String actual_clavier = mEtat_clavier.getText().toString();
 	    final String actual_led = mEtat_led.getText().toString();
-	    assertEquals(expected, actual_clavier);
-	    assertEquals(expected, actual_led);
+	    assertEquals(expected_clavier, actual_clavier);
+	    assertEquals(expected_led, actual_led);
 	}
 	
 	public void textView_version() {
-	    final String expected = "...";
-	    final String expectedMaj = "Maj";
-	    final String expectedMin = "Min";
+	    final String expected_board = mActivity.getString(R.string.ihm_button_board_resp);
+	    final String expected_rev = mActivity.getString(R.string.ihm_button_rev_resp);
+	    final String expectedMaj = mActivity.getString(R.string.ihm_button_version_maj_resp);
+	    final String expectedMin = mActivity.getString(R.string.ihm_button_version_min_resp);
 	    final String actual_min = mIhm_min.getText().toString();
 	    final String actual_maj = mIhm_maj.getText().toString();
 	    final String actual_board = mIhm_board.getText().toString();
 	    final String actual_rev = mIhm_rev.getText().toString();
 	    assertEquals(expectedMin, actual_min);
 	    assertEquals(expectedMaj, actual_maj);
-	    assertEquals(expected, actual_board);
-	    assertEquals(expected, actual_rev);
+	    assertEquals(expected_board, actual_board);
+	    assertEquals(expected_rev, actual_rev);
 	}
 	
 	public void textView_light() {
-	    final String expected = "...";
+	    final String expected_contraste = mActivity.getString(R.string.ihm_button_contraste_resp);
+	    final String expected_backlight = mActivity.getString(R.string.ihm_button_backlight_resp);
 	    final String actual_contrast = mIhm_contrast.getText().toString();
 	    final String actual_backlight = mIhm_backlight.getText().toString();
-	    assertEquals(expected, actual_contrast);
-	    assertEquals(expected, actual_backlight);
+	    assertEquals(expected_contraste, actual_contrast);
+	    assertEquals(expected_backlight, actual_backlight);
 	}
 	
 	public void textView_status() {
-	    final String expected = "...";
+	    final String expected_status = mActivity.getString(R.string.ihm_button_statut_resp);
 	    final String actual_status = mIhm_status.getText().toString();
-	    assertEquals(expected, actual_status);
+	    assertEquals(expected_status, actual_status);
 	}
 
 	public void dialogBuzzer(Solo han){
-		han.clickOnButton("Envoi commande buzzer");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_envoi_buzzer));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the buzzer dialog!", han.searchText("Send buzzer command"));
+		assertTrue("Could not find the buzzer dialog!", han.searchText(mActivity.getString(R.string.buzzer_title)));
 	}
 	
 	public void dialogAffichage(Solo han){
-		han.clickOnButton("Envoi commande affichage");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_envoi_affichage));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the display dialog!", han.searchText("Send display command"));
+		assertTrue("Could not find the display dialog!", han.searchText(mActivity.getString(R.string.ecran_title)));
 	}
 	
 	public void dialogClavier(Solo han){
-		han.clickOnButton("Clavier");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_clavier));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the keyboard dialog!", han.searchText("Clavier"));
+		assertTrue("Could not find the keyboard dialog!", han.searchText(mActivity.getString(R.string.clavier_title)));
 	}
 	
 	public void dialogLed(Solo han){
-		han.clickOnButton("LED");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_led));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the led dialog!", han.searchText("LED"));
+		assertTrue("Could not find the led dialog!", han.searchText(mActivity.getString(R.string.led_title_dialog)));
 	}
 	
 	public void dialogContrast(Solo han){
-		han.clickOnButton("Contraste %");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_contraste));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the contrast dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the contrast dialog!", han.searchText(mActivity.getString(R.string.global_button_envoyer)));
 	}
 	
 	public void dialogBacklight(Solo han){
-		han.clickOnButton("Backlight %");
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_backlight));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the backlight dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the backlight dialog!", han.searchText(mActivity.getString(R.string.global_button_envoyer)));
 	}
 	
 }

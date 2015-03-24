@@ -12,7 +12,7 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="Historique des erreurs CAN"
+        android:text="@string/erreur_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
 
@@ -27,22 +27,24 @@
             android:id="@+id/historique_can"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="..."
+            android:text="@string/erreur_display"
             android:textSize="@dimen/nexus7_15dp" />
     </ScrollView>
- <Button
+
+    <Button
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_1700px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:onClick="button_delete_file_clicked"
-        android:text="Supprimer" />
+        android:text="@string/erreur_button_supprimer" />
+
     <Button
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_1700px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_actualiser_erreur_clicked"
-        android:text="Actualiser" />
+        android:text="@string/erreur_button_actualiser" />
 
 </RelativeLayout>

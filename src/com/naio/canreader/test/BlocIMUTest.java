@@ -118,91 +118,102 @@ public class BlocIMUTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		Solo han = new Solo(getInstrumentation(),mBlocIMUActivity);
 		han.clickOnButton("OK");
 		getInstrumentation().waitForIdleSync();
-		han.clickOnButton("READ");
+		han.clickOnButton(mBlocIMUActivity.getString(R.string.imu_button_read));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for READ!", han.searchText("CAN"));	
 	
 	}
 
 	private void rtrVersion(Solo han) {
-		han.clickOnButton("Version:");
+		han.clickOnButton(mBlocIMUActivity.getString(R.string.imu_button_version));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for version!", han.searchText("@184"));	
 	}
 
 	private void rtrBoard(Solo han) {
-		han.clickOnButton("Board:");
+		han.clickOnButton(mBlocIMUActivity.getString(R.string.imu_button_board));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for board and rev!", han.searchText("@18F"));	
 	}
 
 	private void rtrTempe(Solo han) {
-		han.clickOnButton("Tempé:");
+		han.clickOnButton(mBlocIMUActivity.getString(R.string.imu_button_tempe));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for tempé!", han.searchText("@183"));	
 	}
 
 	public void textView_accel() {
-		final String expected = "...";
+		final String expected_x = mBlocIMUActivity.getString(R.string.imu_accel_x_resp);
+		final String expected_y = mBlocIMUActivity.getString(R.string.imu_accel_y_resp);
+		final String expected_z = mBlocIMUActivity.getString(R.string.imu_accel_z_resp);
 		final String actual_xmsb = mAccel_xmsb.getText().toString();
 		final String actual_ymsb = mAccel_ymsb.getText().toString();
 		final String actual_zmsb = mAccel_zmsb.getText().toString();
-		assertEquals(expected, actual_xmsb);
-		assertEquals(expected, actual_ymsb);
-		assertEquals(expected, actual_zmsb);
+		assertEquals(expected_x, actual_xmsb);
+		assertEquals(expected_y, actual_ymsb);
+		assertEquals(expected_z, actual_zmsb);
 	}
 
 	public void textView_gyro() {
-		final String expected = "...";
+		final String expected_x = mBlocIMUActivity.getString(R.string.imu_gyro_x_resp);
+		final String expected_y = mBlocIMUActivity.getString(R.string.imu_gyro_y_resp);
+		final String expected_z = mBlocIMUActivity.getString(R.string.imu_gyro_z_resp);
 		final String actual_xmsb = mGyro_xmsb.getText().toString();
 		final String actual_ymsb = mGyro_ymsb.getText().toString();
 		final String actual_zmsb = mGyro_zmsb.getText().toString();
-		assertEquals(expected, actual_xmsb);
-		assertEquals(expected, actual_ymsb);
-		assertEquals(expected, actual_zmsb);
+		assertEquals(expected_x, actual_xmsb);
+		assertEquals(expected_y, actual_ymsb);
+		assertEquals(expected_z, actual_zmsb);
 	}
 
 	public void textView_magneto() {
-		final String expected = "...";
+		final String expected_x = mBlocIMUActivity.getString(R.string.imu_magneto_x_resp);
+		final String expected_y = mBlocIMUActivity.getString(R.string.imu_magneto_y_resp);
+		final String expected_z = mBlocIMUActivity.getString(R.string.imu_magneto_z_resp);
 		final String actual_xmsb = mMag_xmsb.getText().toString();
 		final String actual_ymsb = mMag_ymsb.getText().toString();
 		final String actual_zmsb = mMag_zmsb.getText().toString();
-		assertEquals(expected, actual_xmsb);
-		assertEquals(expected, actual_ymsb);
-		assertEquals(expected, actual_zmsb);
+		assertEquals(expected_x, actual_xmsb);
+		assertEquals(expected_y, actual_ymsb);
+		assertEquals(expected_z, actual_zmsb);
 	}
 
 	public void textView_gps() {
-		final String expected = "...";
+		final String expected_1 = mBlocIMUActivity.getString(R.string.imu_gps_1_resp);
+		final String expected_2 = mBlocIMUActivity.getString(R.string.imu_gps_2_resp);
+		final String expected_3 = mBlocIMUActivity.getString(R.string.imu_gps_3_resp);
+		final String expected_4 = mBlocIMUActivity.getString(R.string.imu_gps_4_resp);
 		final String actual_gps1 = mImu_gps_1.getText().toString();
 		final String actual_gps2 = mImu_gps_2.getText().toString();
 		final String actual_gps3 = mImu_gps_3.getText().toString();
 		final String actual_gps4 = mImu_gps_4.getText().toString();
-		assertEquals(expected, actual_gps1);
-		assertEquals(expected, actual_gps2);
-		assertEquals(expected, actual_gps3);
-		assertEquals(expected, actual_gps4);
+		assertEquals(expected_1, actual_gps1);
+		assertEquals(expected_2, actual_gps2);
+		assertEquals(expected_3, actual_gps3);
+		assertEquals(expected_4, actual_gps4);
 	}
 
 	public void textView_version() {
-		final String expected = "...";
-		final String expectedMaj = "Maj";
-		final String expectedMin = "Min";
+		final String expected_board = mBlocIMUActivity.getString(R.string.imu_button_board_resp);
+		final String expected_rev = mBlocIMUActivity.getString(R.string.imu_rev_resp);
+		final String expectedMaj = mBlocIMUActivity.getString(R.string.imu_button_version_maj_resp);
+		final String expectedMin = mBlocIMUActivity.getString(R.string.imu_button_version_min_resp);
 		final String actual_min = mImu_min.getText().toString();
 		final String actual_maj = mImu_maj.getText().toString();
 		final String actual_board = mImu_board.getText().toString();
 		final String actual_rev = mImu_rev.getText().toString();
 		assertEquals(expectedMin, actual_min);
 		assertEquals(expectedMaj, actual_maj);
-		assertEquals(expected, actual_board);
-		assertEquals(expected, actual_rev);
+		assertEquals(expected_board, actual_board);
+		assertEquals(expected_rev, actual_rev);
 	}
 
 	public void textView_res_temp() {
-		final String expected = "...";
+		final String expected_temp = mBlocIMUActivity.getString(R.string.imu_button_tempe_resp);
+		final String expected_res = mBlocIMUActivity.getString(R.string.imu_resmng_resp);
 		final String actual_res = mMag_res.getText().toString();
 		final String actual_temp = mImu_temp.getText().toString();
-		assertEquals(expected, actual_res);
-		assertEquals(expected, actual_temp);
+		assertEquals(expected_res, actual_res);
+		assertEquals(expected_temp, actual_temp);
 	}
 }

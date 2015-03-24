@@ -216,7 +216,7 @@ public class MainActivity extends FragmentActivity {
 			final Dialog dialog = new Dialog(this);
 
 			dialog.setContentView(R.layout.info_dialog);
-			dialog.setTitle("INFO");
+			dialog.setTitle(getString(R.string.info_title));
 
 			Button dialogButton = (Button) dialog
 					.findViewById(R.id.dialogButtonOK);
@@ -326,7 +326,7 @@ public class MainActivity extends FragmentActivity {
 				.setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
 		cptGsm = 0;
-		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
+		((Button) findViewById(R.id.button_read_main_activity)).setText(getString(R.string.imu_button_read));
 		// the sleep here is just because there is a sleep when the user press
 		// the READ button, so do the STOP.
 		try {
@@ -468,7 +468,7 @@ public class MainActivity extends FragmentActivity {
 			for (int k = 0; k < 2; k++)
 				Toast.makeText(
 						this,
-						"Le GSM ne réponds pas sur le CAN.\nJe vous invite donc à redemarrer OZ et d'attendre plus longtemps pour appuyer sur READ",
+						getString(R.string.toast_gsm_fail),
 						Toast.LENGTH_LONG).show();
 			write_in_file(this, "GSM not responding");
 		}
@@ -512,7 +512,7 @@ public class MainActivity extends FragmentActivity {
 		// create a Dialog component
 		final Dialog dialog = new Dialog(this);
 		dialog.setContentView(R.layout.send_sms_dialog);
-		dialog.setTitle("Send a sms");
+		dialog.setTitle(getString(R.string.sms_title));
 
 		final EditText editNumero = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -565,7 +565,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.custom_at_command_dialog);
-		dialog.setTitle("Custom AT command");
+		dialog.setTitle(getString(R.string.at_title));
 
 		final EditText editCommand = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -616,7 +616,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.enter_pin_dialog);
-		dialog.setTitle("Pin");
+		dialog.setTitle(getString(R.string.pin_title));
 
 		final EditText pinCodeTextView = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -649,7 +649,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.config_led_dialog);
-		dialog.setTitle("LED");
+		dialog.setTitle(getString(R.string.led_title_dialog));
 
 		final Spinner spinnerGauche = (Spinner) dialog
 				.findViewById(R.id.spinner_led_gauche);
@@ -732,7 +732,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_commande_ecran);
-		dialog.setTitle("Send display command");
+		dialog.setTitle(getString(R.string.ecran_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 		final EditText hexa2 = (EditText) dialog.findViewById(R.id.hexa2);
@@ -795,8 +795,8 @@ public class MainActivity extends FragmentActivity {
 		// create a Dialog component
 		final Dialog dialog = new Dialog(this);
 
-		dialog.setContentView(R.layout.envoi_commande);
-		dialog.setTitle("Send buzzer command");
+		dialog.setContentView(R.layout.envoi_commande_buzzer);
+		dialog.setTitle(getString(R.string.buzzer_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 		final EditText hexa2 = (EditText) dialog.findViewById(R.id.hexa2);
@@ -884,7 +884,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Motor command");
+		dialog.setTitle(getString(R.string.command_verin_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -916,7 +916,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Enter the contrast in hexa ( 00 to 64)");
+		dialog.setTitle(getString(R.string.command_contrast_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -948,7 +948,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Enter the backlight in hexa ( 00 to 64)");
+		dialog.setTitle(getString(R.string.command_backlight_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -979,7 +979,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Req position");
+		dialog.setTitle(getString(R.string.command_position_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -1009,7 +1009,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.clavier_ihm_dialog);
-		dialog.setTitle("Clavier");
+		dialog.setTitle(getString(R.string.clavier_title));
 
 		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 		dialogButton.setOnClickListener(new OnClickListener() {

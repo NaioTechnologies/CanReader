@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="True"
-        android:text="Ecrire en hexa la commande:"
+        android:text="@string/command_instruction"
         android:textSize="25dp" />
 
     <EditText
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
         android:digits="0123456789ABCDEF"
-        android:hint="00"
+        android:hint="@string/command_hint"
         android:inputType="textCapCharacters"
         android:maxLength="2"
         android:paddingTop="20dp"
@@ -29,7 +29,7 @@
         android:layout_below="@id/hexa1"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:text=" Envoyer "
+        android:text="@string/global_button_envoyer"
         android:textSize="25dp" />
 
 </RelativeLayout>

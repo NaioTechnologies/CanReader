@@ -97,45 +97,48 @@ public class BlocVerinTest extends
 	}
 	
 	private void rtrRetour(Solo han) {
-		han.clickOnButton("Retour position %:");
+		han.clickOnButton( mActivity.getString(R.string.verin_button_retour));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for retour position!", han.searchText("@401"));	
 	}
 	
 	private void rtrVersion(Solo han) {
-		han.clickOnButton("Version :");
+		han.clickOnButton(mActivity.getString(R.string.verin_odo_button_version));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for version!", han.searchText("@405"));	
 	}
 	
 	public void textView_connection() {
-	    final String expected = "Veuillez appuyer sur le bouton READ";
+	    final String expected_co = mActivity.getString(R.string.global_text_not_connected);
 	    final String actual_co = mCo.getText().toString();
 	    assertEquals(true,mCo.isShown());
-	    assertEquals(expected, actual_co);
+	    assertEquals(expected_co, actual_co);
 	}
 	
 	public void textView_odo() {
-	    final String expected = "...";
+	    final String expected_odo = mActivity.getString(R.string.odo_lecture_resp);
+	    final String expected_odoc = mActivity.getString(R.string.odo_button_reset_resp);
 	    final String actual_odo = mVerin_odo.getText().toString();
 	    final String actual_odoc = mVerin_odoc.getText().toString();
-	    assertEquals(expected, actual_odo);
-	    assertEquals(expected, actual_odoc);
+	    assertEquals(expected_odo, actual_odo);
+	    assertEquals(expected_odoc, actual_odoc);
 	}
 	
 	public void textView_position() {
-	    final String expected = "...";
+	    final String expected_commande = mActivity.getString(R.string.verin_button_commande_resp);
+	    final String expected_retour = mActivity.getString(R.string.verin_button_retour_resp);
+	    final String expected_position = mActivity.getString(R.string.verin_button_position_resp);
 	    final String actual_position = mVerin_position.getText().toString();
 	    final String actual_retour = mVerin_retour.getText().toString();
 	    final String actual_commande = mVerin_commande.getText().toString();
-	    assertEquals(expected, actual_position);
-	    assertEquals(expected, actual_retour);
-	    assertEquals(expected, actual_commande);
+	    assertEquals(expected_position, actual_position);
+	    assertEquals(expected_retour, actual_retour);
+	    assertEquals(expected_commande, actual_commande);
 	}
 		
 	public void textView_version() {
-	    final String expectedMaj = "Maj";
-	    final String expectedMin = "Min";
+	    final String expectedMaj = mActivity.getString(R.string.verin_odo_button_version_maj_resp);
+	    final String expectedMin = mActivity.getString(R.string.verin_odo_button_version_min_resp);
 	    final String actual_min = mVerin_min.getText().toString();
 	    final String actual_maj = mVerin_maj.getText().toString();
 	    assertEquals(expectedMin, actual_min);
@@ -143,15 +146,15 @@ public class BlocVerinTest extends
 	}
 	
 	public void dialogPosition(Solo han){	
-		han.clickOnButton("Position %");
+		han.clickOnButton(mActivity.getString(R.string.verin_button_position));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the position dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the position dialog!", han.searchText(mActivity.getString(R.string.global_button_envoyer)));
 	}
 	
 	public void dialogCommande(Solo han){
-		han.clickOnButton("Commande vérin");
+		han.clickOnButton(mActivity.getString(R.string.verin_button_commande));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the commande vérin dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the commande vérin dialog!", han.searchText(mActivity.getString(R.string.global_button_envoyer)));
 	}
 	
 }

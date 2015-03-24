@@ -185,7 +185,14 @@ public class VerinCanFrame extends CanFrame {
 			return;
 		}
 
-		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1+" V");
+		String txtFor24v = "" + val1+" V";
+		if(val1<=24.2)
+			txtFor24v+="(faible)";
+		else if(val1<=24.8)
+			txtFor24v+="(moyen)";
+		else 
+			txtFor24v+="(fort)";
+		((TextView) rl.findViewById(R.id.tension_24v)).setText(txtFor24v);
 		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2 + " V");
 
 	}

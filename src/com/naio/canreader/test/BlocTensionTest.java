@@ -88,35 +88,39 @@ public class BlocTensionTest extends
 	}
 	
 	private void rtrTension(Solo han) {
-		han.clickOnButton("Tension :");
+		han.clickOnButton( mActivity.getString(R.string.tension_button_tension_1));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for tension!", han.searchText("@407"));	
 	}
 	
 	private void rtrTension2(Solo han) {
-		han.clickOnButton("Tension:");
+		han.clickOnButton(mActivity.getString(R.string.tension_button_tension_2));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for tension!", han.searchText("@406"));	
 	}
 
 	public void textView_tempe() {
-		final String expected = "...";
+		final String expected_tempe =mActivity.getString(R.string.tempe_cpu_resp);
 		final String actual_tempe = mTempe_cpu.getText().toString();
-		assertEquals(expected, actual_tempe);
+		assertEquals(expected_tempe, actual_tempe);
 	}
 
 	public void textView_tension() {
-		final String expected = "...";
+		final String expected_24 = mActivity.getString(R.string.tension_24v_resp);
+		final String expected_12 = mActivity.getString(R.string.tension_12v_resp);
+		final String expected_33 = mActivity.getString(R.string.tension_33v_resp);
+		final String expected_5 = mActivity.getString(R.string.tension_5v_resp);
+		final String expected_pile = mActivity.getString(R.string.tension_pile_resp);
 		final String actual_t24 = mTension_24.getText().toString();
 		final String actual_t12 = mTension_12.getText().toString();
 		final String actual_t5 = mTension_5.getText().toString();
 		final String actual_t33 = mTension_33.getText().toString();
 		final String actual_tpile = mTension_pile.getText().toString();
-		assertEquals(expected, actual_t24);
-		assertEquals(expected, actual_t12);
-		assertEquals(expected, actual_t5);
-		assertEquals(expected, actual_t33);
-		assertEquals(expected, actual_tpile);
+		assertEquals(expected_24, actual_t24);
+		assertEquals(expected_12, actual_t12);
+		assertEquals(expected_5, actual_t5);
+		assertEquals(expected_33, actual_t33);
+		assertEquals(expected_pile, actual_tpile);
 	}
 
 }

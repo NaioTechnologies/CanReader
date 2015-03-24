@@ -24,7 +24,7 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="IMU"
+        android:text="@string/imu_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
 
@@ -34,7 +34,7 @@
         android:layout_marginLeft="@dimen/nexus7_50px_w"
         android:layout_marginTop="@dimen/nexus7_150px_h"
         android:gravity="center"
-        android:text="Accel"
+        android:text="@string/imu_accel_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -43,7 +43,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="X:"
+        android:text="@string/imu_x"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -52,7 +52,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="Y:"
+        android:text="@string/imu_y"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -61,7 +61,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="Z:"
+        android:text="@string/imu_z"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_marginLeft="@dimen/nexus7_120px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_accel_x_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -81,7 +81,7 @@
         android:layout_marginLeft="@dimen/nexus7_120px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_accel_y_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -91,7 +91,7 @@
         android:layout_marginLeft="@dimen/nexus7_120px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_accel_z_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -100,7 +100,7 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_150px_h"
         android:gravity="center"
-        android:text="Gyro"
+        android:text="@string/imu_gyro_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -109,7 +109,7 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="X:"
+        android:text="@string/imu_x"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -118,7 +118,7 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="Y:"
+        android:text="@string/imu_y"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -127,7 +127,7 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="Z:"
+        android:text="@string/imu_z"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -137,7 +137,7 @@
         android:layout_marginLeft="@dimen/nexus7_520px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_gyro_x_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -147,7 +147,7 @@
         android:layout_marginLeft="520px"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_gyro_y_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -157,7 +157,7 @@
         android:layout_marginLeft="520px"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_gyro_z_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -166,7 +166,7 @@
         android:layout_marginLeft="850px"
         android:layout_marginTop="@dimen/nexus7_150px_h"
         android:gravity="center"
-        android:text="Magneto"
+        android:text="@string/imu_magneto_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -175,7 +175,7 @@
         android:layout_marginLeft="@dimen/nexus7_820px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="X:"
+        android:text="@string/imu_x"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -184,7 +184,7 @@
         android:layout_marginLeft="@dimen/nexus7_820px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="Y:"
+        android:text="@string/imu_y"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -193,7 +193,7 @@
         android:layout_marginLeft="@dimen/nexus7_820px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="Z:"
+        android:text="@string/imu_z"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -203,7 +203,7 @@
         android:layout_marginLeft="@dimen/nexus7_920px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_magneto_x_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -213,7 +213,7 @@
         android:layout_marginLeft="@dimen/nexus7_920px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_magneto_y_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -223,7 +223,7 @@
         android:layout_marginLeft="@dimen/nexus7_920px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_magneto_z_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -233,7 +233,7 @@
         android:layout_marginLeft="@dimen/nexus7_920px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_freq_magneto"
         android:textSize="@dimen/nexus7_15dp" />
 
     <TextView
@@ -243,7 +243,7 @@
         android:layout_marginLeft="@dimen/nexus7_520px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_freq_gyro"
         android:textSize="@dimen/nexus7_15dp" />
 
     <TextView
@@ -253,7 +253,7 @@
         android:layout_marginLeft="@dimen/nexus7_120px_w"
         android:layout_marginTop="@dimen/nexus7_550px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_freq_accel"
         android:textSize="@dimen/nexus7_15dp" />
 
     <TextView
@@ -262,7 +262,7 @@
         android:layout_marginLeft="@dimen/nexus7_1200px_w"
         android:layout_marginTop="@dimen/nexus7_150px_h"
         android:gravity="center"
-        android:text="ResMng:"
+        android:text="@string/imu_resmng_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -272,7 +272,7 @@
         android:layout_marginLeft="@dimen/nexus7_1400px_w"
         android:layout_marginTop="@dimen/nexus7_150px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_resmng_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -282,7 +282,7 @@
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:onClick="button_magneto_temperature_clicked"
-        android:text="Tempé:"
+        android:text="@string/imu_button_tempe"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -292,7 +292,7 @@
         android:layout_marginLeft="@dimen/nexus7_1450px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_button_tempe_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -302,7 +302,7 @@
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
         android:onClick="button_magneto_board_clicked"
-        android:text="Board:"
+        android:text="@string/imu_button_board"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -312,7 +312,7 @@
         android:layout_marginLeft="@dimen/nexus7_1400px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_button_board_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -321,7 +321,7 @@
         android:layout_marginLeft="@dimen/nexus7_1500px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="Rev:"
+        android:text="@string/imu_rev_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -331,7 +331,7 @@
         android:layout_marginLeft="@dimen/nexus7_1700px_w"
         android:layout_marginTop="@dimen/nexus7_350px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/imu_rev_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -341,7 +341,7 @@
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
         android:onClick="button_magneto_version_clicked"
-        android:text="Version:"
+        android:text="@string/imu_button_version"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -351,7 +351,7 @@
         android:layout_marginLeft="@dimen/nexus7_1450px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="Maj"
+        android:text="@string/imu_button_version_maj_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -361,7 +361,7 @@
         android:layout_marginLeft="@dimen/nexus7_1600px_w"
         android:layout_marginTop="@dimen/nexus7_450px_h"
         android:gravity="center"
-        android:text="Min"
+        android:text="@string/imu_button_version_min_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -372,7 +372,7 @@
         android:layout_marginTop="@dimen/nexus7_600px_h"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="GPS"
+        android:text="@string/imu_gps_title"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_25dp" />
 
@@ -382,7 +382,7 @@
         android:layout_height="@dimen/nexus7_200px_h"
         android:layout_marginLeft="0px"
         android:layout_marginTop="@dimen/nexus7_660px_h"
-        android:text="..."
+        android:text="@string/imu_gps_1_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -391,7 +391,7 @@
         android:layout_height="@dimen/nexus7_200px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_660px_h"
-        android:text="..."
+        android:text="@string/imu_gps_2_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -400,7 +400,7 @@
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="0px"
         android:layout_marginTop="@dimen/nexus7_850px_h"
-        android:text="..."
+        android:text="@string/imu_gps_3_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -409,7 +409,7 @@
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_850px_h"
-        android:text="..."
+        android:text="@string/imu_gps_4_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -419,7 +419,7 @@
         android:layout_marginLeft="@dimen/nexus7_1400px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_read_clicked"
-        android:text="READ"
+        android:text="@string/imu_button_read"
         android:textSize="@dimen/nexus7_25dp" />
 
     <!--

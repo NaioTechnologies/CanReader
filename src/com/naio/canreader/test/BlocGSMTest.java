@@ -62,34 +62,34 @@ public class BlocGSMTest extends
 	}
 	
 	public void textView_sms() {
-	    final String expected = ">display sms here...";
+	    final String expected = mActivity.getString(R.string.gsm_display_sms);
 	    final String actual_sms = mSms_read.getText().toString();
 	    assertEquals(expected, actual_sms);
 	}
 	
 	public void textView_connection() {
-	    final String expected = "Veuillez appuyer sur le bouton READ";
+	    final String expected = mActivity.getString(R.string.global_text_not_connected);
 	    final String actual_co = mCo.getText().toString();
 	    assertEquals(true,mCo.isShown());
 	    assertEquals(expected, actual_co);
 	}
 	
 	public void dialogSendSms(Solo han){
-		han.clickOnButton("SEND a sms");
+		han.clickOnButton(mActivity.getString(R.string.gsm_button_send_sms));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the send a sms dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the send a sms dialog!", han.searchText(mActivity.getString(R.string.sms_title)));
 	}
 	
 	public void dialogCustom(Solo han){
-		han.clickOnButton("CUSTOM");
+		han.clickOnButton(mActivity.getString(R.string.gsm_button_custom));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the custom dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the custom dialog!", han.searchText(mActivity.getString(R.string.at_title)));
 	}
 	
 	private void dialogPin(Solo han) {
-		han.clickOnButton("PIN");
+		han.clickOnButton(mActivity.getString(R.string.gsm_button_pin));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the pin dialog!", han.searchText("Envoyer"));
+		assertTrue("Could not find the pin dialog!", han.searchText(mActivity.getString(R.string.pin_title)));
 	}
 	
 }

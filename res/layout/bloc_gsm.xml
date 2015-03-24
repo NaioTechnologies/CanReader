@@ -12,7 +12,7 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="GSM"
+        android:text="@string/gsm_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
 
@@ -22,7 +22,7 @@
         android:layout_height="@dimen/nexus7_850px_h"
         android:layout_marginLeft="@dimen/nexus7_400px_w"
         android:layout_marginTop="@dimen/nexus7_100px_h"
-        android:text=">display sms here..."
+        android:text="@string/gsm_display_sms"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -32,7 +32,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_600px_h"
         android:onClick="button_receive_gsm_clicked"
-        android:text="READ the sms"
+        android:text="@string/gsm_button_read_sms"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -42,7 +42,7 @@
         android:layout_marginLeft="@dimen/nexus7_1470px_w"
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:onClick="button_custom_gsm_clicked"
-        android:text="CUSTOM"
+        android:text="@string/gsm_button_custom"
         android:textSize="@dimen/nexus7_40dp" />
 
     <Button
@@ -52,7 +52,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_send_gsm_clicked"
-        android:text="SEND a sms"
+        android:text="@string/gsm_button_send_sms"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -62,7 +62,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_400px_h"
         android:onClick="button_config_gsm_clicked"
-        android:text="CONFIG"
+        android:text="@string/gsm_button_config"
         android:textSize="@dimen/nexus7_30dp" />
 
     <Button
@@ -71,7 +71,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
         android:onClick="button_config2_gsm_clicked"
-        android:text="CONFIG2"
+        android:text="@string/gsm_button_config2"
         android:textSize="@dimen/nexus7_30dp" />
 
     <Button
@@ -81,7 +81,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:onClick="button_statut_gsm_clicked"
-        android:text="STATUT"
+        android:text="@string/gsm_button_status"
         android:textSize="@dimen/nexus7_40dp" />
 
     <Button
@@ -91,7 +91,7 @@
         android:layout_marginLeft="@dimen/nexus7_20px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:onClick="button_config_pin_clicked"
-        android:text="PIN"
+        android:text="@string/gsm_button_pin"
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView
@@ -100,7 +100,7 @@
         android:layout_height="fill_parent"
         android:background="#90000000"
         android:gravity="center"
-        android:text="Veuillez appuyer sur le bouton READ"
+        android:text="@string/global_text_not_connected"
         android:textColor="#FFFFFFFF"
         android:textSize="@dimen/nexus7_40dp" />
 
