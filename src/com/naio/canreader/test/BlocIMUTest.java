@@ -70,9 +70,9 @@ public class BlocIMUTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		mImu_gps_4 = (TextView) mBlocIMUActivity
 				.findViewById(R.id.textview_gps_text4_main_activity);
 	}
-	
+
 	@Override
-	protected void tearDown() throws Exception{
+	protected void tearDown() throws Exception {
 		mBlocIMUActivity.finish();
 	}
 
@@ -129,6 +129,16 @@ public class BlocIMUTest extends ActivityInstrumentationTestCase2<MainActivity> 
 		han.clickOnButton(mBlocIMUActivity.getString(R.string.imu_button_read));
 		getInstrumentation().waitForIdleSync();
 		assertTrue("Could not find the toast for READ!", han.searchText("CAN"));
+	}
+
+	public void testInfo() {
+		Solo han = new Solo(getInstrumentation(), mBlocIMUActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.clickOnActionBarItem(R.id.action_settings);
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not find the info dialog!",
+				han.searchText("Utilisation"));
 	}
 
 	public void testRTRVcan() {
