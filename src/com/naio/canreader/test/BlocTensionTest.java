@@ -51,6 +51,11 @@ public class BlocTensionTest extends
 		mTension_flag = (TextView) mBlocTensionActivity
 				.findViewById(R.id.flag_sortie);
 	}
+	
+	@Override
+	protected void tearDown() throws Exception{
+		mActivity.finish();
+	}
 
 	public void testPreconditions() {
 		assertNotNull("mActivity is null", mActivity);
@@ -69,9 +74,13 @@ public class BlocTensionTest extends
 		textView_tempe();
 		textView_tension();
 	}
-	
-	public void testRTR(){
-		Solo han = new Solo(getInstrumentation(),mActivity);
+
+	public void testRTR() {
+		MainActivity.UNIT_TEST = false;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocTensionActivity =  mPager.getChildAt(4);
+		Solo han = new Solo(getInstrumentation(), mActivity);
 		han.clickOnButton("OK");
 		getInstrumentation().waitForIdleSync();
 		han.scrollToSide(Solo.RIGHT);
@@ -85,32 +94,84 @@ public class BlocTensionTest extends
 		rtrTension(han);
 		getInstrumentation().waitForIdleSync();
 		rtrTension2(han);
+		getInstrumentation().waitForIdleSync();
 	}
-	
+
+	public void testRTRVcan() {
+		MainActivity.UNIT_TEST = true;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocTensionActivity = mPager.getChildAt(4);
+		Solo han = new Solo(getInstrumentation(), mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.clickOnButton("READ");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrTensionVcan(han);
+		getInstrumentation().waitForIdleSync();
+		rtrTension2Vcan(han);
+		getInstrumentation().waitForIdleSync();
+	}
+
+	private void rtrTension2Vcan(Solo han) {
+		han.clickOnButton(mActivity
+				.getString(R.string.tension_button_tension_1));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't get it!", mActivity
+				.getCanParserThread().getCanParser().getRemote_for_unit());
+
+	}
+
+	private void rtrTensionVcan(Solo han) {
+		han.clickOnButton(mActivity
+				.getString(R.string.tension_button_tension_2));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't get it!", mActivity
+				.getCanParserThread().getCanParser().getRemote_for_unit());
+
+	}
+
 	private void rtrTension(Solo han) {
-		han.clickOnButton( mActivity.getString(R.string.tension_button_tension_1));
+		han.clickOnButton(mActivity
+				.getString(R.string.tension_button_tension_1));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the toast for tension!", han.searchText("@407"));	
+		assertTrue("Could not find the toast for tension!",
+				han.searchText("@407"));
 	}
-	
+
 	private void rtrTension2(Solo han) {
-		han.clickOnButton(mActivity.getString(R.string.tension_button_tension_2));
+		han.clickOnButton(mActivity
+				.getString(R.string.tension_button_tension_2));
 		getInstrumentation().waitForIdleSync();
-		assertTrue("Could not find the toast for tension!", han.searchText("@406"));	
+		assertTrue("Could not find the toast for tension 2!",
+				han.searchText("@406"));
 	}
 
 	public void textView_tempe() {
-		final String expected_tempe =mActivity.getString(R.string.tempe_cpu_resp);
+		final String expected_tempe = mActivity
+				.getString(R.string.tempe_cpu_resp);
 		final String actual_tempe = mTempe_cpu.getText().toString();
 		assertEquals(expected_tempe, actual_tempe);
 	}
 
 	public void textView_tension() {
-		final String expected_24 = mActivity.getString(R.string.tension_24v_resp);
-		final String expected_12 = mActivity.getString(R.string.tension_12v_resp);
-		final String expected_33 = mActivity.getString(R.string.tension_33v_resp);
+		final String expected_24 = mActivity
+				.getString(R.string.tension_24v_resp);
+		final String expected_12 = mActivity
+				.getString(R.string.tension_12v_resp);
+		final String expected_33 = mActivity
+				.getString(R.string.tension_33v_resp);
 		final String expected_5 = mActivity.getString(R.string.tension_5v_resp);
-		final String expected_pile = mActivity.getString(R.string.tension_pile_resp);
+		final String expected_pile = mActivity
+				.getString(R.string.tension_pile_resp);
 		final String actual_t24 = mTension_24.getText().toString();
 		final String actual_t12 = mTension_12.getText().toString();
 		final String actual_t5 = mTension_5.getText().toString();

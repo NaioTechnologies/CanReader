@@ -48,6 +48,12 @@ public class BlocIHMTest extends
 		mIhm_rev = (TextView) mBlocIHMActivity.findViewById(R.id.ihm_rev);
 	}
 	
+	@Override
+	protected void tearDown() throws Exception{
+		mActivity.finish();
+	}
+
+	
 	public void testPreconditions() {
 	    assertNotNull("mActivity is null", mActivity);
 	    assertNotNull("mBlocIHMActivity is null", mBlocIHMActivity);
@@ -100,9 +106,15 @@ public class BlocIHMTest extends
 		han.goBack();
 		getInstrumentation().waitForIdleSync();
 		dialogBacklight(han);
+		han.goBack();
+		getInstrumentation().waitForIdleSync();
 	}
 	
 	public void testRTR(){
+		MainActivity.UNIT_TEST = false;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocIHMActivity =  mPager.getChildAt(2);
 		Solo han = new Solo(getInstrumentation(),mActivity);
 		han.clickOnButton("OK");
 		getInstrumentation().waitForIdleSync();
@@ -115,8 +127,52 @@ public class BlocIHMTest extends
 		rtrVersion(han);
 		getInstrumentation().waitForIdleSync();
 		rtrBoard(han);
+		getInstrumentation().waitForIdleSync();
 	}
 	
+	public void testRTRVcan(){
+		MainActivity.UNIT_TEST = true;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocIHMActivity =  mPager.getChildAt(2);
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.clickOnButton("READ");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrStatusVcan(han);
+		getInstrumentation().waitForIdleSync();
+		rtrVersionVcan(han);
+		getInstrumentation().waitForIdleSync();
+		rtrBoardVcan(han);
+		getInstrumentation().waitForIdleSync();
+	}
+	
+	private void rtrStatusVcan(Solo han) {
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_statut));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't read it!", mActivity.getCanParserThread().getCanParser().getRemote_for_unit());	
+		
+	}
+
+	private void rtrVersionVcan(Solo han) {
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_statut));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't read it!", mActivity.getCanParserThread().getCanParser().getRemote_for_unit());	
+		
+	}
+
+	private void rtrBoardVcan(Solo han) {
+		han.clickOnButton(mActivity.getString(R.string.ihm_button_board));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't read it!", mActivity.getCanParserThread().getCanParser().getRemote_for_unit());	
+		
+	}
+
 	private void rtrBoard(Solo han) {
 		han.clickOnButton(mActivity.getString(R.string.ihm_button_board));
 		getInstrumentation().waitForIdleSync();

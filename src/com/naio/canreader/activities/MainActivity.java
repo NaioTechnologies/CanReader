@@ -61,13 +61,16 @@ public class MainActivity extends FragmentActivity {
 	private int indexDebug;
 	private static final int MILLISECONDS_RUNNABLE = 10;
 
-	// KEEP_CONTROL_CAN_LOOP * MILLISECONDS_RUNNABLE for re sending the keep control message
+	// KEEP_CONTROL_CAN_LOOP * MILLISECONDS_RUNNABLE for re sending the keep
+	// control message
 	private static final int KEEP_CONTROL_CAN_LOOP = 50;
 	// message for keeping the hand over the Pascal's code ( only the '69' is
 	// important )
 	private static final String KEEP_CONTROL_CAN_LOOP_MESSAGE = "69.55.21.23.25.12.11.FF";
 
 	private static boolean binary_added = false;
+
+	public static boolean UNIT_TEST = false;
 
 	/**
 	 * @return the lock
@@ -88,6 +91,7 @@ public class MainActivity extends FragmentActivity {
 	private RelativeLayout rl;
 	private MyPagerAdapter mPagerAdapter;
 	private ViewPager pager;
+
 	/**
 	 * @return the pager
 	 */
@@ -287,8 +291,12 @@ public class MainActivity extends FragmentActivity {
 			}
 			canDumpThread = new CanDumpThread();
 			canParserThread = new CanParserThread(canDumpThread);
-			canDumpThread
-					.setCmd("su -c /sbin/candump -tz -e can0,0:0,#FFFFFFFF");
+			if (UNIT_TEST)
+				canDumpThread
+						.setCmd("su -c /sbin/candump -tz -e vcan0,0:0,#FFFFFFFF");
+			else
+				canDumpThread
+						.setCmd("su -c /sbin/candump -tz -e can0,0:0,#FFFFFFFF");
 			stopTheHandler = false;
 			canDumpThread.start();
 			canParserThread.start();
@@ -326,7 +334,8 @@ public class MainActivity extends FragmentActivity {
 				.setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
 		cptGsm = 0;
-		((Button) findViewById(R.id.button_read_main_activity)).setText(getString(R.string.imu_button_read));
+		((Button) findViewById(R.id.button_read_main_activity))
+				.setText(getString(R.string.imu_button_read));
 		// the sleep here is just because there is a sleep when the user press
 		// the READ button, so do the STOP.
 		try {
@@ -390,11 +399,25 @@ public class MainActivity extends FragmentActivity {
 	 * @param v
 	 */
 	public String button_connect_clicked(View v) {
-		return executeCommand("su -c ip link set can0 up type can bitrate 1000000");
+		if (UNIT_TEST) {
+			executeCommand("su -c ip link add dev vcan0 add dev");
+			return executeCommand("su -c ip link set up vcan0");
+		} else
+			return executeCommand("su -c ip link set can0 up type can bitrate 1000000");
 	}
 
 	public void disconnect_can() {
-		executeCommand("su -c ip link set can0 down");
+		if (UNIT_TEST)
+			executeCommand("su -c ip link set vcan0 down");
+		else
+			executeCommand("su -c ip link set can0 down");
+	}
+
+	/**
+	 * @return the canParserThread
+	 */
+	public CanParserThread getCanParserThread() {
+		return canParserThread;
 	}
 
 	/**
@@ -466,13 +489,11 @@ public class MainActivity extends FragmentActivity {
 			indexDebug = 0;
 			cptGsm = 0;
 			for (int k = 0; k < 2; k++)
-				Toast.makeText(
-						this,
-						getString(R.string.toast_gsm_fail),
+				Toast.makeText(this, getString(R.string.toast_gsm_fail),
 						Toast.LENGTH_LONG).show();
 			write_in_file(this, "GSM not responding");
 		}
-		
+
 	}
 
 	/**

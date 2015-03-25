@@ -10,6 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.naio.canreader.activities.MainActivity;
+
 import android.os.Handler;
 import android.util.Log;
 
@@ -73,7 +75,11 @@ public class CanSendThread extends Thread {
 	 * 
 	 */
 	public void addStringCommandForGSM(String id, String data) {
-		String base = "su -c /sbin/cansend can0 " + id + "#";
+		String base="";
+		if(MainActivity.UNIT_TEST)
+			base = "su -c /sbin/cansend vcan0 " + id + "#";
+		else
+			base = "su -c /sbin/cansend can0 " + id + "#";
 		for (char i : data.toCharArray()) {
 			addCmd(base + String.format("%02x", (int) i));
 		}
@@ -89,7 +95,11 @@ public class CanSendThread extends Thread {
 	 * 
 	 */
 	public void addStringCommand(String id, String data) {
-		String base = "su -c /sbin/cansend can0 " + id + "#";
+		String base ="";
+		if(MainActivity.UNIT_TEST)
+			 base = "su -c /sbin/cansend vcan0 " + id + "#";
+		else
+			 base = "su -c /sbin/cansend can0 " + id + "#";
 		addCmd(base + data);
 	}
 

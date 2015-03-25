@@ -39,6 +39,7 @@ public class CanParser {
 	private BrainCanFrame braincanframe;
 	private ErrorCanFrame errorcanframe;
 	private Integer count;
+	private Boolean remote_for_unit;
 
 	public CanParser() {
 		super();
@@ -50,6 +51,7 @@ public class CanParser {
 		verincanframe = new VerinCanFrame();
 		braincanframe = new BrainCanFrame();
 		errorcanframe = new ErrorCanFrame();
+		remote_for_unit = false;
 		count = 0;
 	}
 
@@ -64,8 +66,10 @@ public class CanParser {
 	 */
 	public CanFrame parseOneFrame(String frame) {
 
-		if (frame.contains("remote"))
+		if (frame.contains("remote")){
+			remote_for_unit = true;
 			return null;
+		}
 		if(count==1){
 			errorcanframe.setComplementError(frame);
 			count=0;
@@ -221,6 +225,15 @@ public class CanParser {
 
 	public ErrorCanFrame getErrorcanframe() {
 		return errorcanframe;
+	}
+	
+	/**
+	 * @return the remote_for_unit
+	 */
+	public Boolean getRemote_for_unit() {
+		Boolean tmp = remote_for_unit;
+		remote_for_unit = false;
+		return tmp;
 	}
 
 }

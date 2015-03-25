@@ -44,6 +44,11 @@ public class BlocVerinTest extends
 		mVerin_min = (TextView) mBlocVerinActivity.findViewById(R.id.version_verin_min);
 	}
 	
+	@Override
+	protected void tearDown() throws Exception{
+		mActivity.finish();
+	}
+
 	public void testPreconditions() {
 	    assertNotNull("mActivity is null", mActivity);
 	    assertNotNull("mBlocVerinActivity is null", mBlocVerinActivity);
@@ -79,9 +84,14 @@ public class BlocVerinTest extends
 		han.goBack();
 		getInstrumentation().waitForIdleSync();
 		dialogCommande(han);
+		getInstrumentation().waitForIdleSync();
 	}
 	
 	public void testRTR(){
+		MainActivity.UNIT_TEST = false;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocVerinActivity =  mPager.getChildAt(3);
 		Solo han = new Solo(getInstrumentation(),mActivity);
 		han.clickOnButton("OK");
 		getInstrumentation().waitForIdleSync();
@@ -94,8 +104,44 @@ public class BlocVerinTest extends
 		rtrRetour(han);
 		getInstrumentation().waitForIdleSync();
 		rtrVersion(han);
+		getInstrumentation().waitForIdleSync();
 	}
 	
+	public void testRTRVcan(){
+		MainActivity.UNIT_TEST = true;
+		mActivity = getActivity();
+		mPager = mActivity.getPager();
+		mBlocVerinActivity =  mPager.getChildAt(3);
+		Solo han = new Solo(getInstrumentation(),mActivity);
+		han.clickOnButton("OK");
+		getInstrumentation().waitForIdleSync();
+		han.clickOnButton("READ");
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		han.scrollToSide(Solo.RIGHT);
+		getInstrumentation().waitForIdleSync();
+		rtrRetourVcan(han);
+		getInstrumentation().waitForIdleSync();
+		rtrVersionVcan(han);
+		getInstrumentation().waitForIdleSync();
+	}
+	
+	private void rtrVersionVcan(Solo han) {
+		han.clickOnButton(mActivity.getString(R.string.verin_odo_button_version));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't get it!",mActivity.getCanParserThread().getCanParser().getRemote_for_unit());
+		
+	}
+
+	private void rtrRetourVcan(Solo han) {
+		han.clickOnButton( mActivity.getString(R.string.verin_button_retour));
+		getInstrumentation().waitForIdleSync();
+		assertTrue("Could not send the remote or didn't get it!", mActivity.getCanParserThread().getCanParser().getRemote_for_unit());	
+	}
+
 	private void rtrRetour(Solo han) {
 		han.clickOnButton( mActivity.getString(R.string.verin_button_retour));
 		getInstrumentation().waitForIdleSync();
