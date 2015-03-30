@@ -126,6 +126,15 @@
         android:text="@string/odo_button_reset"
         android:textSize="@dimen/nexus7_25dp" />
 
+        <TextView
+        android:id="@+id/odo_instruction"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
+        android:gravity="center"
+        android:text="@string/odo_instruction"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/lecture_odoc"
         android:layout_width="@dimen/nexus7_400px_w"

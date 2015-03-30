@@ -334,10 +334,10 @@ public class VerinCanFrame extends CanFrame {
 		String[] data = BytesFunction.fillWithZeroTheBinaryString(text).split(
 				"(?<!^)");
 		String write = "";
-		write += "ARD:" + data[7];
-		write += " AVD:" + data[6];
-		write += " ARG:" + data[5];
-		write += " AVG:" + data[4];
+		write += "AVG:" + data[7];
+		write += " ARG:" + data[6];
+		write += " AVD:" + data[5];
+		write += " ARD:" + data[4];
 		if (data[7].contains("1") && VerinCanFrame.state_ard) {
 			VerinCanFrame.cptArd += 1;
 			VerinCanFrame.state_ard = false;
@@ -373,9 +373,9 @@ public class VerinCanFrame extends CanFrame {
 			((TextView) rl_second_layout.findViewById(R.id.lecture_odo))
 					.setText(write);
 			((TextView) rl_second_layout.findViewById(R.id.lecture_odoc))
-					.setText("ARD:" + VerinCanFrame.cptArd + " AVD:"
-							+ VerinCanFrame.cptAvd + " ARG:"
-							+ VerinCanFrame.cptArg + " AVG:"
+					.setText("AVG:" + VerinCanFrame.cptArd + " ARG:"
+							+ VerinCanFrame.cptAvd + " AVD:"
+							+ VerinCanFrame.cptArg + " ARD:"
 							+ VerinCanFrame.cptAvg);
 			return;
 		}

@@ -20,6 +20,7 @@ import com.naio.canreader.parser.CanParser;
 import com.naio.canreader.threads.CanDumpThread;
 import com.naio.canreader.threads.CanParserThread;
 import com.naio.canreader.threads.CanSendThread;
+import com.naio.canreader.utils.BytesFunction;
 import com.naio.canreader.utils.MyPagerAdapter;
 
 import android.app.AlertDialog;
@@ -553,6 +554,20 @@ public class MainActivity extends FragmentActivity {
 		dialog.show();
 	}
 
+	public void button_quit_clicked(View v) {
+		if (reading) {
+			reading = false;
+			gsmWork = false;
+			indexDebug = 0;
+			stopTheHandler = true;
+			canDumpThread.quit();
+			canParserThread.setStop(false);
+			canDumpThread.interrupt();
+			canParserThread.interrupt();
+		}
+		this.finish();
+	}
+
 	/**
 	 * Read the unread sms and only the unread ones
 	 * 
@@ -783,8 +798,8 @@ public class MainActivity extends FragmentActivity {
 					cansend("380", dataHexa);
 					dialog.dismiss();
 				}
-				String txtToWrite = ecranText.getText().toString();
-				String txtToWrite2 = ecranText2.getText().toString();
+				String txtToWrite = BytesFunction.fillWithEmptyness(ecranText.getText().toString());
+				String txtToWrite2 = BytesFunction.fillWithEmptyness(ecranText2.getText().toString());
 				dataHexa += "02";
 				int index = 0;
 				for (char c : txtToWrite.toCharArray()) {

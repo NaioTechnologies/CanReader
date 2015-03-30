@@ -49,14 +49,15 @@
     <string name="imu_gps_3_resp">&#8230;</string>
     <string name="imu_gps_4_resp">&#8230;</string>
     <string name="imu_button_read">READ</string>
+    <string name="imu_button_quit">Quitter</string>
 
     <!-- BLOC GSM -->
 
     <string name="gsm_name">GSM</string>
-    <string name="gsm_display_sms">>display sms here &#8230;</string>
-    <string name="gsm_button_read_sms">READ the sms</string>
+    <string name="gsm_display_sms">>affichage des sms &#8230;</string>
+    <string name="gsm_button_read_sms">Lire les sms</string>
     <string name="gsm_button_custom">CUSTOM</string>
-    <string name="gsm_button_send_sms">Send a sms</string>
+    <string name="gsm_button_send_sms">Envoyer un sms</string>
     <string name="gsm_button_config">CONFIG</string>
     <string name="gsm_button_config2">CONFIG2</string>
     <string name="gsm_button_status">STATUT</string>
@@ -73,7 +74,7 @@
     <string name="ihm_button_led_resp">&#8230;</string>
     <string name="ihm_button_contraste">Contraste %</string>
     <string name="ihm_button_contraste_resp">&#8230;</string>
-    <string name="ihm_button_backlight">Backlight %</string>
+    <string name="ihm_button_backlight">Retro-eclairage %</string>
     <string name="ihm_button_backlight_resp">&#8230;</string>
     <string name="ihm_button_statut">Statut:</string>
     <string name="ihm_button_statut_resp">&#8230;</string>
@@ -98,6 +99,7 @@
     <string name="verin_etat_verin_resp">&#8230;</string>
     <string name="odo_lecture_title">Lecture ODO :</string>
     <string name="odo_lecture_resp">&#8230;</string>
+    <string name="odo_instruction">Pour tester si la gauche et la droite des odo, appuyez sur le bouton \"reset compteur\" puis faites une belle courbe vers la gauche, si les valeurs de AVD et ARD sont supérieurs à AVG et ARG, alors les odo sont bien montés </string>
     <string name="odo_button_reset">Reset compteur</string>
     <string name="odo_button_reset_resp">&#8230;</string>
     <string name="verin_odo_button_version">Version :</string>
@@ -198,9 +200,9 @@
     <!-- DIALOG ENVOI UNE COMMANDE -->
 
     <string name="command_verin_title">Verin command</string>
-    <string name="command_position_title">Request position</string>
-    <string name="command_contrast_title">Enter the contrast in hexa ( 00 to 64)</string>
-    <string name="command_backlight_title">Enter the backlight in hexa ( 00 to 64)</string>
+    <string name="command_position_title">Requete position</string>
+    <string name="command_contrast_title">Entrer le contraste en hexa ( 00 to 64)</string>
+    <string name="command_backlight_title">Entrer le retro-eclairage en hexa ( 00 to 64)</string>
     <string name="command_instruction">Ecrire en hexa la commande:</string>
     <string name="command_hint">00</string>
 

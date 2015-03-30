@@ -58,5 +58,13 @@ public class BytesFunction {
 		return binaryText;
 	}
 	
+	public static String fillWithEmptyness(String textToFill){
+		int max = textToFill.length();
+		for(int i = 0;i<20-max;i++){
+			textToFill += " ";
+		}
+		return textToFill;
+	}
+	
 
 }

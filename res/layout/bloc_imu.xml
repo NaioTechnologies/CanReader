@@ -414,12 +414,21 @@
 
     <Button
         android:id="@+id/button_read_main_activity"
-        android:layout_width="@dimen/nexus7_550px_w"
+        android:layout_width="@dimen/nexus7_360px_w"
         android:layout_height="@dimen/nexus7_300px_h"
-        android:layout_marginLeft="@dimen/nexus7_1400px_w"
+        android:layout_marginLeft="@dimen/nexus7_1600px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:onClick="button_read_clicked"
         android:text="@string/imu_button_read"
+        android:textSize="@dimen/nexus7_25dp" />
+    
+     <Button
+        android:layout_width="@dimen/nexus7_200px_w"
+        android:layout_height="@dimen/nexus7_300px_h"
+        android:layout_marginLeft="@dimen/nexus7_1400px_w"
+        android:layout_marginTop="@dimen/nexus7_760px_h"
+        android:onClick="button_quit_clicked"
+        android:text="@string/imu_button_quit"
         android:textSize="@dimen/nexus7_25dp" />
 
     <!--
