@@ -97,7 +97,7 @@ public class GPSCanFrame extends CanFrame {
 		if (gps.length <= 2) {
 			return;
 		}
-		if (gps[0].contains("GPGLL")) {
+		if (gps[0].contains("GLL")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -111,7 +111,7 @@ public class GPSCanFrame extends CanFrame {
 					.setText(convert_data_GPGLL(gps));
 			return;
 		}
-		if (gps[0].contains("GPGSA")) {
+		if (gps[0].contains("GSA")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -126,7 +126,7 @@ public class GPSCanFrame extends CanFrame {
 			return;
 		}
 
-		if (gps[0].contains("GPVTG")) {
+		if (gps[0].contains("VTG")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -141,7 +141,7 @@ public class GPSCanFrame extends CanFrame {
 			return;
 		}
 
-		if (gps[0].contains("GPGSV")) {
+		if (gps[0].contains("GSV")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;

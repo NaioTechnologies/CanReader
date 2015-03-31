@@ -99,7 +99,7 @@
     <string name="verin_etat_verin_resp">&#8230;</string>
     <string name="odo_lecture_title">Lecture ODO :</string>
     <string name="odo_lecture_resp">&#8230;</string>
-    <string name="odo_instruction">Pour tester si la gauche et la droite des odo, appuyez sur le bouton \"reset compteur\" puis faites une belle courbe vers la gauche, si les valeurs de AVD et ARD sont supérieurs à AVG et ARG, alors les odo sont bien montés </string>
+    <string name="odo_instruction">Pour tester la gauche et la droite des odo, appuyez sur le bouton \"reset compteur\" puis faites une belle courbe vers la gauche, si les valeurs de AVD et ARD sont supérieures à AVG et ARG, alors les odo sont bien montés </string>
     <string name="odo_button_reset">Reset compteur</string>
     <string name="odo_button_reset_resp">&#8230;</string>
     <string name="verin_odo_button_version">Version :</string>
