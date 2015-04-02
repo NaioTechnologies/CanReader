@@ -173,8 +173,9 @@ public class GPSCanFrame extends CanFrame {
 		if (gps[7].isEmpty()) {
 			return "";
 		}
+		String sat_used = gps[0].replace("VTG", "").replace("$", "");
 		Double vitesse = Double.parseDouble(gps[7]);
-		return "v =" + vitesse + " km/h";
+		return "vitesse("+sat_used+"):" + vitesse + " km/h";
 	}
 
 	/**
@@ -200,6 +201,7 @@ public class GPSCanFrame extends CanFrame {
 		long lat_degrees = 0;
 		double latf_degrees = 0;
 		double lonf_degrees = 0;
+		String sat_used = gps[0].replace("GLL", "").replace("$", "");
 		if (gps[1].length() > 5) {
 			lat_degrees = Long.parseLong(gps[1].substring(0, 2));
 			long lat_minutes = Long.parseLong(gps[1].substring(2, 4));
@@ -224,7 +226,7 @@ public class GPSCanFrame extends CanFrame {
 				lonf_degrees *= -1;
 		}
 		String utctime = gps[5];
-		return "Lat:" + latf_degrees + "\nLon:" + lonf_degrees + "\nUTC:"
+		return "Lat("+sat_used+"):" + latf_degrees + "\nLon("+sat_used+"):" + lonf_degrees + "\nUTC:"
 				+ utctime;
 	}
 }

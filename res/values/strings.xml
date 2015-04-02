@@ -231,6 +231,10 @@
     <string name="sms_message">Message:</string>
     <string name="sms_message_hint">ça va ?</string>
 
+    <!--  DIALOG BOOT -->
+    
+    <string name="boot_info">"Vous pouvez brancher dès à présent l\'interface can usb, si elle est déjà branché, rebranchez la seulement si c'est la première fois que vous lancez l\'application depuis le démarrage de la tablette.</string>
+  
     <!-- TOASTs -->
 
     <string name="toast_gsm_fail">Le GSM ne réponds pas sur le CAN.\nJe vous invite donc à redemarrer OZ et d\'attendre plus longtemps pour appuyer sur READ</string>

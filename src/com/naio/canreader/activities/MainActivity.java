@@ -155,8 +155,7 @@ public class MainActivity extends FragmentActivity {
 		new AlertDialog.Builder(this)
 				.setTitle("Information")
 				.setMessage(
-						"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n"
-								+ "Et assurez vous bien que le robot soit allumé et que l'interface can soit allumée avant d'appuyer sur READ.")
+						getString(R.string.boot_info))
 				.setPositiveButton(android.R.string.yes,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -798,8 +797,10 @@ public class MainActivity extends FragmentActivity {
 					cansend("380", dataHexa);
 					dialog.dismiss();
 				}
-				String txtToWrite = BytesFunction.fillWithEmptyness(ecranText.getText().toString());
-				String txtToWrite2 = BytesFunction.fillWithEmptyness(ecranText2.getText().toString());
+				String txtToWrite = BytesFunction.fillWithEmptyness(ecranText
+						.getText().toString());
+				String txtToWrite2 = BytesFunction.fillWithEmptyness(ecranText2
+						.getText().toString());
 				dataHexa += "02";
 				int index = 0;
 				for (char c : txtToWrite.toCharArray()) {

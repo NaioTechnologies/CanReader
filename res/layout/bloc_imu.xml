@@ -396,8 +396,9 @@
 
     <TextView
         android:id="@+id/textview_gps_text3_main_activity"
-        android:layout_width="@dimen/nexus7_420px_w"
+        android:layout_width="@dimen/nexus7_850px_w"
         android:layout_height="@dimen/nexus7_250px_h"
+        android:layout_alignParentStart="@dimen/nexus7_850px_w"
         android:layout_marginLeft="0px"
         android:layout_marginTop="@dimen/nexus7_850px_h"
         android:text="@string/imu_gps_3_resp"
