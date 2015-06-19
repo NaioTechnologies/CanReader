@@ -46,7 +46,6 @@ public class BrainCanFrame extends CanFrame {
 		}
 	}
 
-
 	public void save_datas() {
 		synchronized (lock) {
 
@@ -61,8 +60,6 @@ public class BrainCanFrame extends CanFrame {
 			}
 		}
 	}
-
-
 
 	/**
 	 * 
@@ -86,5 +83,11 @@ public class BrainCanFrame extends CanFrame {
 		}
 		((TextView) rl.findViewById(R.id.temperature_cpu)).setText(""
 				+ temperature.toString() + " °C");
+	}
+
+	public UInt8 getTemperature() {
+		synchronized (lock) {
+			return temperature;
+		}
 	}
 }

@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * CanDumpThread is the thread which execute the command candump and which place
@@ -22,6 +23,7 @@ public class CanDumpThread extends Thread {
 
 	private final Object lock1 = new Object();
 	private final Object entreThread = new Object();
+	private Integer count ;
 
 	/**
 	 * @return the entreThread
@@ -94,6 +96,7 @@ public class CanDumpThread extends Thread {
 				while ((line = reader.readLine()) != null) {
 					synchronized (entreThread) {
 						getQueue().offer(line);
+						//the notify here says to the CanParserThread that a frame is available
 						entreThread.notify();
 					}
 
@@ -134,7 +137,7 @@ public class CanDumpThread extends Thread {
 	 * @return
 	 */
 	public String get100Poll() {
-		// false trame to avoid return null
+		// fake trame to avoid return null
 		String fakeTrame = "(000.0000000) can0 480 [2] remote";
 		String poll = "";
 		for (int i = 0; i < 100; i++) {
@@ -147,6 +150,7 @@ public class CanDumpThread extends Thread {
 	}
 
 	public void run() {
+		count =0;
 		setQuitTheThread(false);
 		queue = new ConcurrentLinkedQueue<String>();
 		executeCommandLoop(cmd);

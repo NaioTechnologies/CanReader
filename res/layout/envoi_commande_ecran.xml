@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="True"
-        android:text="Ecrire en hexa la commande ou ecrire le texte à afficher:"
+        android:text="@string/ecran_instruction"
         android:textSize="20dp" />
 
     <EditText
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
         android:digits="0123456789ABCDEF"
-        android:hint="00"
+        android:hint="@string/ecran_hexa_hint"
         android:inputType="textCapCharacters"
         android:maxLength="2"
         android:paddingTop="20dp"
@@ -29,7 +29,7 @@
         android:layout_below="@id/text"
         android:layout_toRightOf="@id/hexa1"
         android:digits="0123456789ABCDEF"
-        android:hint="00"
+        android:hint="@string/ecran_hexa_hint"
         android:inputType="textCapCharacters"
         android:maxLength="2"
         android:nextFocusLeft="@+id/hexa3"
@@ -43,7 +43,7 @@
         android:layout_below="@id/text"
         android:layout_toRightOf="@id/hexa2"
         android:digits="0123456789ABCDEF"
-        android:hint="00"
+        android:hint="@string/ecran_hexa_hint"
         android:inputType="textCapCharacters"
         android:maxLength="2"
         android:paddingTop="20dp"
@@ -58,7 +58,7 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/hexa3"
         android:paddingTop="20dp"
-        android:text=" Ou "
+        android:text="@string/ecran_ou"
         android:textSize="25dp" />
 
     <EditText
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
         android:layout_toRightOf="@id/textView"
-        android:hint="Naio                 "
+        android:hint="@string/ecran_first_line_hint"
         android:maxLength="39"
         android:paddingTop="20dp"
         android:textSize="25dp" />
@@ -78,7 +78,7 @@
         android:layout_below="@id/text"
         android:layout_toRightOf="@id/commandecran"
         android:paddingTop="20dp"
-        android:text="1ere ligne"
+        android:text="@string/ecran_first_line"
         android:textSize="25dp" />
 
     <EditText
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/commandecran"
         android:layout_toRightOf="@id/textView"
-        android:hint="Technologies"
+        android:hint="@string/ecran_second_line_hint"
         android:maxLength="39"
         android:paddingTop="20dp"
         android:textSize="25dp" />
@@ -98,7 +98,7 @@
         android:layout_below="@id/commandecran"
         android:layout_toRightOf="@id/commandecran2"
         android:paddingTop="20dp"
-        android:text="2eme ligne"
+        android:text="@string/ecran_second_line"
         android:textSize="25dp" />
 
     <Button
@@ -108,7 +108,7 @@
         android:layout_below="@id/commandecran2"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:text=" Envoyer "
+        android:text="@string/global_button_envoyer"
         android:textSize="25dp" />
 
 </RelativeLayout>

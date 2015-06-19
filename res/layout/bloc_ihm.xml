@@ -12,7 +12,7 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="IHM"
+        android:text="@string/ihm_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
 
@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_envoie_affichage_clicked"
-        android:text="Envoi commande affichage"
+        android:text="@string/ihm_button_envoi_affichage"
         android:textSize="30dp" />
 
     <Button
@@ -33,7 +33,7 @@
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_envoie_buzzer_clicked"
-        android:text="Envoi commande buzzer"
+        android:text="@string/ihm_button_envoi_buzzer"
         android:textSize="@dimen/nexus7_30dp" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_marginTop="240px"
         android:gravity="center"
         android:onClick="button_etat_clavier_clicked"
-        android:text="Clavier"
+        android:text="@string/ihm_button_clavier"
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView
@@ -53,7 +53,7 @@
         android:layout_marginLeft="320px"
         android:layout_marginTop="240px"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_clavier_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -63,7 +63,7 @@
         android:layout_marginTop="@dimen/nexus7_240px_h"
         android:gravity="center"
         android:onClick="button_etat_led_clicked"
-        android:text="LED"
+        android:text="@string/ihm_button_led"
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView
@@ -73,7 +73,7 @@
         android:layout_marginLeft="1170px"
         android:layout_marginTop="240px"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_led_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -83,7 +83,7 @@
         android:layout_marginTop="380px"
         android:gravity="center"
         android:onClick="button_contraste_clicked"
-        android:text="Contraste %"
+        android:text="@string/ihm_button_contraste"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -93,27 +93,27 @@
         android:layout_marginLeft="370px"
         android:layout_marginTop="380px"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_contraste_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
-        android:layout_width="350px"
+        android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_140px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_380px_h"
         android:gravity="center"
         android:onClick="button_backlight_clicked"
-        android:text="Backlight %"
-        android:textSize="@dimen/nexus7_25dp" />
+        android:text="@string/ihm_button_backlight"
+        android:textSize="22dp" />
 
     <TextView
         android:id="@+id/ihm_backlight"
         android:layout_width="@dimen/nexus7_360px_w"
-        android:layout_height="@dimen/nexus7_140px_h"
-        android:layout_marginLeft="@dimen/nexus7_1320px_w"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_1370px_w"
         android:layout_marginTop="@dimen/nexus7_380px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_backlight_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -123,7 +123,7 @@
         android:layout_marginTop="@dimen/nexus7_520px_h"
         android:gravity="center"
         android:onClick="button_ihm_status_clicked"
-        android:text="Statut:"
+        android:text="@string/ihm_button_statut"
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView
@@ -133,7 +133,7 @@
         android:layout_marginLeft="@dimen/nexus7_320px_w"
         android:layout_marginTop="@dimen/nexus7_520px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_statut_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -143,7 +143,7 @@
         android:layout_marginTop="@dimen/nexus7_520px_h"
         android:gravity="center"
         android:onClick="button_version_ihm_clicked"
-        android:text="Version:"
+        android:text="@string/ihm_button_version"
         android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
@@ -153,7 +153,7 @@
         android:layout_marginLeft="@dimen/nexus7_1270px_w"
         android:layout_marginTop="@dimen/nexus7_530px_h"
         android:gravity="center"
-        android:text="Maj"
+        android:text="@string/ihm_button_version_maj_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -163,7 +163,7 @@
         android:layout_marginLeft="1470px"
         android:layout_marginTop="530px"
         android:gravity="center"
-        android:text="Min"
+        android:text="@string/ihm_button_version_min_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <!--
@@ -213,7 +213,7 @@
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:gravity="center"
         android:onClick="button_board_ihm_clicked"
-        android:text="Board:"
+        android:text="@string/ihm_button_board"
         android:textSize="@dimen/nexus7_40dp" />
 
     <TextView
@@ -223,7 +223,7 @@
         android:layout_marginLeft="@dimen/nexus7_320px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_board_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -232,7 +232,7 @@
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:gravity="center"
-        android:text="Rev:"
+        android:text="@string/ihm_button_rev"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -242,7 +242,7 @@
         android:layout_marginLeft="@dimen/nexus7_1170px_w"
         android:layout_marginTop="@dimen/nexus7_760px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/ihm_button_rev_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -251,7 +251,7 @@
         android:layout_height="fill_parent"
         android:background="#90000000"
         android:gravity="center"
-        android:text="Veuillez appuyer sur le bouton READ"
+        android:text="@string/global_text_not_connected"
         android:textColor="#FFFFFFFF"
         android:textSize="@dimen/nexus7_40dp" />
 

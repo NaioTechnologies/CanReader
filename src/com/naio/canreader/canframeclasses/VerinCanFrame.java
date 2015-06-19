@@ -177,15 +177,27 @@ public class VerinCanFrame extends CanFrame {
 			if (rl_second_layout == null) {
 				return;
 			}
-
-			((TextView) rl_second_layout.findViewById(R.id.tension_24v))
-					.setText("" + val1+" V");
+			String txtFor24v = "" + val1+" V";
+			if(val1<=24.2)
+				txtFor24v+="\n(faible)";
+			else if(val1<=24.8)
+				txtFor24v+="\n(moyen)";
+			else 
+				txtFor24v+="\n(fort)";
+			((TextView) rl_second_layout.findViewById(R.id.tension_24v)).setText(txtFor24v);
 			((TextView) rl_second_layout.findViewById(R.id.tension_pile))
 					.setText("" + val2+" V");
 			return;
 		}
 
-		((TextView) rl.findViewById(R.id.tension_24v)).setText("" + val1+" V");
+		String txtFor24v = "" + val1+" V";
+		if(val1<=24.2)
+			txtFor24v+="\n(faible)";
+		else if(val1<=24.8)
+			txtFor24v+="\n(moyen)";
+		else 
+			txtFor24v+="\n(fort)";
+		((TextView) rl.findViewById(R.id.tension_24v)).setText(txtFor24v);
 		((TextView) rl.findViewById(R.id.tension_pile)).setText("" + val2 + " V");
 
 	}
@@ -322,10 +334,10 @@ public class VerinCanFrame extends CanFrame {
 		String[] data = BytesFunction.fillWithZeroTheBinaryString(text).split(
 				"(?<!^)");
 		String write = "";
-		write += "ARD:" + data[7];
-		write += " AVD:" + data[6];
-		write += " ARG:" + data[5];
-		write += " AVG:" + data[4];
+		write += "AVG:" + data[7];
+		write += " ARG:" + data[6];
+		write += " AVD:" + data[5];
+		write += " ARD:" + data[4];
 		if (data[7].contains("1") && VerinCanFrame.state_ard) {
 			VerinCanFrame.cptArd += 1;
 			VerinCanFrame.state_ard = false;
@@ -361,9 +373,9 @@ public class VerinCanFrame extends CanFrame {
 			((TextView) rl_second_layout.findViewById(R.id.lecture_odo))
 					.setText(write);
 			((TextView) rl_second_layout.findViewById(R.id.lecture_odoc))
-					.setText("ARD:" + VerinCanFrame.cptArd + " AVD:"
-							+ VerinCanFrame.cptAvd + " ARG:"
-							+ VerinCanFrame.cptArg + " AVG:"
+					.setText("AVG:" + VerinCanFrame.cptArd + " ARG:"
+							+ VerinCanFrame.cptAvd + " AVD:"
+							+ VerinCanFrame.cptArg + " ARD:"
 							+ VerinCanFrame.cptAvg);
 			return;
 		}
@@ -483,7 +495,6 @@ public class VerinCanFrame extends CanFrame {
 	 * Put all the global variables to 0
 	 */
 	public static void resetCpt() {
-		
 		VerinCanFrame.cptArd = 0;
 		VerinCanFrame.cptAvg = 0;
 		VerinCanFrame.cptArg = 0;
@@ -496,6 +507,120 @@ public class VerinCanFrame extends CanFrame {
 		VerinCanFrame.state_avg = true;
 		VerinCanFrame.state_arg = true;
 		VerinCanFrame.state_avd = true;
-
 	}
+
+	/**
+	 * @return the requetePosition
+	 */
+	public Integer getRequetePosition() {
+		return requetePosition;
+	}
+
+	/**
+	 * @return the retourPosition
+	 */
+	public Integer getRetourPosition() {
+		return retourPosition;
+	}
+
+	/**
+	 * @return the lectureODO
+	 */
+	public Integer getLectureODO() {
+		return lectureODO;
+	}
+
+	/**
+	 * @return the versionMaj
+	 */
+	public Integer getVersionMaj() {
+		return versionMaj;
+	}
+
+	/**
+	 * @return the versionMin
+	 */
+	public Integer getVersionMin() {
+		return versionMin;
+	}
+
+	/**
+	 * @return the t12vLSB
+	 */
+	public Integer getT12vLSB() {
+		return t12vLSB;
+	}
+
+	/**
+	 * @return the t12vMSB
+	 */
+	public Integer getT12vMSB() {
+		return t12vMSB;
+	}
+
+	/**
+	 * @return the t33vLSB
+	 */
+	public Integer getT33vLSB() {
+		return t33vLSB;
+	}
+
+	/**
+	 * @return the t33vMSB
+	 */
+	public Integer getT33vMSB() {
+		return t33vMSB;
+	}
+
+	/**
+	 * @return the t5vLSB
+	 */
+	public Integer getT5vLSB() {
+		return t5vLSB;
+	}
+
+	/**
+	 * @return the t5vMSB
+	 */
+	public Integer getT5vMSB() {
+		return t5vMSB;
+	}
+
+	/**
+	 * @return the flagSortie
+	 */
+	public Integer getFlagSortie() {
+		return flagSortie;
+	}
+
+	/**
+	 * @return the t24vLSB
+	 */
+	public Integer getT24vLSB() {
+		return t24vLSB;
+	}
+
+	/**
+	 * @return the t24vMSB
+	 */
+	public Integer getT24vMSB() {
+		return t24vMSB;
+	}
+
+	/**
+	 * @return the pileLSB
+	 */
+	public Integer getPileLSB() {
+		return pileLSB;
+	}
+
+	/**
+	 * @return the pileMSB
+	 */
+	public Integer getPileMSB() {
+		return pileMSB;
+	}
+	
+	
+	
 }

@@ -12,10 +12,9 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="TENSION et TEMPE"
+        android:text="@string/tension_tempe_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
-
 
     <TextView
         android:layout_width="@dimen/nexus7_410px_w"
@@ -23,7 +22,7 @@
         android:layout_marginLeft="@dimen/nexus7_10px_w"
         android:layout_marginTop="@dimen/nexus7_120px_h"
         android:gravity="center"
-        android:text="Température CPU:"
+        android:text="@string/tempe_cpu_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_120px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tempe_cpu_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -41,9 +40,9 @@
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_10px_w"
         android:layout_marginTop="@dimen/nexus7_300px_h"
-        android:onClick="button_batterie_clicked"
         android:gravity="center"
-        android:text="Tension :"
+        android:onClick="button_batterie_clicked"
+        android:text="@string/tension_button_tension_1"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -52,57 +51,57 @@
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_300px_h"
         android:gravity="center"
-        android:text="24V:"
+        android:text="@string/tension_24v_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:id="@+id/tension_24v"
         android:layout_width="@dimen/nexus7_300px_w"
-        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="@dimen/nexus7_610px_w"
         android:layout_marginTop="@dimen/nexus7_300px_h"
-        android:gravity="center"
-        android:text="..."
+        android:gravity="center_horizontal"
+        android:text="@string/tension_24v_resp"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_300px_h"
         android:gravity="center"
-        android:text="Pile:"
+        android:text="@string/tension_pile_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
-     <TextView
+
+    <TextView
         android:id="@+id/tension_pile"
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_1170px_w"
         android:layout_marginTop="@dimen/nexus7_300px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tension_pile_resp"
         android:textSize="@dimen/nexus7_25dp" />
-     
-     <Button
+
+    <Button
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_10px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
-        android:onClick="button_tension_clicked"
         android:gravity="center"
-        android:text="Tension :"
+        android:onClick="button_tension_clicked"
+        android:text="@string/tension_button_tension_2"
         android:textSize="@dimen/nexus7_25dp" />
-     
-     <TextView
+
+    <TextView
         android:layout_width="@dimen/nexus7_100px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
         android:gravity="center"
-        android:text="12V:"
+        android:text="@string/tension_12v_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:id="@+id/tension_12v"
         android:layout_width="@dimen/nexus7_300px_w"
@@ -110,37 +109,37 @@
         android:layout_marginLeft="@dimen/nexus7_610px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tension_12v_resp"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:layout_width="@dimen/nexus7_150px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
         android:gravity="center"
-        android:text="3,3V:"
+        android:text="@string/tension_33v_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
-     <TextView
+
+    <TextView
         android:id="@+id/tension_33v"
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_1170px_w"
         android:layout_marginTop="@dimen/nexus7_500px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tension_33v_resp"
         android:textSize="@dimen/nexus7_25dp" />
-     
-      <TextView
+
+    <TextView
         android:layout_width="@dimen/nexus7_100px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_420px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
-        android:text="5V:"
+        android:text="@string/tension_5v_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:id="@+id/tension_5v"
         android:layout_width="@dimen/nexus7_300px_w"
@@ -148,39 +147,40 @@
         android:layout_marginLeft="@dimen/nexus7_610px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tension_5v_resp"
         android:textSize="@dimen/nexus7_25dp" />
-    
+
     <TextView
         android:layout_width="@dimen/nexus7_400px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
-        android:text="Flag sortie 12V:"
+        android:text="@string/tension_flag_title"
         android:textSize="@dimen/nexus7_25dp" />
-    
-     <TextView
+
+    <TextView
         android:id="@+id/flag_sortie"
         android:layout_width="@dimen/nexus7_300px_w"
         android:layout_height="@dimen/nexus7_150px_h"
         android:layout_marginLeft="@dimen/nexus7_1370px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/tension_flag_resp"
         android:textSize="@dimen/nexus7_25dp" />
-     
-         <TextView
+
+    <TextView
         android:id="@+id/text_connection"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="#90000000"
         android:gravity="center"
-        android:text="Veuillez appuyer sur le bouton READ"
+        android:text="@string/global_text_not_connected"
         android:textColor="#FFFFFFFF"
         android:textSize="@dimen/nexus7_40dp" />
 
-<!--     <TextView
+    <!--
+         <TextView
         android:layout_width="@dimen/nexus7_1370px_w"
         android:layout_height="@dimen/nexus7_10px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
@@ -192,6 +192,7 @@
         android:layout_height="@dimen/nexus7_250px_h"
         android:layout_marginLeft="@dimen/nexus7_850px_w"
         android:layout_marginTop="@dimen/nexus7_700px_h"
-        android:background="@android:color/background_dark" /> -->
+        android:background="@android:color/background_dark" />
+    -->
 
 </RelativeLayout>

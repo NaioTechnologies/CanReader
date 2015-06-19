@@ -7,7 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="True"
-        android:text="Set the LEDs" />
+        android:text="@string/led_title"/>
 
     <TextView
         android:id="@+id/edittext_numero"
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text"
         android:paddingTop="20dp"
-        android:text="Led gauche :" />
+        android:text="@string/led_gauche" />
 
     <Spinner
         android:id="@+id/spinner_led_gauche"
@@ -44,7 +44,7 @@
         android:layout_below="@id/edittext_numero"
         android:layout_marginTop="20dp"
         android:paddingTop="20dp"
-        android:text="Led 2 :" />
+        android:text="@string/led_2" />
 
     <Spinner
         android:id="@+id/spinner_led_2"
@@ -73,7 +73,7 @@
         android:layout_below="@id/edittext_numero2"
         android:layout_marginTop="20dp"
         android:paddingTop="20dp"
-        android:text="Led 3 :" />
+        android:text="@string/led_3" />
 
     <Spinner
         android:id="@+id/spinner_led_3"
@@ -102,7 +102,7 @@
         android:layout_below="@id/edittext_numero3"
         android:layout_marginTop="20dp"
         android:paddingTop="20dp"
-        android:text="Led droite :" />
+        android:text="@string/led_droite" />
 
     <Spinner
         android:id="@+id/spinner_led_droite"
@@ -130,6 +130,6 @@
         android:layout_below="@id/edittext_numero4"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
-        android:text=" Envoyer " />
+        android:text="@string/global_button_envoyer" />
 
 </RelativeLayout>

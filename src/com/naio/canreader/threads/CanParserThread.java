@@ -44,7 +44,7 @@ public class CanParserThread extends Thread {
 			synchronized (canDumpThread.getEntreThread()) {
 
 				try {
-					//wait that the CanDumpThread says " hey i've got some news for you "
+					//wait that the CanDumpThread had something
 					canDumpThread.getEntreThread().wait();
 					getCanParser().parseFrames(canDumpThread.get100Poll());
 					Thread.sleep(0,100);

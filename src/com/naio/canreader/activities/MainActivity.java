@@ -1,7 +1,14 @@
 package com.naio.canreader.activities;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.Process;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,11 +20,13 @@ import com.naio.canreader.parser.CanParser;
 import com.naio.canreader.threads.CanDumpThread;
 import com.naio.canreader.threads.CanParserThread;
 import com.naio.canreader.threads.CanSendThread;
+import com.naio.canreader.utils.BytesFunction;
 import com.naio.canreader.utils.MyPagerAdapter;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,6 +43,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -51,13 +62,16 @@ public class MainActivity extends FragmentActivity {
 	private int indexDebug;
 	private static final int MILLISECONDS_RUNNABLE = 10;
 
-	// 50 * MILLISECONDS_RUNNABLE for re send the keep control message
+	// KEEP_CONTROL_CAN_LOOP * MILLISECONDS_RUNNABLE for re sending the keep
+	// control message
 	private static final int KEEP_CONTROL_CAN_LOOP = 50;
 	// message for keeping the hand over the Pascal's code ( only the '69' is
 	// important )
 	private static final String KEEP_CONTROL_CAN_LOOP_MESSAGE = "69.55.21.23.25.12.11.FF";
 
 	private static boolean binary_added = false;
+
+	public static boolean UNIT_TEST = false;
 
 	/**
 	 * @return the lock
@@ -78,7 +92,18 @@ public class MainActivity extends FragmentActivity {
 	private RelativeLayout rl;
 	private MyPagerAdapter mPagerAdapter;
 	private ViewPager pager;
+
+	/**
+	 * @return the pager
+	 */
+	public ViewPager getPager() {
+		return pager;
+	}
+
 	private CanParserThread canParserThread;
+	private boolean gsmWork;
+	private int cptGsm;
+	private boolean stopTheHandler;
 	private static boolean layoutPage;
 
 	@Override
@@ -98,6 +123,7 @@ public class MainActivity extends FragmentActivity {
 		canDumpThread = new CanDumpThread();
 		canParserThread = new CanParserThread(canDumpThread, this);
 		reading = false;
+		gsmWork = false;
 		indexDebug = 0;
 		canParser = new CanParser();
 		rl = (RelativeLayout) findViewById(R.id.rl_main_activity);
@@ -123,22 +149,20 @@ public class MainActivity extends FragmentActivity {
 				executeCommand("su -c rmmod pcan");
 				executeCommand("su -c mount -o ro,remount /");
 				binary_added = true;
-				
+
 			}
 		}
 		new AlertDialog.Builder(this)
-		.setTitle("Information")
-		.setMessage(
-				"Vous pouvez brancher dès à présent l'interface can usb, si elle est déjà branché, rebranchez la.\n" +
-				"Et assurez vous bien que le robot soit allumé et que l'interface can soit allumée avant d'appuyer sur READ.")
-		.setPositiveButton(android.R.string.yes,
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
-						// continue with delete
-					}
-				}).setIcon(android.R.drawable.ic_dialog_info)
-		.show();
+				.setTitle("Information")
+				.setMessage(
+						getString(R.string.boot_info))
+				.setPositiveButton(android.R.string.yes,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// continue with delete
+							}
+						}).setIcon(android.R.drawable.ic_dialog_info).show();
 
 	}
 
@@ -147,10 +171,10 @@ public class MainActivity extends FragmentActivity {
 	 */
 	private void set_fragment_layout() {
 		setContentView(R.layout.viewpager);// Création de la liste de
-		// Fragments que fera
-		// défiler le PagerAdapter
+		// Fragments que fera défiler le PagerAdapter
 		List fragments = new Vector();
-
+		cptGsm = 0;
+		stopTheHandler = false;
 		// Ajout des Fragments dans la liste
 		fragments.add(Fragment.instantiate(this,
 				BlocIMUActivity.class.getName()));
@@ -162,17 +186,20 @@ public class MainActivity extends FragmentActivity {
 				BlocVerinActivity.class.getName()));
 		fragments.add(Fragment.instantiate(this,
 				BlocTensionActivity.class.getName()));
+		fragments.add(Fragment.instantiate(this,
+				BlocErrorCanActivity.class.getName()));
 		// Création de l'adapter qui s'occupera de l'affichage de la
 		// liste de Fragments
+
 		this.mPagerAdapter = new MyPagerAdapter(
 				super.getSupportFragmentManager(), fragments);
 
 		pager = (ViewPager) super.findViewById(R.id.viewpager);
-		pager.setOffscreenPageLimit(4);
+		pager.setOffscreenPageLimit(5);
 		// Affectation de l'adapter au ViewPager
 		pager.setAdapter(this.mPagerAdapter);
 
-		//pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		// pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
 		layoutPage = false;
 	}
 
@@ -193,7 +220,7 @@ public class MainActivity extends FragmentActivity {
 			final Dialog dialog = new Dialog(this);
 
 			dialog.setContentView(R.layout.info_dialog);
-			dialog.setTitle("INFO");
+			dialog.setTitle(getString(R.string.info_title));
 
 			Button dialogButton = (Button) dialog
 					.findViewById(R.id.dialogButtonOK);
@@ -243,25 +270,46 @@ public class MainActivity extends FragmentActivity {
 	 */
 	public void button_read_clicked(View v) {
 		if (!reading) {
-			button_connect_clicked(v);
+			if (button_connect_clicked(v).contains("can0")) {
+				Toast.makeText(
+						this,
+						"L'interface CAN n'est pas branchée ou n'est pas démarrée",
+						Toast.LENGTH_LONG).show();
+				try {
+					Thread.sleep(400);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
 			// the sleep here is for avoid the user to press the button
 			// multi-time before it changes its state
 			try {
 				Thread.sleep(400);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			canDumpThread = new CanDumpThread();
 			canParserThread = new CanParserThread(canDumpThread);
-			canDumpThread.setCmd("su -c /sbin/candump -tz can0");
+			if (UNIT_TEST)
+				canDumpThread
+						.setCmd("su -c /sbin/candump -tz -e vcan0,0:0,#FFFFFFFF");
+			else
+				canDumpThread
+						.setCmd("su -c /sbin/candump -tz -e can0,0:0,#FFFFFFFF");
+			stopTheHandler = false;
 			canDumpThread.start();
 			canParserThread.start();
-			pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.GONE);
-			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
+			pager.getChildAt(1).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(2).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(3).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+			pager.getChildAt(4).findViewById(R.id.text_connection)
+					.setVisibility(View.GONE);
+
+			// cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
 			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 			((Button) findViewById(R.id.button_read_main_activity))
 					.setText("STOP");
@@ -269,33 +317,57 @@ public class MainActivity extends FragmentActivity {
 			return;
 		}
 		reading = false;
+		gsmWork = false;
+		indexDebug = 0;
+		stopTheHandler = true;
 		canDumpThread.quit();
 		canParserThread.setStop(false);
 		canDumpThread.interrupt();
 		canParserThread.interrupt();
-		pager.getChildAt(1).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(2).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(3).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
-		pager.getChildAt(4).findViewById(R.id.text_connection).setVisibility(View.VISIBLE);
+		pager.getChildAt(1).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(2).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(3).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
+		pager.getChildAt(4).findViewById(R.id.text_connection)
+				.setVisibility(View.VISIBLE);
 		handler.removeCallbacks(runnable);
-		((Button) findViewById(R.id.button_read_main_activity)).setText("READ");
+		cptGsm = 0;
+		((Button) findViewById(R.id.button_read_main_activity))
+				.setText(getString(R.string.imu_button_read));
 		// the sleep here is just because there is a sleep when the user press
 		// the READ button, so do the STOP.
 		try {
 			Thread.sleep(200);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	protected void onPause() {
-		//we stop the app when onPause because other app could read the can
+		// we stop the app when onPause because other app could read the can
 		super.onPause();
-		onBackPressed();
+		if (reading) {
+			reading = false;
+			if (canDumpThread != null) {
+				canDumpThread.quit();
+				canDumpThread.interrupt();
+			}
+			if (canParserThread != null) {
+				canParserThread.setStop(false);
+				canParserThread.interrupt();
+			}
+			if (canSendThread != null)
+				canSendThread.interrupt();
+			gsmWork = false;
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
+			handler.removeCallbacks(runnable);
+		}
 	}
-	
+
 	@Override
 	public void onBackPressed() {
 		// When back is pressed, we stop all the thread and hope it's really the
@@ -303,11 +375,19 @@ public class MainActivity extends FragmentActivity {
 		super.onBackPressed();
 		if (reading) {
 			reading = false;
-			canDumpThread.quit();
-			canParserThread.setStop(false);
-			canDumpThread.interrupt();
-			canParserThread.interrupt();
-			canSendThread.interrupt();
+			if (canDumpThread != null) {
+				canDumpThread.quit();
+				canDumpThread.interrupt();
+			}
+			if (canParserThread != null) {
+				canParserThread.setStop(false);
+				canParserThread.interrupt();
+			}
+			if (canSendThread != null)
+				canSendThread.interrupt();
+			gsmWork = false;
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
 			handler.removeCallbacks(runnable);
 		}
 	}
@@ -318,8 +398,26 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 */
-	public void button_connect_clicked(View v) {
-		executeCommand("su -c ip link set can0 up type can bitrate 1000000");
+	public String button_connect_clicked(View v) {
+		if (UNIT_TEST) {
+			executeCommand("su -c ip link add dev vcan0 add dev");
+			return executeCommand("su -c ip link set up vcan0");
+		} else
+			return executeCommand("su -c ip link set can0 up type can bitrate 1000000");
+	}
+
+	public void disconnect_can() {
+		if (UNIT_TEST)
+			executeCommand("su -c ip link set vcan0 down");
+		else
+			executeCommand("su -c ip link set can0 down");
+	}
+
+	/**
+	 * @return the canParserThread
+	 */
+	public CanParserThread getCanParserThread() {
+		return canParserThread;
 	}
 
 	/**
@@ -336,8 +434,29 @@ public class MainActivity extends FragmentActivity {
 		canParserThread.getCanParser().getVerincanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getIhmcanframe().display_on(rl, pager);
 		canParserThread.getCanParser().getBraincanframe().display_on(rl, pager);
+		if (!canParserThread.getCanParser().getErrorcanframe().getError()
+				.contentEquals("no error")) {
+			if (canParserThread.getCanParser().getErrorcanframe()
+					.getComplementError().length() > 2) {
+				button_read_clicked(null);
+				String errorText = "can error : \n"
+						+ canParserThread.getCanParser().getErrorcanframe()
+								.getComplementError();
+				Toast.makeText(this, errorText, Toast.LENGTH_LONG).show();
+				write_in_file(this, errorText);
+				disconnect_can();
+				return;
+			}
+		}
+		/*
+		 * String responseCanSend = null; if((responseCanSend =
+		 * canSendThread.getResponse()) != null){ Toast.makeText( this,
+		 * "write on can IMPOSSIBRU : \n" + responseCanSend,
+		 * Toast.LENGTH_LONG).show(); }
+		 */
 		keep_control_of_can();
-		handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
+		if (!stopTheHandler)
+			handler.postDelayed(runnable, MILLISECONDS_RUNNABLE);
 	}
 
 	/**
@@ -345,11 +464,36 @@ public class MainActivity extends FragmentActivity {
 	 * on the can
 	 */
 	private void keep_control_of_can() {
-		indexDebug++;
-		if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
-			cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
-			indexDebug = 0;
+		if (gsmWork) {
+			indexDebug++;
+			if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
+				cansend("00F", KEEP_CONTROL_CAN_LOOP_MESSAGE);
+				indexDebug = 0;
+			}
+		} else {
+			indexDebug++;
+			if (indexDebug == KEEP_CONTROL_CAN_LOOP) {
+				cansend_gsm("AT+CPIN?\r");
+				cptGsm++;
+			}
+			if (indexDebug == 2 * KEEP_CONTROL_CAN_LOOP) {
+				if (canParserThread.getCanParser().getGsmcanframe()
+						.isGsmWorking()) {
+					gsmWork = true;
+				}
+				indexDebug = 0;
+			}
 		}
+		if (!gsmWork && cptGsm > 5) {
+			gsmWork = true;
+			indexDebug = 0;
+			cptGsm = 0;
+			for (int k = 0; k < 2; k++)
+				Toast.makeText(this, getString(R.string.toast_gsm_fail),
+						Toast.LENGTH_LONG).show();
+			write_in_file(this, "GSM not responding");
+		}
+
 	}
 
 	/**
@@ -359,26 +503,37 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @return
 	 */
-	private String executeCommand(String command) {
+	public String executeCommand(String command) {
 		// Only use by the CONNECT button
 		StringBuffer output = new StringBuffer();
 		Process p;
+		String line = "";
+		String answer = "";
 		try {
 			p = Runtime.getRuntime().exec(command);
+
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(
+					p.getErrorStream()));
+
+			String s = null;
+
+			// read any errors from the attempted command
+			while ((s = stdError.readLine()) != null) {
+				answer += s;
+			}
 			p.waitFor();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return output.toString();
+		return answer;
 	}
 
 	public void button_send_gsm_clicked(View v) {
 		// create a Dialog component
 		final Dialog dialog = new Dialog(this);
-
 		dialog.setContentView(R.layout.send_sms_dialog);
-		dialog.setTitle("Send a sms");
+		dialog.setTitle(getString(R.string.sms_title));
 
 		final EditText editNumero = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -396,6 +551,20 @@ public class MainActivity extends FragmentActivity {
 			}
 		});
 		dialog.show();
+	}
+
+	public void button_quit_clicked(View v) {
+		if (reading) {
+			reading = false;
+			gsmWork = false;
+			indexDebug = 0;
+			stopTheHandler = true;
+			canDumpThread.quit();
+			canParserThread.setStop(false);
+			canDumpThread.interrupt();
+			canParserThread.interrupt();
+		}
+		this.finish();
 	}
 
 	/**
@@ -431,7 +600,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.custom_at_command_dialog);
-		dialog.setTitle("Custom AT command");
+		dialog.setTitle(getString(R.string.at_title));
 
 		final EditText editCommand = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -482,7 +651,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.enter_pin_dialog);
-		dialog.setTitle("Pin");
+		dialog.setTitle(getString(R.string.pin_title));
 
 		final EditText pinCodeTextView = (EditText) dialog
 				.findViewById(R.id.edittext_numero);
@@ -515,7 +684,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.config_led_dialog);
-		dialog.setTitle("LED");
+		dialog.setTitle(getString(R.string.led_title_dialog));
 
 		final Spinner spinnerGauche = (Spinner) dialog
 				.findViewById(R.id.spinner_led_gauche);
@@ -598,7 +767,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_commande_ecran);
-		dialog.setTitle("Send display command");
+		dialog.setTitle(getString(R.string.ecran_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 		final EditText hexa2 = (EditText) dialog.findViewById(R.id.hexa2);
@@ -628,8 +797,10 @@ public class MainActivity extends FragmentActivity {
 					cansend("380", dataHexa);
 					dialog.dismiss();
 				}
-				String txtToWrite = ecranText.getText().toString();
-				String txtToWrite2 = ecranText2.getText().toString();
+				String txtToWrite = BytesFunction.fillWithEmptyness(ecranText
+						.getText().toString());
+				String txtToWrite2 = BytesFunction.fillWithEmptyness(ecranText2
+						.getText().toString());
 				dataHexa += "02";
 				int index = 0;
 				for (char c : txtToWrite.toCharArray()) {
@@ -656,14 +827,13 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 * 
-	 * 
 	 */
 	public void button_envoie_buzzer_clicked(View v) {
 		// create a Dialog component
 		final Dialog dialog = new Dialog(this);
 
-		dialog.setContentView(R.layout.envoi_commande);
-		dialog.setTitle("Send buzzer command");
+		dialog.setContentView(R.layout.envoi_commande_buzzer);
+		dialog.setTitle(getString(R.string.buzzer_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 		final EditText hexa2 = (EditText) dialog.findViewById(R.id.hexa2);
@@ -751,7 +921,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Motor command");
+		dialog.setTitle(getString(R.string.command_verin_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -783,7 +953,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Enter the contrast in hexa ( 00 to 64)");
+		dialog.setTitle(getString(R.string.command_contrast_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -815,7 +985,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Enter the backlight in hexa ( 00 to 64)");
+		dialog.setTitle(getString(R.string.command_backlight_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -846,7 +1016,7 @@ public class MainActivity extends FragmentActivity {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.envoi_one_command);
-		dialog.setTitle("Req position");
+		dialog.setTitle(getString(R.string.command_position_title));
 
 		final EditText hexa1 = (EditText) dialog.findViewById(R.id.hexa1);
 
@@ -871,14 +1041,12 @@ public class MainActivity extends FragmentActivity {
 	 * 
 	 * @param v
 	 * 
-	 * 
-	 * 
 	 */
 	public void button_etat_clavier_clicked(View v) {
 		final Dialog dialog = new Dialog(this);
 
 		dialog.setContentView(R.layout.clavier_ihm_dialog);
-		dialog.setTitle("Clavier");
+		dialog.setTitle(getString(R.string.clavier_title));
 
 		Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
 		dialogButton.setOnClickListener(new OnClickListener() {
@@ -941,6 +1109,27 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	/**
+	 * Display the file where is written the can error ( and display it in order
+	 * )
+	 * 
+	 */
+	public void button_actualiser_erreur_clicked(View v) {
+		try {
+			String textToParse = getStringFromFile(this);
+			String[] textParsed = textToParse.split("-separator-");
+			String textFinish = "";
+
+			for (int i = textParsed.length - 1; i >= 0; i--) {
+				textFinish += textParsed[i] + "\n";
+			}
+
+			((TextView) findViewById(R.id.historique_can)).setText(textFinish);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * Function specific for sending GSM trame on the can ( all char one by one
 	 * )
 	 * 
@@ -954,6 +1143,38 @@ public class MainActivity extends FragmentActivity {
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommandForGSM("281", command);
 		canSendThread.start();
+
+		String responseCanSend = null;
+		if ((responseCanSend = canSendThread.getResponse()) != null) {
+			String errorText = "Ecriture sur le can impossible : \n" + command
+					+ "\n" + responseCanSend;
+			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+			write_in_file(this, errorText);
+			reading = false;
+			if (canDumpThread != null) {
+				canDumpThread.quit();
+				canDumpThread.interrupt();
+			}
+			if (canParserThread != null) {
+				canParserThread.setStop(false);
+				canParserThread.interrupt();
+			}
+			if (canSendThread != null)
+				canSendThread.interrupt();
+			gsmWork = false;
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
+			stopTheHandler = true;
+			handler.removeCallbacks(runnable);
+			pager.getChildAt(1).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(2).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(3).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(4).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+		}
 	}
 
 	/**
@@ -966,16 +1187,149 @@ public class MainActivity extends FragmentActivity {
 		if (canSendThread != null) {
 			canSendThread = null;
 		}
-		if(command == null || command.isEmpty())
+		if (command == null || command.isEmpty())
 			return;
-		if(command.contentEquals("0"))
+		if (command.contentEquals("0"))
 			command = "00";
-		if(command.contentEquals("1"))
+		else if (command.contentEquals("1"))
 			command = "01";
-		if(command.contentEquals("2"))
+		else if (command.contentEquals("2"))
 			command = "02";
+		else if (command.contentEquals("3"))
+			command = "03";
+		else if (command.contentEquals("4"))
+			command = "04";
+		else if (command.contentEquals("5"))
+			command = "05";
+		else if (command.contentEquals("6"))
+			command = "06";
+		else if (command.contentEquals("7"))
+			command = "07";
+		else if (command.contentEquals("8"))
+			command = "08";
+		else if (command.contentEquals("9"))
+			command = "09";
 		canSendThread = new CanSendThread();
 		canSendThread.addStringCommand(id, command);
 		canSendThread.start();
+		while (canSendThread.isAlive()) {
+			try {
+				Thread.sleep(1);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		String responseCanSend = null;
+		if ((responseCanSend = canSendThread.getResponse()) != null) {
+			String errorText = "Ecriture sur le can impossible : \ncommand : @"
+					+ id + " =>" + command + "\n" + responseCanSend;
+			Toast.makeText(this, errorText, Toast.LENGTH_SHORT).show();
+			write_in_file(this, errorText);
+			reading = false;
+			if (canDumpThread != null) {
+				canDumpThread.quit();
+				canDumpThread.interrupt();
+			}
+			if (canParserThread != null) {
+				canParserThread.setStop(false);
+				canParserThread.interrupt();
+			}
+			if (canSendThread != null)
+				canSendThread.interrupt();
+			gsmWork = false;
+			stopTheHandler = true;
+			((Button) findViewById(R.id.button_read_main_activity))
+					.setText("READ");
+			handler.removeCallbacks(runnable);
+			pager.getChildAt(1).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(2).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(3).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+			pager.getChildAt(4).findViewById(R.id.text_connection)
+					.setVisibility(View.VISIBLE);
+		}
+	}
+
+	/**
+	 * write can error in a file
+	 * 
+	 * @param ctx
+	 * @param error
+	 */
+	public void write_in_file(Context ctx, String error) {
+		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		Date date = new Date();
+		FileWriter writer;
+		try {
+			writer = new FileWriter(gpxfile, true);
+			writer.append(date.toString() + "---" + error + "\n-separator-");
+			writer.flush();
+			writer.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	/**
+	 * Call the function which delete the content of the error can file
+	 * 
+	 * @param v
+	 */
+	public void button_delete_file_clicked(View v) {
+		delete_file(this);
+		((TextView) findViewById(R.id.historique_can)).setText(" ");
+	}
+
+	/**
+	 * Delete the content of the error can file
+	 * 
+	 * @param ctx
+	 */
+	public void delete_file(Context ctx) {
+		File gpxfile = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		FileWriter writer;
+		try {
+			writer = new FileWriter(gpxfile, false);
+			writer.append(" ");
+			writer.flush();
+			writer.close();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	/**
+	 * Convert a inputStream to a string
+	 * 
+	 * @param is
+	 * @return
+	 * @throws Exception
+	 */
+	private String convertStreamToString(InputStream is) throws Exception {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		while ((line = reader.readLine()) != null) {
+			sb.append(line).append("\n");
+		}
+		reader.close();
+		return sb.toString();
+	}
+
+	/**
+	 * Read a file and return the content of it as a string
+	 * 
+	 * @param ctx
+	 * @return
+	 * @throws Exception
+	 */
+	public String getStringFromFile(Context ctx) throws Exception {
+		File fl = new File(ctx.getFilesDir(), "history_of_crash.naio");
+		FileInputStream fin = new FileInputStream(fl);
+		String ret = convertStreamToString(fin);
+		fin.close();
+		return ret;
 	}
 }

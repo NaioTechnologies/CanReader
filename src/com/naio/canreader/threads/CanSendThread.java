@@ -5,10 +5,15 @@
  */
 package com.naio.canreader.threads;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.naio.canreader.activities.MainActivity;
+
 import android.os.Handler;
+import android.util.Log;
 
 /**
  * CanSendThread is the thread which execute the command cansend
@@ -20,24 +25,44 @@ public class CanSendThread extends Thread {
 	private final Object lock12 = new Object();
 	Handler handler = new Handler();
 	private List<String> cmd = new ArrayList<String>();
+	private String response;
 
 	public void run() {
-		for (String cmd : getCmd()) {
-			readOnce(cmd);
+		synchronized (lock12) {
+
+			for (String cmd : getCmd()) {
+				if ((response = readOnce(cmd)) != null) {
+					return;
+				}
+			}
 		}
 	}
-	
-	private void executeCommand(String command) {
+
+	private String executeCommand(String command) {
 		Process p;
+		String answer = " ";
 		try {
-			//execute a command and wait for the response
+			// execute a command and wait for the response
 			p = Runtime.getRuntime().exec(command);
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(
+					p.getErrorStream()));
+
+			String s = "";
+
+			// read any errors from the attempted command
+			while ((s = stdError.readLine()) != null) {
+				answer += s;
+			}
 			p.waitFor();
 			p.destroy();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(answer.length() > 2) //if an error occurred, we return it
+			return answer;
+		else
+			return null;
 	}
 
 	/**
@@ -50,7 +75,11 @@ public class CanSendThread extends Thread {
 	 * 
 	 */
 	public void addStringCommandForGSM(String id, String data) {
-		String base = "su -c /sbin/cansend can0 " + id + "#";
+		String base="";
+		if(MainActivity.UNIT_TEST)
+			base = "su -c /sbin/cansend vcan0 " + id + "#";
+		else
+			base = "su -c /sbin/cansend can0 " + id + "#";
 		for (char i : data.toCharArray()) {
 			addCmd(base + String.format("%02x", (int) i));
 		}
@@ -66,10 +95,14 @@ public class CanSendThread extends Thread {
 	 * 
 	 */
 	public void addStringCommand(String id, String data) {
-		String base = "su -c /sbin/cansend can0 " + id + "#";
+		String base ="";
+		if(MainActivity.UNIT_TEST)
+			 base = "su -c /sbin/cansend vcan0 " + id + "#";
+		else
+			 base = "su -c /sbin/cansend can0 " + id + "#";
 		addCmd(base + data);
 	}
-	
+
 	/**
 	 * @param cmd
 	 *            the cmd to set
@@ -80,18 +113,24 @@ public class CanSendThread extends Thread {
 		}
 	}
 
-	public void readOnce(String cmd) {
+	public String readOnce(String cmd) {
 		synchronized (lock12) {
-			executeCommand(cmd);
+			return executeCommand(cmd);
 		}
 	}
-	
+
 	/**
 	 * @return the cmd
 	 */
 	public List<String> getCmd() {
 		synchronized (lock12) {
 			return cmd;
+		}
+	}
+
+	public String getResponse() {
+		synchronized (lock12) {
+			return response;
 		}
 	}
 }

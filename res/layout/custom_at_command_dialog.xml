@@ -1,34 +1,33 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-  
+
     <TextView
-        android:layout_marginTop="20dp"
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="True"
-        android:text="AT+"
-        android:textSize="@dimen/nexus7_25dp"/>
-      <EditText
+        android:layout_marginTop="20dp"
+        android:text="@string/at_beginning"
+        android:textSize="@dimen/nexus7_25dp" />
+
+    <EditText
         android:id="@+id/edittext_numero"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/text"
         android:layout_alignBaseline="@id/text"
+        android:layout_toRightOf="@id/text"
+        android:hint="@string/at_hint"
         android:paddingTop="20dp"
-        android:hint="CMEE=1"
-        android:textSize="@dimen/nexus7_25dp"/>  
-        
+        android:textSize="@dimen/nexus7_25dp" />
 
-     <Button
+    <Button
         android:id="@+id/dialogButtonOK"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text=" Envoyer "
         android:layout_below="@id/edittext_numero"
-        android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        />
- 
+        android:layout_marginTop="5dp"
+        android:text="@string/global_button_envoyer" />
+
 </RelativeLayout>

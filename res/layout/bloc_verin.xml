@@ -12,7 +12,7 @@
         android:layout_marginTop="0px"
         android:background="@android:color/background_dark"
         android:gravity="center"
-        android:text="VERIN et ODO"
+        android:text="@string/verin_odo_name"
         android:textColor="@android:color/background_light"
         android:textSize="@dimen/nexus7_40dp" />
 
@@ -23,7 +23,7 @@
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_requete_position_clicked"
-        android:text="Position %"
+        android:text="@string/verin_button_position"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -33,7 +33,7 @@
         android:layout_marginLeft="@dimen/nexus7_310px_w"
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/verin_button_position_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
         android:onClick="button_commande_moteur_clicked"
-        android:text="Commande vérin"
+        android:text="@string/verin_button_commande"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -53,7 +53,7 @@
         android:layout_marginLeft="@dimen/nexus7_1470px_w"
         android:layout_marginTop="@dimen/nexus7_100px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/verin_button_commande_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -64,7 +64,7 @@
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
         android:onClick="button_retour_position_clicked"
-        android:text="Retour position %:"
+        android:text="@string/verin_button_retour"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -74,7 +74,7 @@
         android:layout_marginLeft="@dimen/nexus7_500px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/verin_button_retour_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -83,7 +83,7 @@
         android:layout_marginLeft="@dimen/nexus7_970px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="Etat verin:"
+        android:text="@string/verin_etat_verin_title"
         android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
@@ -93,7 +93,7 @@
         android:layout_marginLeft="@dimen/nexus7_1270px_w"
         android:layout_marginTop="@dimen/nexus7_250px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/verin_etat_verin_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -102,7 +102,7 @@
         android:layout_marginLeft="@dimen/nexus7_10px_w"
         android:layout_marginTop="@dimen/nexus7_410px_h"
         android:gravity="center"
-        android:text="Lecture ODO :"
+        android:text="@string/odo_lecture_title"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -112,7 +112,7 @@
         android:layout_marginLeft="@dimen/nexus7_410px_w"
         android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
-        android:text="..."
+        android:text="@string/odo_lecture_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <Button
@@ -123,9 +123,18 @@
         android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center"
         android:onClick="button_lecture_odo_clicked"
-        android:text="Reset compteur"
+        android:text="@string/odo_button_reset"
         android:textSize="@dimen/nexus7_25dp" />
 
+        <TextView
+        android:id="@+id/odo_instruction"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/nexus7_150px_h"
+        android:layout_marginLeft="@dimen/nexus7_10px_w"
+        android:layout_marginTop="@dimen/nexus7_550px_h"
+        android:gravity="center"
+        android:text="@string/odo_instruction"
+        android:textSize="20dp" />
     <TextView
         android:id="@+id/lecture_odoc"
         android:layout_width="@dimen/nexus7_400px_w"
@@ -134,7 +143,7 @@
         android:layout_marginTop="@dimen/nexus7_400px_h"
         android:gravity="center_horizontal"
         android:paddingTop="@dimen/nexus7_20px_h"
-        android:text="..."
+        android:text="@string/odo_button_reset_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <!--
@@ -184,7 +193,7 @@
         android:layout_marginTop="@dimen/nexus7_700px_h"
         android:gravity="center"
         android:onClick="button_version_verin_clicked"
-        android:text="Version:"
+        android:text="@string/verin_odo_button_version"
         android:textSize="@dimen/nexus7_30dp" />
 
     <TextView
@@ -194,7 +203,7 @@
         android:layout_marginLeft="@dimen/nexus7_310px_w"
         android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
-        android:text="Maj"
+        android:text="@string/verin_odo_button_version_maj_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -204,7 +213,7 @@
         android:layout_marginLeft="@dimen/nexus7_610px_w"
         android:layout_marginTop="@dimen/nexus7_710px_h"
         android:gravity="center"
-        android:text="Min"
+        android:text="@string/verin_odo_button_version_min_resp"
         android:textSize="@dimen/nexus7_25dp" />
 
     <TextView
@@ -213,7 +222,7 @@
         android:layout_height="fill_parent"
         android:background="#90000000"
         android:gravity="center"
-        android:text="Veuillez appuyer sur le bouton READ"
+        android:text="@string/global_text_not_connected"
         android:textColor="#FFFFFFFF"
         android:textSize="@dimen/nexus7_40dp" />
 

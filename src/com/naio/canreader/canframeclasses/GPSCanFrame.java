@@ -78,6 +78,14 @@ public class GPSCanFrame extends CanFrame {
 		}
 	}
 
+	public String getGpsDataInString(){
+
+		String text = "";
+		for (int a : gpsData) {
+			text += (char) a;
+		}
+		return text;
+	}
 	private void display_data_gps(RelativeLayout rl) {
 
 		String text = "";
@@ -89,7 +97,7 @@ public class GPSCanFrame extends CanFrame {
 		if (gps.length <= 2) {
 			return;
 		}
-		if (gps[0].contains("GPGLL")) {
+		if (gps[0].contains("GLL")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -103,7 +111,7 @@ public class GPSCanFrame extends CanFrame {
 					.setText(convert_data_GPGLL(gps));
 			return;
 		}
-		if (gps[0].contains("GPGSA")) {
+		if (gps[0].contains("GSA")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -118,7 +126,7 @@ public class GPSCanFrame extends CanFrame {
 			return;
 		}
 
-		if (gps[0].contains("GPVTG")) {
+		if (gps[0].contains("VTG")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -133,7 +141,7 @@ public class GPSCanFrame extends CanFrame {
 			return;
 		}
 
-		if (gps[0].contains("GPGSV")) {
+		if (gps[0].contains("GSV")) {
 			if (rl == null) {
 				if (rlimu == null) {
 					return;
@@ -165,8 +173,9 @@ public class GPSCanFrame extends CanFrame {
 		if (gps[7].isEmpty()) {
 			return "";
 		}
+		String sat_used = gps[0].replace("VTG", "").replace("$", "");
 		Double vitesse = Double.parseDouble(gps[7]);
-		return "v =" + vitesse + " km/h";
+		return "vitesse("+sat_used+"):" + vitesse + " km/h";
 	}
 
 	/**
@@ -192,6 +201,7 @@ public class GPSCanFrame extends CanFrame {
 		long lat_degrees = 0;
 		double latf_degrees = 0;
 		double lonf_degrees = 0;
+		String sat_used = gps[0].replace("GLL", "").replace("$", "");
 		if (gps[1].length() > 5) {
 			lat_degrees = Long.parseLong(gps[1].substring(0, 2));
 			long lat_minutes = Long.parseLong(gps[1].substring(2, 4));
@@ -216,7 +226,7 @@ public class GPSCanFrame extends CanFrame {
 				lonf_degrees *= -1;
 		}
 		String utctime = gps[5];
-		return "Lat:" + latf_degrees + "\nLon:" + lonf_degrees + "\nUTC:"
+		return "Lat("+sat_used+"):" + latf_degrees + "\nLon("+sat_used+"):" + lonf_degrees + "\nUTC:"
 				+ utctime;
 	}
 }
